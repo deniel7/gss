@@ -1,0 +1,84 @@
+/* LOGIN PAGE SECTION */
+.form-login {
+    -webkit-box-shadow:2px 2px 5px gray;
+    box-shadow:2px 2px 5px gray; 
+    width: 400px; height: 300px; 
+    overflow: hidden; 
+    position: relative; 
+    margin: 100px auto 0 auto; 
+    font-family: helvetica; 
+    border-radius: 5px ;
+    -moz-border-radius: 5px ;
+    background-color:#E61A13;
+}
+
+.form-login h3 {
+    color: white; 
+}
+
+.login-left, .login-right {
+    float: left;
+}
+
+.login-left {
+    background-color: #4F151A; 
+    width: 90px; 
+    height: 200px; 
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-bottomleft:5px;
+}
+
+.login-right { 
+    background-color: #FFFCFC; 
+    width: 310px; 
+    height: 200px;
+    border-top-right-radius:5px;
+    border-bottom-right-radius:5px;
+    -moz-border-radius-topright:5px;
+    -moz-border-radius-bottomright:5px;
+}
+
+.login-right label {
+    width: 100px; 
+    float: left; 
+    display: block; 
+    font-size: 13px; 
+    font-weight: bold; 
+    color: #000040;
+}
+
+.login-right h3 {
+    color: black;
+}
+
+.login-right input[type='text'] , 
+.login-right input[type='password'] {
+    border: solid 1px #74BDFA; 
+    border-radius: 5px;
+}
+
+.login-right input[type='submit'] {
+    background-color: #f58634; 
+    color: white; 
+    font-weight: bold; 
+    border: solid 1px #005329; 
+    padding: 5px;
+}
+
+.form-login-wrapper {
+    padding: 10px; 
+}
+
+
+
+.login-icon {
+    background: url(../images/lock-icon.png) no-repeat; 
+    width: 81px; 
+    height: 81px; 
+    margin: 5px auto;
+}
+
+.clear {clear: both;}
+/* END OF LOGIN PAGE SECTION */

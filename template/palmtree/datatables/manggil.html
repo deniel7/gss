@@ -1,0 +1,38 @@
+<html>
+<!----------------------Data Tables------------------------------------>  
+<script src="./jquery.js" type="text/javascript"></script>
+<script src="./jquery.dataTables.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../styles/style.css" />
+        <style type="text/css">
+            @import "./demo_table_jui.css";
+            @import "./jquery-ui-1.8.4.custom.css";
+        </style>
+        
+        <style>
+            *{
+                font-family: arial;
+            }
+	    #datatables {
+		    font-size:13px;
+	    }
+        </style>
+<script type="text/javascript" charset="utf-8">
+            $(document).ready(function(){
+                $('#datatables').dataTable({
+                    "sPaginationType":"full_numbers",
+                    "aaSorting":[[0, "desc"]],
+                    "bJQueryUI":true
+                });
+            })
+            
+        </script>
+<!----------------------Data Tables------------------------------------> 
+
+
+
+<table id="datatables" class="display" width="100%">
+<thead>
+<tr>
+<td>ID Pengajuan</td><td>Tanggal</td><td>PIC</td><td>Department</td><td>Nama Pengajuan</td><td>Status</td><td width="10%">fungsi</td></tr>
+</thead>
+</html>
