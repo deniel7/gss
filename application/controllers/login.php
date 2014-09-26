@@ -19,10 +19,6 @@ class Login extends CI_Controller {
         parent::__construct();
         
         $this->load->model('option_m');
-        //$option = $this->option_m->get_by(array('nama_opsi'=>'store_option'));
-        //foreach (unserialize($option->value_opsi) as $key => $val){
-        //    $this->data->$key = $val;
-        //}
         
         $this->template->use_asset()->set_judul('Form Login')->set_css('login');
         $this->template->use_asset()->set_css(array('bootstrap.min','metisMenu.min','sb-admin-2'));
