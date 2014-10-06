@@ -610,6 +610,42 @@ class Pesanan_m extends MY_Model {
 	
     
     }
+    
+    //ADMIN
+    public function get_all_transaksi($limit1='',$limit2='',$store_site_code) {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER
+		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
+		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		ORDER BY id_order DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
+    public function get_all_detail_trans($id = 0,$get_user = FALSE) {
+        $this->db->where($id);
+        if ($get_user){
+            $this->db->join('user_data','user_data.ORDER_NO_GTRON = SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON');
+        }
+        $data = parent::get_array();
+        foreach ($data as $key=>$val){
+            $this->db->where(array('id_order'=>$val['id_order']));
+            $this->db->join('DC_STOCK_MASTER','DC_STOCK_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
+            
+            $detail = $this->db->get('SUPPLIER_ORDER_DETAIL')->result_array();
+            $data[$key]['detail'] = $detail;
+                  
+        } 
+        return $data;
+	
+    }
 }
 
 ?>

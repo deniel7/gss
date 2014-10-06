@@ -63,6 +63,7 @@ document.getElementById("demo").innerHTML=x;
   <th>Nama Barang</th>
   <th>Jumlah</th>
   <th>Hapus</th>
+  <th>Pembayaran</th>
   <th>Harga Satuan</th>
   <th>Sub-Total</th>
   </tr>
@@ -95,6 +96,7 @@ document.getElementById("demo").innerHTML=x;
 	  </td>
       <td align="center"><?php echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
 	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>
+	  <td style="text-align:center"><?php echo $items['pembayaran']; ?></td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
 	</tr>
@@ -107,6 +109,7 @@ document.getElementById("demo").innerHTML=x;
   <!--<button onclick="myFunction()">try</button>-->
   <td></td>
   <td align="center"><?php echo form_submit('', 'Update Jumlah'); ?></td>
+  <td></td>
   <td></td>
   <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
   <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></strong></td>

@@ -10,7 +10,7 @@
     .credit{ background: #00ff00; }
     .indents{ background: #0000ff; }
 </style>
-
+<!--
 <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -29,7 +29,7 @@
             }
         });
     });
-</script>
+</script>-->
 
 <script type="text/javascript">
 function FillBilling(f) {
@@ -164,7 +164,8 @@ function FillBilling(f) {
         <tr>
           <th>Nama Barang</th>
           <th align="center">QTY</th>
-          <th style="text-align:right">Harga Satuan</th>
+          <th align="center">Pembayaran</th>
+	  <th style="text-align:right">Harga Satuan</th>
           <th style="text-align:right">Sub-Total</th>
         </tr>
         </thead>
@@ -191,7 +192,8 @@ function FillBilling(f) {
         			<?php endif; ?>
         
         	  </td>
-              <td align="center"><?php echo $items['qty']; ?></td>
+		  <td align="center"><?php echo $items['qty']; ?></td>
+		  <td align="center"><?php echo $items['pembayaran']; ?></td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
         	</tr>
@@ -203,7 +205,7 @@ function FillBilling(f) {
 	<tr>
           <td></td>
           <td></td>
-	 
+	  <td></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Handling Fee</strong></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($biaya); ?></strong></td>
 	  
@@ -212,6 +214,7 @@ function FillBilling(f) {
         <tr>
           <td></td>
           <td></td>
+	  <td></td>
 	  <?php
 	    
 	    $total_belanja = $this->cart->total();
@@ -225,33 +228,31 @@ function FillBilling(f) {
         </table>
 	
 	<br/>
-	<?php echo form_fieldset('Metoda Pembayaran','class="produk"'); ?>
-	<div class="span12">
+	<?php //echo form_fieldset('Metoda Pembayaran','class="produk"'); ?>
+	<!--<div class="span12">
 	  
 	<div class="span3">
-	  <label><input type="radio" name="colorRadio" value="cash"> Cash</label>
+	  <label><input type="radio" name="colorRadio" value="cash">&nbsp;<b>PEMBAYARAN TUNAI</b></label>
 	</div>
 	<div class="span3">
-	  <label><input type="radio" name="colorRadio" value="credit"> Credit</label>
+	  <label><input type="radio" name="colorRadio" value="credit">&nbsp;<img src="<?php //echo base_url().'/template/palmtree/images/visa_mastercard.jpeg'; ?>" /></label>
 	</div>
 	<div class="span3">
-	  <label><input type="radio" name="colorRadio" value="indent"> Indent</label>
+	  <label><input type="radio" name="colorRadio" value="indent">&nbsp;<b>INDENT</b></label>
 	</div>
-	<!--
-	<div class="cash box">You have selected <strong>cash radio button</strong> so i am here</div>
-	<div class="credit box">You have selected <strong>credit radio button</strong> so i am here</div>-->
+	
 	<div class="indent box">
-	Down Payment : <?php echo form_input(array(
+	Down Payment : <?php /*echo form_input(array(
 					'id' => 'dp',
                                         'name' => 'dp',
 					'placeholder' => 'Rp.',
                                         'class' => 'form-control input-lg'
-			));  ?>
+			));*/  ?>
 	
 	</div>
 	  
-	</div>
-        <br/><br/><br/>
+	</div>-->
+        <br/><br/>
         <?php 
         echo form_fieldset('Alamat Pengiriman','class="produk"');
 	echo form_hidden('order_no',$order_no);
@@ -311,9 +312,25 @@ function FillBilling(f) {
 					'placeholder' => 'Telepon',
                                         'class' => 'form-control input-lg'
 			)); 
-	echo "<br/>";
-        echo"Estimasi Pengiriman : 28-12-2014 / Sore";
-        echo form_fieldset_close();
+	echo "<br/><br/><br/>";
+        
+	echo form_fieldset('Estimasi Pengiriman','class="produk"');
+	
+	$datestring = "%H";
+	$time = time();
+	$t = mdate($datestring, $time);
+	if($t >= 8 && $t <=15){
+	  echo "<span class='btn btn-info'>".date('d-m-Y').' /sore ini'."</span>";
+	}else{
+	  //echo date('Y-m-d','+ 1 day');  
+	  echo "<span class='btn btn-warning'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Pagi'."</span>";
+	}
+	
+	
+	
+	
+	
+	echo form_fieldset_close();
 	?>
 	
 	</div>
@@ -321,9 +338,7 @@ function FillBilling(f) {
 	<?php 
 	
 	
-	$datestring = "%H";
-	$time = time();
-	$t = mdate($datestring, $time);
+	
 	
 	?>
 	
@@ -332,8 +347,8 @@ function FillBilling(f) {
 	echo form_fieldset_close();
 	
 	echo "<br/><br/>";
-	echo '<div style= text-align:center>'.form_submit(array('name'=>'submit','value'=>'Pemesanan Selesai','class'=>'btn btn-success')).'</div>';
-	
+	echo '<div style= text-align:center>'.form_submit(array('name'=>'submit','value'=>'Pemesanan Selesai','class'=>'btn btn-large btn-success')).'</div>';
+	echo "<br/><br/>";
 	?>
     <?php endif; ?>
 <?php endif; ?>

@@ -47,21 +47,25 @@
 				<?php //endif; ?>
 			</div>
 			<div class="span4">
-				<h5><?php echo anchor(site_url('/store/produk/'.$item->PLU),$item->ARTICLE_DESC);?></h5>
+				<h5><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),$item->ARTICLE_DESC);?></h5>
 				<hr class="soft"/>
 				
-				<h5>Stok : <?php echo $item->STOCK_QTY; ?></h5>	
-				<!--<a class="btn btn-small pull-right" href="product_details.html">View Details</a>-->
 				<br class="clr"/>
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
-			<h4>Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE) ?></h4>
+			    
+			    <?php if(($item->STOCK_QTY) == 0){ ?>
+			    
+				<h4>Stok : <p class="btn btn-danger">Kosong</p></h4>
+			    <?php }else{ ?>
+				<h4>Stok : <p class="btn btn-success"><?php echo $this->cart->format_number($item->STOCK_QTY) ?></p></h4>
+			    <?php } ?>
 			<!--<label class="checkbox">
 				<input type="checkbox">  Adds product to compair
 			</label>--><br/>
 			
-			  <a href="<?php echo site_url('/store/produk/'.$item->PLU); ?>" class="btn btn-large btn-primary"> View</a>
+			  <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-large btn-primary"> View</a>
 			  
 			
 				</form>
@@ -83,19 +87,22 @@
 					<span>Belum ada Gambar</span>
 				    </div>-->
 				<?php //else: ?>
-				    <a href="<?php echo site_url('/store/produk/'.$item->PLU.'/'.$item->PLU); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/1.jpg'; ?>" /></a>
+				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/1.jpg'; ?>" /></a>
 				    
 				<?php //endif; ?>
 				
 				<div class="caption">
-				  <p style="font-size: 10px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p>
+				  <p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p>
 				  
 				   <h4 style="text-align:center">
-				    <a class="btn"> Stok : <?php echo $item->STOCK_QTY; ?></a>
-				    
-				    <a class="btn" href="#">Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE) ?></a>
+	    
+				    <?php if ($item->STOCK_QTY == 0){ ?>
+					<p style="font-size:11px" class="btn-danger">Stok Kosong</p>
+				    <?php }else{ ?>
+					<p style="font-size:11px" class="btn-success">Stok : <?php echo $item->STOCK_QTY; ?></p>
+				    <?php } ?>
 				   </h4>
-				    <h4 style="text-align:center"><a class="btn btn-primary" href="<?php echo site_url('/store/produk/'.$item->PLU); ?>">View</a></h4>
+				    <h4 style="text-align:center"><a class="btn btn-primary" href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>">View</a></h4>
 				</div>
 			  </div>
 			</li>

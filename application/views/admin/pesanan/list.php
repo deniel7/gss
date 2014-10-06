@@ -1,180 +1,124 @@
 <head>
-	<link rel="stylesheet" href="<?php echo base_url();?>template/palmtree/date/zebra_datepicker.css" type="text/css"/>
-	<script type="text/javascript" src="<?php echo base_url();?>template/palmtree/date/jquery-1.8.2.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>template/palmtree/date/zebra_datepicker.js"></script>
-	<script type="text/javascript" src="<?php echo base_url();?>template/palmtree/date/functions.js"></script>
+<script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+
+<style type="text/css">
+            @import "<?php echo base_url();?>template/palmtree/datatables/media/css/demo_table_jui.css";
+            @import "<?php echo base_url();?>template/palmtree/datatables/media/themes/smoothness/jquery-ui-1.8.4.custom.css";
+</style>
+
+<script type="text/javascript" charset="utf-8">
+            $(document).ready(function(){
+                $('#datatables').dataTable({
+                    "sPaginationType":"full_numbers",
+                    "aaSorting":[[0, "desc"]],
+                    "bJQueryUI":true
+                });
+            })
+            
+</script>
+
 </head>
 
-<h1><?php echo $judul ?></h1>
-<!--<div id="menu" class="box">
-	<ul class="box f-right">
-	   <li><a href="<?php //echo site_url('admin/produk/tambah') ?>" id="add"><span><strong>Tambah Produk Baru</strong></span></a></li>
-    </ul>
-</div>-->
-<h3 class="tit">Daftar Pesanan</h3>
+<div id="page-wrapper">
 
-<div id="search_container">
-	<?php
-		$attributes = array('id' => 'form_pencarian');
-		echo form_open('admin/pesanan/search');
-	?>
-			<span>
-				<?php
-					$data_search = array(
-					'name'        => 'search_orderno',
-					'id'          => 'search_orderno',
-					'size'        => '20',
-					'maxlength'   => '5',
-					'style'       => 'width:40%',
-					
-					);
-					
-					$data_member = array(
-					'name'        => 'search_mem',
-					'id'          => 'search_mem',
-					
-					
-					);
-					
-					$search_tg1 = array(
-					'name'        => 'search_tg1',
-					'id'          => 'datepicker-example1',
-					
-
-					);
-					
-					$search_tg2 = array(
-					'name'        => 'search_tg2',
-					'id'          => 'datepicker-example14',
-					
-					
-					);
-					
-					
-					echo form_close();
-				?>
-				
-				<div class="table">
-					<div class="headRow">
-					    <!--<div>Pencarian :</div>-->
-					    
-					    <div class="col">No. Order<?php echo form_input($data_search); ?></div>
-					    <div class="col">No. Member<?php echo form_input($data_member); ?></div>
-					    <div class="col">Dari Tanggal :<?php echo form_input($search_tg1); ?></div>
-					    <div class="col">Sampai Tanggal :<?php echo form_input($search_tg2); ?></div>
-					    <div class="col">
-						<?php
-							$options = array(
-								''  => '-Status-',
-								'0' => 'Pending',
-								
-								'2' => 'Picking',
-								'3' => 'Shipped',
-								'4' => 'Closed',
-							      );
-					      
-							echo form_dropdown('status', $options);
-						?>
-					    </div>
-					    <div class="col"><?php echo form_dropdown('search_cab', $list_cab); ?></div>
-					    <div class="col">
-						<?php
-							$optionss = array(
-								''  => '-Waktu-',
-								'pagi' => 'pagi',
-								'siang' => 'siang',
-								'malam' => 'malam'
-								
-							      );
-					      
-							echo form_dropdown('waktu', $optionss);
-						?>
-					    </div>
-					    
-					    
-					</div>
-					<div class="col"><?php echo form_submit('submit', 'Cari','class = "btn large"'); ?></div>
-				</div>
-				<div id="result"></div>
-			</span>
+	<div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Orders</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+        </div>
+	
+	<div class="row">
+                <div class="col-lg-12">
 			
-</div>
-
+		
+		
+		
+		
+		<table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
+<thead>
+<tr>
+  <td>Nomor Transaksi</td>
+  <td>Cabang</td>
+  <td>Waktu</td>
+  <td>Total</td>
+  <td>SPV</td>
+  <td>No. Struk</td>
+  <td>Status</td>
+</thead>
+<tbody>
 <?php if($pesanan!= array()): ?>
-	<table>
-		<tr>
-			<th>Order No</th>
-			<th>Member No</th>
-			<th>Nama</th>
-			<th>Tanggal Masuk</th>
-			<th>Status</th>
-			<th>Total</th>
-			<th>Cabang</th>
-			<th>Diambil?</th>
-			<th>Waktu Ambil / Kirim</th>
-			<th>Action</th>
-		</tr>
         <?php foreach ($pesanan as $item): ?>
 		<tr>
-		    
-		    <td><?php echo $item ->order_no; ?></td>
-		    <td><?php echo $item->membercard; ?></td>
-		    <td><?php echo $item->nama_depan.' '.$item->nama_belakang; ?></td>
-		    <td><?php echo date("d/m/Y - H:i",strtotime($item->tanggal_masuk)); ?></td>
-		    <td><?php //echo $item->status_order; ?>
+		    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
+		    <td><?php echo $item->SITE_STORE_CODE; ?></td>
+		    <td><?php echo $item->tanggal_masuk; ?></td>
+		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
+		    <td><?php echo $item->USERNAME; ?></td>
+		    <td><?php echo $item->no_struk; ?></td>
+		    <td>
 			
 			<?php
 			
-				switch($item->status_order) {
-				case '-1':
-				$item->status_order = '<div style="color:silver;">Cancel</div>';
-				continue;
+				switch($item->FLAG) {
 				
 				case '0':
-				$item->status_order = '<div style="color:red;">Pending</div>';
+				$item->FLAG = '<div style="color:red;">Booked</div>';
 				continue;
 				
 				case '1':
-				$item->status_order = '<div style="color:orange;">Confirmed</div>';
+				$item->FLAG = '<div style="color:orange;">Confirmed</div>';
 				continue;
 				
 				case '2':
-				$item->status_order = '<div style="color:blue;">Picking</div>';
+				$item->FLAG = '<div style="color:blue;">Picking List Submited</div>';
 				continue;
 				
 				case '3':
-				$item->status_order = '<div style="color:purple;">Shipped</div>';
+				$item->FLAG = '<div style="color:purple;">on Progress</div>';
 				continue;
 				
 				case '4':
-				$item->status_order = '<div style="color:green;">Closed</div>';
+				$item->FLAG = '<div style="color:silver;">Cancel</div>';
+				continue;
+			
+				case '5':
+				$item->FLAG = '<div style="color:chocolate;">Shipment Gold</div>';
+				continue;
+			
+				case '6':
+				$item->FLAG = '<div style="color:green;">on Delivery</div>';
+				continue;
+			
+				case '7':
+				$item->FLAG = '<div style="color:pink;">Receiving Gold</div>';
+				continue;
+			
+				case '8':
+				$item->FLAG = '<div style="color:black;">Gold Error!</div>';
 				continue;
 		    
 				}          
-			echo $item->status_order;
+			echo $item->FLAG;
 			?>
 		    
 		    </td>
-		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
-		    <td><?php echo $item->kode_cabang; ?></td>
-		    <td><?php echo (empty($item->ambil_cabang)) ? '&nbsp;':'V'; ?></td>
-		    <td><?php echo $item->waktu_ambil; ?></td>
-		    <td><?php echo (empty($item->ambil_cabang)) ? anchor('admin/pesanan/detail/'.$item->id_order, 'Detail', 'class="active" id="detail"') : '&nbsp;' //echo anchor(uri_string().'/detail/'.$item->id_order, 'Detail', 'class="active" id="detail"') '?></td>
 		    
 		</tr>
         <?php endforeach; ?>
-	<tr><td colspan="10" align="center"><?php  echo $this->pagination->create_links(); ?></td></tr>
-	</table>
+	
 <?php else: ?>
     <p class="msg info">Belum ada Pesanan</p>
 <?php endif; ?>
-<script type="text/javascript">
 
-jQuery(function($) {
-	$(".active").colorbox({
-		width:"500", height:"500", iframe:true,
-		onClosed:function(){ location.reload(); }
-	});
-});
+</tbody>
 
-</script>
+</table>
+		
+		
+		
+	
+		</div>
+	</div>
+</div>

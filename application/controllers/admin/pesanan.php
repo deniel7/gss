@@ -30,8 +30,8 @@ class Pesanan extends MY_Controller {
 	$this->data->uri_segment = 4;
         $this->pagination->initialize($this->data);
 	
-        $this->data->pesanan = $this->pesanan_m->get_all_page($this->data->per_page,$this->uri->segment(4,0));
-		$this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
+        $this->data->pesanan = $this->pesanan_m->get_all_transaksi();
+	$this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
         parent::_view('pesanan/list',$this->data);
     }
     
@@ -45,7 +45,7 @@ class Pesanan extends MY_Controller {
         //    $this->data->list_kategori[$val['id_kategori']] = $val['nama_kategori'];
         //}
         
-        $this->data->list_cab = $this->kategori_m->list_cab('kode_cabang','nama_cabang');
+        //$this->data->list_cab = $this->kategori_m->list_cab('kode_cabang','nama_cabang');
         //$data_lama = $this->produk_m->get($id);
         //$this->data->gambar = $this->produk_m->get_gambar($id);
         
@@ -80,14 +80,17 @@ class Pesanan extends MY_Controller {
         //$cab = $this->input->post('cab',TRUE);
         if ($this->input->post('submit')){
             
-            $this->pesanan_m->update_by(array('id_order'=>$id),array('status_order'=>3,'kode_cabang'=>$this->input->post('cab')));
-            $this->data->sukses = 'Data berhasil diperbaharui';   
+            $this->pesanan_m->update_by(array('id_order'=>$id),array('FLAG'=>2));
+            //$this->data->sukses = 'Data berhasil diperbaharui';
+	    redirect(site_url('admin/pesanan'));
         
 	} else {
 	    //CEK STATUS KONFIRMASI sudah / blom
 	    //$this->data->cek_k = $this->konfirmasi_m->cek_k($id);
             
-	    $this->data->detail = $this->pesanan_m->get_record(array('id_order'=>$id),true);
+	    //$this->data->detail = $this->pesanan_m->get_record(array('id_order'=>$id),true);
+	    $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id),true);
+	    //echo $this->db->last_query();
         }
         parent::_view('pesanan/detail',$this->data);
         //parent::_modal('pesanan/detail',$this->data);

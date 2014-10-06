@@ -643,7 +643,9 @@ class Produk_m extends MY_Model {
 					    AND a.ARTICLE_CODE = c.ARTICLE_CODE
 					    AND a.SUBCLASS = '$kat'
 					    AND a.DC_SITE_CODE = '$dc_site_code'
-					    AND c.STORE_SITE_CODE = $store_site_code";
+					    AND c.STORE_SITE_CODE = $store_site_code
+					    GROUP BY a.ARTICLE_CODE
+					    ";
                 $query          	= $this->db->query($string_query);              
 		
                 $config['base_url']     = base_url().'/store/kategori/'.$this->uri->segment(3,0);
@@ -691,7 +693,23 @@ class Produk_m extends MY_Model {
 				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
 				    AND a.DC_SITE_CODE = '$dc_site_code'
 				    AND c.STORE_SITE_CODE = $store_site_code
-				    AND a.PLU = $url
+				    AND a.ARTICLE_CODE = $url
+				    GROUP BY a.ARTICLE_CODE
+					    ";
+        $query          	= $this->db->query($string_query);              
+	$data= $this->db->query($string_query);   
+	
+	return $data->result();
+    }
+    
+    public function get_by_url2($url,$store_site_code,$dc_site_code) {
+	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,STOCK_QTY,SALES_UNIT_PRICE from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+				    Where a.SUBCLASS = b.MS_CHILD
+				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
+				    AND a.DC_SITE_CODE = '$dc_site_code'
+				    AND c.STORE_SITE_CODE = $store_site_code
+				    AND a.ARTICLE_CODE = $url
+				    AND c.SV = 2
 					    ";
         $query          	= $this->db->query($string_query);              
 	$data= $this->db->query($string_query);   

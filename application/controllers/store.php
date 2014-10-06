@@ -200,6 +200,7 @@ class Store extends CI_Controller {
         $dc_site_code = $this->data->dc_site_code;
         
         $data['data'] = $this->produk_m->get_category_product($dc_site_code,$store_site_code);
+        //echo $this->db->last_query();
         
         $link = "";
         
@@ -233,13 +234,17 @@ class Store extends CI_Controller {
         $store_site_code = $this->data->store_site_code;
         $dc_site_code = $this->data->dc_site_code;
         
-        if(!$this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code)){
-            redirect (site_url('store'));
-        }
+        //if(!$this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code)){
+        //    
+        //    redirect (site_url('store'));
+        //}
         
+        $this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code);
         
-        //$this->data->data = $this->produk_m->get_recomended_produk($id_produk);
-                
+        $this->data->sv2_price = $this->produk_m->get_by_url2($url,$store_site_code,$dc_site_code);
+        
+        //echo $this->db->last_query();
+        
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_css('bootstrap')
         ->set_css('base')
@@ -252,13 +257,21 @@ class Store extends CI_Controller {
     
     
     public function add_cart() {
+        if($this->input->post('colorRadio') == 'cash'){
+            $price = $this->input->post('pcash');
+        }else{
+            $price = $this->input->post('pcredit');
+        }
         
         $data = array ( 'id'=>$this->input->post('ARTICLE_CODE'),
                         'name'=>$this->input->post('ARTICLE_DESC'),
                         'qty'=>$this->input->post('qty'),
-                        'price'=>$this->input->post('SALES_UNIT_PRICE'),
-                        'PLU'=>$this->input->post('PLU')
+                        'price'=>$price,
+                        'PLU'=>$this->input->post('PLU'),
+                        'pembayaran' => $this->input->post('colorRadio')
                         );
+        
+        
         
         
         $this->cart->insert($data);
