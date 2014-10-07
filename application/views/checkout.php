@@ -96,7 +96,16 @@ document.getElementById("demo").innerHTML=x;
 	  </td>
       <td align="center"><?php echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
 	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>
-	  <td style="text-align:center"><?php echo $items['pembayaran']; ?></td>
+	  <td style="text-align:center">
+	  <?php
+	    if($items['pembayaran'] == '1'){
+	      echo "CREDIT";
+	    }else{
+	      echo "CASH";
+	    }
+	    //echo form_hidden(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
+	  ?>
+	  </td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
 	</tr>

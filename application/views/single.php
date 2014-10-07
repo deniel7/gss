@@ -3,7 +3,7 @@
     #gallery_01 img{border:2px solid white;width: 60px;}
     .active img{border:2px solid #333 !important;}
  
- </style>
+    </style>
 
 <link rel="stylesheet" type="text/css" href="<?php echo base_url()."asset/css/elastislide.css"; ?>" />
 <link rel="stylesheet" type="text/css" href="<?php echo base_url()."asset/css/custom.css"; ?>" />
@@ -73,13 +73,13 @@
 			    <div class="span3">
 				<div class="checkbox">
 				    <label>
-					<input type="radio" name="colorRadio" value="credit">
+					<input type="radio" name="colorRadio" value="1">
 					&nbsp;<img src="<?php echo base_url().'/template/palmtree/images/visa_mastercard.jpeg'; ?>" />
 				    </label>
 				</div>
 				<div class="credit box">
 				    <?php $pprice = $this->cart->format_number($item->SALES_UNIT_PRICE); ?>
-				<input type="text" name='pcredit' class='form-control input-lg' value='<?php echo $pprice ?>'>
+				<input type="hidden" name='pcredit' class='form-control input-lg' value='<?php echo $pprice ?>'>
 				</div>
 			    
 			    </div>
@@ -93,14 +93,14 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input type="radio" name="colorRadio" value="cash">&nbsp;&nbsp;<b>PEMBAYARAN TUNAI</b>
+				    <input type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>PEMBAYARAN TUNAI</b>
 				</label>
 			    </div>
 			    
 			    <div class="cash box">
 				    <?php $cprice = $this->cart->format_number($price->SALES_UNIT_PRICE); ?>
 				
-				<input type="text" name='pcash' class='form-control input-lg' value='<?php echo $cprice ?>'>
+				<input type="hidden" name='pcash' class='form-control input-lg' value='<?php echo $cprice ?>'>
 				</div>
 			
 			</div>

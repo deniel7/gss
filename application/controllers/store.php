@@ -257,7 +257,7 @@ class Store extends CI_Controller {
     
     
     public function add_cart() {
-        if($this->input->post('colorRadio') == 'cash'){
+        if($this->input->post('colorRadio') == 'SV2'){
             $price = $this->input->post('pcash');
         }else{
             $price = $this->input->post('pcredit');
@@ -503,6 +503,7 @@ class Store extends CI_Controller {
         }
         
         $order_no_gtron = $this->input->post('order_no');
+        $pembayaran = $this->input->post('pemb');
         
         if($this->form_validation->run()) {
             $insert = array(    'nama_depan'    =>  $this->input->post('nama_depan'),
@@ -537,7 +538,7 @@ class Store extends CI_Controller {
                 $insert['user_id'] = $this->session->userdata('user_id');
                 
                 if($this->profile_m->insert($insert)){
-                    $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron);
+                    $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);
                     $this->cart->destroy();
                     
                     $this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');

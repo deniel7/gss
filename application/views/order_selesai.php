@@ -94,6 +94,7 @@
         <tr>
           <th>Nama Barang</th>
           <th style="text-align:right">QTY</th>
+	  <th style="text-align:center">Pembayaran</th>
           <th style="text-align:right">Harga Satuan</th>
           <th style="text-align:right">Sub-Total</th>
         </tr>
@@ -104,7 +105,16 @@
         	  <td>
 		      <p><strong><?php echo $item->ARTICLE_DESC; ?></strong></p>
         	  </td>
-              <td align="center"><?php echo $item->kuantitas; ?></td>
+		  <td align="center"><?php echo $item->kuantitas; ?></td>
+		  <td align="center">
+		    <?php
+		      if($item->SV == '1'){
+			echo "CREDIT";
+		      }else{
+			echo "CASH";
+		      }
+		    ?>
+		  </td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE); ?></td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->subtotal); ?></td>
         	</tr>
@@ -116,7 +126,7 @@
 	<tr>
 	  <td></td>
           <td></td>
-	  
+	  <td></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Jumlah</strong></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($total_belanja); ?></strong></td>
 	</tr>
@@ -124,6 +134,7 @@
 	<tr>
 	  <td></td>
           <td></td>
+	  <td></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Handling Fee</strong></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php //echo $this->cart->format_number($biaya); ?>1,000</strong></td>
 	  
@@ -132,6 +143,7 @@
         <tr>
           <td></td>
           <td></td>
+	  <td></td>
 	  <?php
 	    
 	    //$total_belanja = $this->cart->total();

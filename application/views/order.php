@@ -193,7 +193,17 @@ function FillBilling(f) {
         
         	  </td>
 		  <td align="center"><?php echo $items['qty']; ?></td>
-		  <td align="center"><?php echo $items['pembayaran']; ?></td>
+		  <td align="center">
+			  <?php
+			    if($items['pembayaran'] == '1'){
+			      echo "CREDIT";
+			    }else{
+			      echo "CASH";
+			    }
+			    //echo form_hidden(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
+			  ?>
+			  <input type="hidden" name="pemb" value="<?php echo $items['pembayaran']; ?>" />
+		  </td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
         	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
         	</tr>

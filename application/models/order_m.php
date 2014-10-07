@@ -7,7 +7,7 @@ class Order_m extends MY_Model {
         parent::set_table('SUPPLIER_ORDER_HEADER','id_order');
     }
     
-    public function insert($data = array(), $cart = array(),$order_no_gtron) {
+    public function insert($data = array(), $cart = array(),$order_no_gtron,$pembayaran) {
         $dc_code = $this->session->userdata('dc_site_code');
         $dc_site_code = $this->session->userdata('store_site_code');
         $flag = 0;
@@ -23,6 +23,7 @@ class Order_m extends MY_Model {
                                  'DC_CODE' =>$dc_code,
                                  'SITE_CODE' => $dc_site_code,
                                  'FLAG' => $flag,
+                                 'SV' => $pembayaran,
                                  'subtotal'=>$item['subtotal']);
                 $this->db->insert('SUPPLIER_ORDER_DETAIL',$detail);
             }
