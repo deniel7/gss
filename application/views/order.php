@@ -150,7 +150,7 @@ function FillBilling(f) {
         <div class="span12">
 	  <span>
 	      <?php if(@$error){echo @$error;} ?>
-	      <?php echo validation_errors(); ?>
+	      <?php echo validation_errors('<div class="alert-danger">', '</div><br/>'); ?>
 	      <br/>
 	  </span>
 	
@@ -263,7 +263,8 @@ function FillBilling(f) {
 	  
 	</div>-->
         <br/><br/>
-        <?php 
+        <div class="row">
+	<?php 
         echo form_fieldset('Alamat Pengiriman','class="produk"');
 	echo form_hidden('order_no',$order_no);
 	echo form_hidden('total_item',$total_item);
@@ -322,6 +323,11 @@ function FillBilling(f) {
 					'placeholder' => 'Telepon',
                                         'class' => 'form-control input-lg'
 			)); 
+	?>
+	</div>
+	
+	<div class="row">
+	<?php
 	echo "<br/><br/><br/>";
         
 	echo form_fieldset('Estimasi Pengiriman','class="produk"');
@@ -345,12 +351,7 @@ function FillBilling(f) {
 	
 	</div>
 	<br/>
-	<?php 
 	
-	
-	
-	
-	?>
 	
 	
 	<?php
@@ -360,5 +361,6 @@ function FillBilling(f) {
 	echo '<div style= text-align:center>'.form_submit(array('name'=>'submit','value'=>'Pemesanan Selesai','class'=>'btn btn-large btn-success')).'</div>';
 	echo "<br/><br/>";
 	?>
+    
     <?php endif; ?>
 <?php endif; ?>

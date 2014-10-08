@@ -1,16 +1,11 @@
 <?php
   //echo $this->data->nomor;
 ?>
-
- <head>
-    
-    
-    
-    
-    </head>
     <body>
         <?php //$num=1; ?>
-        
+        <div class="row" style="padding: 50px 100px 150px 100px">
+	  <div class="span10">
+	    <center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
         <div id="print">
             <div class="print_area">
 	      <head>
@@ -51,7 +46,7 @@
 	      
 	      </style>
 	      </head>
-	      <center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
+	      
 	      <p><img src="<?php echo base_url().'asset/themes/images/logo.gif';?>" /></a></p>
 
             <table class="table table-bordered">
@@ -89,7 +84,7 @@
             </table>
 	    
 	    
-	    <table class="table table-bordered" style="margin-top: 20px">
+	    <table class="table table-bordered" style="margin-top: 20px;">
 	<thead>
         <tr>
           <th>Nama Barang</th>
@@ -155,11 +150,14 @@
         </tr>
         <?php //endforeach; ?>
         </table>
-	    
-	    <center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
+	  
 	  </div>
-        </div>
+	</div>
+	<center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
 	
+	
+	</div>
+	</div>
 	<script type="text/javascript">
 	 function PrintContent()
 		{

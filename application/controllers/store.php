@@ -18,6 +18,11 @@ class Store extends CI_Controller {
                                  'rules'   => 'utf8|required|max_length[200]'
                               ),
                         array(
+                                 'field'   => 'kota', 
+                                 'label'   => 'Kota', 
+                                 'rules'   => 'required'
+                              ),
+                        array(
                                  'field'   => 'phone', 
                                  'label'   => 'Telepon', 
                                  'rules'   => 'numeric|required'
@@ -503,11 +508,11 @@ class Store extends CI_Controller {
         $this->data->side = 0;
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
-        //->set_css('base')
+        ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        //->set_css('prettify')
         ->set_css('mystyle')
         ->set_parsial('topmenu','top_view',$this->data)
         ->render('checkout',$this->data); 
@@ -602,11 +607,11 @@ class Store extends CI_Controller {
         }
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
-        //->set_css('base')
+        ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        //->set_css('prettify')
         ->set_css('mystyle')
         ->set_parsial('topmenu','top_view',$this->data)
         ->render('order',$this->data); 
@@ -627,11 +632,11 @@ class Store extends CI_Controller {
         $this->data->transaksi = $this->pesanan_m->print_transaksi($ordernumb, $store_site_code);
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
-        //->set_css('base')
+        ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        //->set_css('prettify')
         ->set_css('mystyle')
         ->set_parsial('topmenu','top_view',$this->data)
         ->render('order_selesai',$this->data); 
