@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo base_url()."asset/css/custom.css"; ?>" />
 <script src="<?php echo base_url()."asset/js/modernizr.custom.17475.js"; ?>"></script>
 
-<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()."template/palmtree/js/jquery.min.js"; ?>"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         $('input[type="radio"]').click(function(){
@@ -30,6 +30,29 @@
 <?php echo $this->session->flashdata('user_note'); ?>
 <br/>
 
+<?php if (!$logged_in): ?>
+    <div class="error">Anda Harus Login terlebih dahulu untuk melakukan langkah berikutnya.</div>
+    <br/>
+    <div><?php echo anchor(site_url('user/login'),'LOGIN disini') ?></div>
+<?php else: ?>
+    <?php if($this->session->flashdata('pesan')): ?>
+        <?php echo $this->session->flashdata('pesan');
+	      
+	      $this->load->model('order_m');
+	      $id = $this->session->userdata('user_id');
+              $order = $this->order_m->get_record(array('user_id'=>$id));
+	      
+	?>
+    <?php else:?>
+        
+        <div class="span12">
+	  <span>
+	    
+	      <?php //if(@$error){echo @$error;} ?>
+	      <?php //echo validation_errors(); ?>
+	      <?php echo $this->session->flashdata('error'); ?>
+	      <br/>
+	  </span>
 
 <div class="row">	  
     <div id="gallery" class="span3">
@@ -73,8 +96,8 @@
 			    <div class="span3">
 				<div class="checkbox">
 				    <label>
-					<input type="radio" name="colorRadio" value="1">
-					&nbsp;<img src="<?php echo base_url().'/template/palmtree/images/visa_mastercard.jpeg'; ?>" />
+					<input id="colorRadio" type="radio" name="colorRadio" value="1">
+					&nbsp;<b>PEMBAYARAN KREDIT</b>
 				    </label>
 				</div>
 				<div class="credit box">
@@ -93,7 +116,7 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>PEMBAYARAN TUNAI</b>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>PEMBAYARAN TUNAI</b>
 				</label>
 			    </div>
 			    
@@ -115,7 +138,7 @@
 		
 		  <div class="control-group">
 			
-			<label class="control-label"><span>Pemesanan : </span></label>
+			<label class="control-label"><span>Jumlah Pemesanan : </span></label>
 			
 			<div class="controls">
 			<?php 
@@ -128,7 +151,7 @@
 			    
 			    if ($item->STOCK_QTY != 0)
 			    {
-				echo form_input(array('name' => 'qty','placeholder'=>'jumlah', 'value' =>'1', 'class' => 'span2' ));
+				echo form_input(array('id' => 'qty','name' => 'qty','placeholder'=>'jumlah', 'value' =>'1', 'class' => 'span2' ));
 				
 				echo form_submit(array('name' => 'submit','value'=>'Pesan', 'class' => 'btn btn-large btn-primary pull-right' ));
 			    
@@ -198,6 +221,7 @@
 	</span>
     </div>
 
-<?php endforeach; ?>
-
+    <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
 

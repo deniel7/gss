@@ -29,6 +29,20 @@ class Store extends CI_Controller {
                               ),
                          );
     
+    private $add_cart = array (
+                        array(
+                                 'field'   => 'qty', 
+                                 'label'   => 'Jumlah Pemesanan', 
+                                 'rules'   => 'alpha_numeric|required'
+                              ),
+                        array(
+                                 'field'   => 'colorRadio', 
+                                 'label'   => 'Pembayaran', 
+                                 'rules'   => 'required'
+                              )
+                        
+                         );
+    
     public function __construct() {
         parent::__construct();
         
@@ -229,6 +243,9 @@ class Store extends CI_Controller {
     }
     
     public function produk($url = null, $id_produk = null){
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($this->add_cart);
+        
         $url or redirect(site_url());
         
         $store_site_code = $this->data->store_site_code;
@@ -246,22 +263,34 @@ class Store extends CI_Controller {
         //echo $this->db->last_query();
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        //->set_css('prettify')
+        ->set_css('mystyle')
         ->set_parsial('topmenu','top_view',$this->data)
-        ->render('single',$this->data);   
+        ->render('single',$this->data);
+        
     }
     
     
     public function add_cart() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules($this->add_cart);
+        
+            
         if($this->input->post('colorRadio') == 'SV2'){
             $price = $this->input->post('pcash');
         }else{
             $price = $this->input->post('pcredit');
         }
+        
+        //$this->form_validation->set_rules('field' => 'colorRadio', 'label' => 'colorRadio', 'rules' => 'required');
+
+        
+        if($this->form_validation->run()) {
+        
         
         $data = array ( 'id'=>$this->input->post('ARTICLE_CODE'),
                         'name'=>$this->input->post('ARTICLE_DESC'),
@@ -277,9 +306,17 @@ class Store extends CI_Controller {
         $this->cart->insert($data);
         $this->session->set_flashdata('user_note','<div class="alert-success">Produk berhasil ditambahkan ke dalam List Pemesanan.</div><br/><div class=pull-right><a href='.site_url().'store/kategori><span class="btn btn-info">Tambah Produk</span></a><a href='.site_url().'store/checkout>  <span class="btn btn-success">Pemesanan Selesai</span></a></div>');
         
+        redirect (site_url($this->input->post('url')));
+        
+        }else{
+        $this->session->set_flashdata('error', validation_errors('<div class="alert-danger">', '</div><br/>'));
+        redirect (site_url($this->input->post('url')));
+            
+        }
+        //$this->form_validation->set_message('required', 'Error message');
         //echo (site_url($this->input->post('url')));
         
-        redirect (site_url($this->input->post('url')));
+        
         
     }
     
