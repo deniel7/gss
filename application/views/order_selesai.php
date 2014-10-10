@@ -1,6 +1,4 @@
-<?php
-  //echo $this->data->nomor;
-?>
+
     <body>
         <?php //$num=1; ?>
         <div class="row" style="padding: 50px 100px 150px 100px">

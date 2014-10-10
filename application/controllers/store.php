@@ -97,11 +97,11 @@ class Store extends CI_Controller {
         
         //$data['produk'] = $this->produk_m->get_all_produk();
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        //->set_css('prettify')
         ->set_css('mystyle')
         
         ->set_parsial('slidebanner','slide_banner',$this->data)

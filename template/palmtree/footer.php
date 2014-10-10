@@ -19,7 +19,7 @@
 	</div><!-- Container End -->
 	</div>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
-	<script src="<?php echo base_url();?>template/palmtree/js/jquery.js" type="text/javascript"></script>
+	<!--<script src="<?php echo base_url();?>template/palmtree/js/jquery.js" type="text/javascript"></script>-->
 	
 	<script src="<?php echo base_url();?>template/palmtree/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?php echo base_url();?>template/palmtree/js/google-code-prettify/prettify.js"></script>

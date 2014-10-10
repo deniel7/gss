@@ -55,11 +55,21 @@
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
 			    
-			    <?php if(($item->STOCK_QTY) == 0){ ?>
+			    <?php
+				$stok = $item->STOCK_QTY;
+				$booked = $item->BOOK_QTY;
+				$confirm = $item->CONFIRM_QTY;
+				
+				$stock = $stok - $booked - $confirm;
+				
+				if($stock == 0 || $stock <=0){
+			    
+			    ?>
 			    
 				<h4>Stok : <p class="btn btn-danger">Kosong</p></h4>
 			    <?php }else{ ?>
-				<h4>Stok : <p class="btn btn-success"><?php echo $this->cart->format_number($item->STOCK_QTY) ?></p></h4>
+				<h4>Stok : <p class="btn btn-success"><?php echo $this->cart->format_number($stock) ?></p></h4>
+				
 			    <?php } ?>
 			<!--<label class="checkbox">
 				<input type="checkbox">  Adds product to compair
@@ -96,10 +106,20 @@
 				  
 				   <h4 style="text-align:center">
 	    
-				    <?php if ($item->STOCK_QTY == 0){ ?>
+				    <?php
+					$stok = $item->STOCK_QTY;
+					$booked = $item->BOOK_QTY;
+					$confirm = $item->CONFIRM_QTY;
+					
+					$stock = $stok - $booked - $confirm;
+					
+					if($stock == 0 || $stock <=0){
+				    
+				    ?>
 					<p style="font-size:11px" class="btn-danger">Stok Kosong</p>
 				    <?php }else{ ?>
-					<p style="font-size:11px" class="btn-success">Stok : <?php echo $item->STOCK_QTY; ?></p>
+					<p style="font-size:11px" class="btn-success">Stok : <?php echo $stock; ?></p>
+					
 				    <?php } ?>
 				   </h4>
 				    <h4 style="text-align:center"><a class="btn btn-primary" href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>">View</a></h4>

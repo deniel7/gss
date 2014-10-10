@@ -5,9 +5,6 @@
  
     </style>
 
-<link rel="stylesheet" type="text/css" href="<?php echo base_url()."asset/css/elastislide.css"; ?>" />
-<link rel="stylesheet" type="text/css" href="<?php echo base_url()."asset/css/custom.css"; ?>" />
-<script src="<?php echo base_url()."asset/js/modernizr.custom.17475.js"; ?>"></script>
 
 <script type="text/javascript" src="<?php echo base_url()."template/palmtree/js/jquery.min.js"; ?>"></script>
 <script type="text/javascript">
@@ -83,7 +80,19 @@
 		<hr class="soft"/>
 		<div class="row">
 		    <div class="span9" style="text-align: right">
-			<h4>Stock : <?php echo $item->STOCK_QTY ?></h4>
+			
+			<?php
+					$stok = $item->STOCK_QTY;
+					$booked = $item->BOOK_QTY;
+					$confirm = $item->CONFIRM_QTY;
+					
+					$stock = $stok - $booked - $confirm;
+					
+				    
+			?>
+			
+			
+			<h4>Stock : <?php echo $stock; ?></h4>
 		    </div>
 			<?php echo form_open(site_url('store/add_cart')); ?>
 			
@@ -149,7 +158,7 @@
 			    echo form_hidden('url',uri_string());
 			    //echo form_hidden('SALES_UNIT_PRICE',$item->SALES_UNIT_PRICE);
 			    
-			    if ($item->STOCK_QTY != 0)
+			    if ($stock != 0 || $stock >0)
 			    {
 				echo form_input(array('id' => 'qty','name' => 'qty','placeholder'=>'jumlah', 'value' =>'1', 'class' => 'span2' ));
 				
