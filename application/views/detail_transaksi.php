@@ -55,7 +55,7 @@
     </tr>
 
     <tr>
-        <td><?php echo $data['order_no']; ?></td>
+        <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
         <td><?php echo $data['tanggal_masuk']; ?></td>
         <td><?php echo $data['total_item']; ?></td>
         <td> Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
@@ -73,26 +73,12 @@
     </tr>
     <?php endforeach; ?>
 </table>
-<?php endforeach; ?>
+
 
 <br/>
 <div>
 
-
-<?php 
-
-
-
-
-
-
-
-//echo form_submit('submit','SUBMIT PESANAN');
-
-?>
-
-
-
+<?php if ($data['FLAG'] == 0){ ?>
 <div class="responsive">
             
             <div class="text-center">
@@ -100,6 +86,10 @@
             </div>
 </div>
 
+<?php
+    }
+    endforeach;
+?>
 <div id="responsive" class="modal fade" tabindex="-1" data-width="160" style="display: none;">
     <form action="<?php echo site_url(uri_string()); ?>" method="POST">
     

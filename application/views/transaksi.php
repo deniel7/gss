@@ -66,11 +66,23 @@
 				continue;
 				
 				case '3':
-				$item->FLAG = '<div style="color:purple;">on Delivery</div>';
+				$item->FLAG = '<div style="color:blue;">on Progress</div>';
 				continue;
 				
 				case '4':
-				$item->FLAG = '<div style="color:green;">Cancel</div>';
+				$item->FLAG = '<div style="color:brown;">Cancel</div>';
+				continue;
+			      
+				case '5':
+				$item->FLAG = '<div style="color:blue;">on Progress</div>';
+				continue;
+			      
+				case '6':
+				$item->FLAG = '<div style="color:green;">on Delivery</div>';
+				continue;
+			      
+				case '7':
+				$item->FLAG = '<div style="color:magenta;">Transaction Completed</div>';
 				continue;
 		    
 				}          
@@ -83,11 +95,11 @@
         <?php endforeach; ?>
 	
 <?php else: ?>
-    <p class="msg info">Belum ada Pesanan</p>
+    <p class="msg info" color="">Belum ada Pesanan</p>
 <?php endif; ?>
 
 </tbody>
-
+<div style="color:#fff"></div>
 </table>
 
 

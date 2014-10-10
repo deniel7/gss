@@ -88,14 +88,8 @@ class Store extends CI_Controller {
     }
     
     public function index(){        
-        //$data['data'] = $this->produk_m->get_all_produk();
-        //$data['sup'] = $this->produk_m->get_all_produk_sup();
-        //$data['fash'] = $this->produk_m->get_all_produk_fash();
-       
-        //$this->data->slidebanner = '';
-        //$this->data->sidebar = '';
         
-        //$data['produk'] = $this->produk_m->get_all_produk();
+        
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
         ->set_css('bootstrap')
