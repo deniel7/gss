@@ -9,6 +9,7 @@ class Dashboard extends MY_Controller {
     }
     
     public function index() {
+        $this->load->model('pesanan_m');
         
         $this->data->cabang = $this->session->userdata('kode_cabang');
         //$cb = $this->session->userdata('kode_cabang');
