@@ -484,9 +484,7 @@ class Store extends CI_Controller {
         
         $id = $this->session->userdata('user_id');
         
-        if(!empty($id)){
-            $this->data->nama_list= $this->order_m->nama_list('nama',$id);
-        }
+        
         
         if($_POST) {
             $this->cart->update($_POST);   

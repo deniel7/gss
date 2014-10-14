@@ -1,0 +1,15 @@
+# Application
+application/config/database.php
+application/config/config.php
+dbase/*
+
+# Misc
+.idea
+Thumbs.db
+Desktop.ini
+*.tmp
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
