@@ -13,7 +13,8 @@
                             
                         </li>
                         <li>
-                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            
+			    <?php echo anchor(site_url('admin/'),'<i class="fa fa-dashboard fa-fw"></i>Dashboard'); ?>
                         </li>
                         <li>
 				<?php echo anchor(site_url('admin/pesanan'),'<i class="fa fa-table fa-fw"></i>Orders'); ?>

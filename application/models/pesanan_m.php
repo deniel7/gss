@@ -439,8 +439,8 @@ class Pesanan_m extends MY_Model {
     function count_new_pesanan()
     {	
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
-		$this->db->from('`order`');
-		$this->db->where_in('status_order', '1');
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '1');
 				
 		$query = $this->db->get();
 		
@@ -619,6 +619,7 @@ class Pesanan_m extends MY_Model {
 	$sql = "select * from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		AND SUPPLIER_ORDER_HEADER.FLAG = 1
 		ORDER BY id_order DESC";
 	    
 	    $hasil = $this->db->query($sql);
