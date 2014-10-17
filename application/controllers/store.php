@@ -868,22 +868,14 @@ class Store extends CI_Controller {
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');
             
-            $data = array(
-               'FLAG' => '1',
-               'no_struk' => $nostruk
-               
-            );
             
-            $data2 = array(
-               'FLAG' => '1'
-               
-               
-            );
-
-            $this->db->where('ORDER_NO_GTRON', $orderno);
-            $this->db->update('SUPPLIER_ORDER_HEADER', $data); 
-            $this->db->update('SUPPLIER_ORDER_DETAIL', $data2); 
-            //$this->pesanan_m->update_by(array('order_no'=>$orderno),array('status_order'=>'3'), array('no_struk'=> $nostruk));
+            $this->db->set('a.FLAG', '1');
+            $this->db->set('a.no_struk',$nostruk);
+            $this->db->set('b.FLAG', '1');
+            
+            $this->db->where('a.ORDER_NO_GTRON', $orderno);
+            $this->db->where('b.ORDER_NO_GTRON', $orderno);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
             
             redirect (site_url('store/transaksi'));
 	} else {

@@ -45,10 +45,7 @@
 						
 					    </tr>
 					    
-					    <tr>
-						<td>Metoda Pembayaran</td>
-						<td>Cash / Credit</td>
-					    </tr>
+					    
 					   
 					</tbody>
 				    </table>
@@ -73,11 +70,12 @@
 					    </tr>
 					    <?php endforeach; ?>
 					    <tr>
-						<td colspan="3"></td>
+						<td colspan="2" style="text-align: right;">Biaya</td>
+						<td>Rp. 1,000</td>
 					    </tr>
 					    <tr>
-						<td style="text-align: right">Total</td>
-						<td><?php echo $data['total_item']; ?></td>
+						<td colspan="2" style="text-align: right">Total</td>
+						
 						<td>Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
 					    </tr>
 					</tbody>

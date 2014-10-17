@@ -160,7 +160,7 @@
                                                     <?php endforeach; ?>
                                                     
                                             <?php else: ?>
-                                                <p class="msg info">Belum ada Pesanan</p>
+                                                <p class="bg-info">Belum ada Pesanan</p>
                                             <?php endif; ?>
                                             
                                             </tbody>

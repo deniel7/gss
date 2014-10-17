@@ -19,6 +19,9 @@
                         <li>
 				<?php echo anchor(site_url('admin/pesanan'),'<i class="fa fa-table fa-fw"></i>Orders'); ?>
 			</li>
+			<li>
+				<?php echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
+			</li>
 			<!--<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -18,9 +18,9 @@ class Delivery_order extends MY_Controller {
         $this->load->model('produk_m');
         $this->load->model('kategori_m');
         $this->load->model('pesanan_m');
-	$this->load->model('pesanan_cabang_m');
+	//$this->load->model('pesanan_cabang_m');
         
-        $this->template->set_js('jcrop')->set_css('jcrop');
+        //$this->template->set_js('jcrop')->set_css('jcrop');
         $this->data->metadata = $this->template->get_metadata();
         $this->data->judul = $this->template->get_judul();
 	
@@ -33,40 +33,42 @@ class Delivery_order extends MY_Controller {
         
         //parent::_view('produk/list',$this->data);
     
-        $this->load->library('form_validation');
-        $this->form_validation->set_error_delimiters('<p class="msg warning">', '</p>');
+//        $this->load->library('form_validation');
+//        $this->form_validation->set_error_delimiters('<p class="msg warning">', '</p>');
+//        
+//        foreach($this->kategori_m->kategori as $key => $val) {
+//            $this->data->list_kategori[$val['id_kategori']] = $val['nama_kategori'];
+//        }
+//        
+//        $this->form_validation->set_rules($this->rules);
+//        
+//        if($this->form_validation->run()) {
+//            $data =  array (    'nama_produk'   =>  $this->input->post('nama_produk'),
+//                                'url_produk'    =>  underscore($this->input->post('nama_produk')),
+//                                'plu'   	=>  $this->input->post('plu'),
+//                                'kategori_id'   =>  $this->input->post('kategori'),
+//                                'harga_jual'    =>  $this->input->post('harga'),
+//                                'stok'          =>  $this->input->post('stok'),
+//                                'deskripsi_produk'=>  $this->input->post('deskripsi')
+//                            );
+//            if ($this->produk_m->insert($data)) {
+//                $this->data->sukses = 'Data Berhasil di tambahkan';
+//            }
+//        }
+//        
+//        $this->data->nama_produk = set_value('nama_produk');
+//        $this->data->plu = set_value('plu');
+//        $this->data->deskripsi = set_value('deskripsi');
+//        $this->data->harga = set_value('harga');
+//        $this->data->stok = set_value('stok');
+//        $this->data->kategori = $this->input->post('kategori');
+//	
+//	$this->data->cabang = $this->session->userdata('kode_cabang');
+//	$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
+//                
         
-        foreach($this->kategori_m->kategori as $key => $val) {
-            $this->data->list_kategori[$val['id_kategori']] = $val['nama_kategori'];
-        }
-        
-        $this->form_validation->set_rules($this->rules);
-        
-        if($this->form_validation->run()) {
-            $data =  array (    'nama_produk'   =>  $this->input->post('nama_produk'),
-                                'url_produk'    =>  underscore($this->input->post('nama_produk')),
-                                'plu'   	=>  $this->input->post('plu'),
-                                'kategori_id'   =>  $this->input->post('kategori'),
-                                'harga_jual'    =>  $this->input->post('harga'),
-                                'stok'          =>  $this->input->post('stok'),
-                                'deskripsi_produk'=>  $this->input->post('deskripsi')
-                            );
-            if ($this->produk_m->insert($data)) {
-                $this->data->sukses = 'Data Berhasil di tambahkan';
-            }
-        }
-        
-        $this->data->nama_produk = set_value('nama_produk');
-        $this->data->plu = set_value('plu');
-        $this->data->deskripsi = set_value('deskripsi');
-        $this->data->harga = set_value('harga');
-        $this->data->stok = set_value('stok');
-        $this->data->kategori = $this->input->post('kategori');
+	$this->data->pesanan = $this->pesanan_m->get_printing();
 	
-	$this->data->cabang = $this->session->userdata('kode_cabang');
-	$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
-                
-        //parent::_modal('produk/form',$this->data);
         parent::_view('delivery_order/form',$this->data);
     }
     
@@ -75,37 +77,19 @@ class Delivery_order extends MY_Controller {
         $order_no =  $this->input->post('order_no');
 	$cabang = $this->input->post('cabang');
         
-	//CEK PUSAT Ato Cabang
-	if($cabang != 'PST'){
 	
-        //CEK STATUS ORDER = COnfirmed     -- CABANG
-        $this->db->select('*');
-		$this->db->from('order');
-                $this->db->join('user','user.id_user=order.user_id');
-                $this->db->join('user_data','user_data.user_id=user.id_user');
-                $this->db->join('order_data','order.id_order = order_data.order_id');
-                $this->db->join('produk','produk.id_produk = order_data.produk_id');
-                $this->db->where('status_order','2');
-                $this->db->where('order_no',$order_no);
-		$this->db->where('order.kode_cabang',$cabang);
-                $q = $this->db->get();
-                
-	}else{	
-	//CEK STATUS ORDER = COnfirmed    -- PUSAT
 	$this->db->select('*');
-		$this->db->from('order');
-                $this->db->join('user','user.id_user=order.user_id');
-                $this->db->join('user_data','user_data.user_id=user.id_user');
-                $this->db->join('order_data','order.id_order = order_data.order_id');
-                $this->db->join('produk','produk.id_produk = order_data.produk_id');
-                $this->db->where('status_order','2');
-                $this->db->where('order_no',$order_no);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+                $this->db->join('SUPPLIER_ORDER_DETAIL','SUPPLIER_ORDER_HEADER.id_order = SUPPLIER_ORDER_DETAIL.id_order');
+                $this->db->join('DC_STOCK_MASTER','DC_STOCK_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
+                $this->db->join('STORE_SALES_MASTER','STORE_SALES_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
+                $this->db->join('user_data','user_data.ORDER_NO_GTRON = SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON');
+		$this->db->where('STORE_SALES_MASTER.SV = SUPPLIER_ORDER_DETAIL.SV');
+                $this->db->where('STORE_SITE_CODE','15102');
+                $this->db->where('SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON','18153');
                 $q = $this->db->get();
-	}
 	
-	//SIDEBAR Total pesanan
-	$this->data->cabang = $this->session->userdata('kode_cabang');
-	$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
+	
 	
 	
         if($q->result_array() == NULL){
@@ -113,25 +97,15 @@ class Delivery_order extends MY_Controller {
             parent::_view('delivery_order/gagal',$this->data);
                 
         }else{
-        
-            //CEK Sudah pernah di PRINT belum
-            $this->db->select('status_print');
-            $this->db->from('order');
-            $this->db->where('order_no',$order_no);
-            $this->db->where('status_print','PRINTED');
-            $data_p = $this->db->get();
-        
-        if($data_p->result_array() != NULL){
-                $this->data->q = $q;
-                $this->pesanan_m->update_by(array('order_no'=>$order_no),array('status_order'=>'3'));
-                		
-		$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
-	
-		parent::_view('delivery_order/print',$this->data);
+            
+	    $this->data->q = $q;
+	    //$this->pesanan_m->update_by(array('order_no'=>$order_no),array('status_order'=>'3'));
+	    //  
+	    //$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
+    
+	    parent::_view('delivery_order/print',$this->data);
 		
-	}else{
-	    parent::_view('delivery_order/gagal',$this->data);
-	}
+	
     }
 }
     
