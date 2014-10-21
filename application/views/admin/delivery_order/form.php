@@ -24,7 +24,13 @@
             <div class="row">
                 <div class="col-lg-12">
 		    <h1 class="page-header">Print Delivery Order</h1>
-		
+		    <?php
+		    
+		    if (@$sukses) {
+		    echo '<p class="msg done">'.@$sukses.'</p>';
+		    }
+		    ?>
+		    
 		</div>
 	    </div>
 	    <br/>
@@ -66,7 +72,7 @@
 				<div class="modal-content">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				    <h4 class="modal-title">Print Order</h4>
+				    <h4 class="modal-title">Want to print Delivery Order for this transaction?</h4>
 				  </div>
 				  <div class="modal-body">
 				  <div class="row-fluid">

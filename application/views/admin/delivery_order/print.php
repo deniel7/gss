@@ -12,7 +12,7 @@
 		WindowObject.focus();
 		WindowObject.print();
 		WindowObject.close();
-		location="index.php";
+		location="";
 		}
     </script>
     
@@ -31,7 +31,13 @@
             
 	    <div class="row">
                 <div class="col-lg-12">
-                    <center><input name="button" type="button"  value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg" /></center>
+                    <form action="<?php echo site_url(uri_string()).'/printed/'; ?>" method="POST">
+				  
+				  
+		    <center>
+			<!--<input name="button" type="button"  value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg" />-->
+			<input type="submit" name="submit" value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg">
+		    </center>
 		    
 		    
 		    <div id="print">
@@ -6809,7 +6815,11 @@ button.close {
 
 			<div class="col-lg-12">
 				    
-			
+			<?php
+				      
+				      echo form_hidden('orderno', $row['ORDER_NO_GTRON']);
+				      
+			?>
 			
 			
 			<div class="row">
@@ -7037,6 +7047,6 @@ button.close {
             </div>
 	    
 	</div>
-        
+        </form>
     </body>
 </html>

@@ -93,21 +93,38 @@ class Delivery_order extends MY_Controller {
 	
 	
         if($q->result_array() == NULL){
-                    
-            parent::_view('delivery_order/gagal',$this->data);
-                
+            
+	    $this->db->set('a.FLAG', '6');
+            $this->db->set('b.FLAG', '6');
+            
+            $this->db->where('a.ORDER_NO_GTRON', $order_no);
+            $this->db->where('b.ORDER_NO_GTRON', $order_no);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+	    
+            //parent::_view('delivery_order/gagal',$this->data);
+            redirect (site_url('admin/delivery_order/'));
         }else{
             
 	    $this->data->q = $q;
-	    //$this->pesanan_m->update_by(array('order_no'=>$order_no),array('status_order'=>'3'));
-	    //  
-	    //$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
-    
+	   
 	    parent::_view('delivery_order/print',$this->data);
 		
 	
     }
 }
+    
+    public function printed(){
+        $order_no =  $this->input->post('orderno');
+	
+            $this->db->set('a.FLAG', '6');
+            $this->db->set('b.FLAG', '6');
+            
+            $this->db->where('a.ORDER_NO_GTRON', $order_no);
+            $this->db->where('b.ORDER_NO_GTRON', $order_no);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+	    
+	    redirect (site_url('admin/delivery_order/'));
+    }
     
     public function gagal(){
         parent::_view('admin/delivery_order/gagal');
