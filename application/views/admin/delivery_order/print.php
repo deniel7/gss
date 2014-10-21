@@ -16,10 +16,7 @@
 		}
     </script>
     
-    <style type="text/css">
     
-    
-    </style>
     
     </head>
     <body>
@@ -34,7 +31,7 @@
             
 	    <div class="row">
                 <div class="col-lg-12">
-                    <input name="button" type="button"  value="PRINT" onClick="PrintContent()" />
+                    <center><input name="button" type="button"  value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg" /></center>
 		    
 		    
 		    <div id="print">

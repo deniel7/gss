@@ -74,8 +74,8 @@ class Delivery_order extends MY_Controller {
     
     
     public function print_do(){
-        $order_no =  $this->input->post('order_no');
-	$cabang = $this->input->post('cabang');
+        $order_no =  $this->input->post('orderno');
+	$store_sc = $this->input->post('store_sc');
         
 	
 	$this->db->select('*');
@@ -85,8 +85,8 @@ class Delivery_order extends MY_Controller {
                 $this->db->join('STORE_SALES_MASTER','STORE_SALES_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
                 $this->db->join('user_data','user_data.ORDER_NO_GTRON = SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON');
 		$this->db->where('STORE_SALES_MASTER.SV = SUPPLIER_ORDER_DETAIL.SV');
-                $this->db->where('STORE_SITE_CODE','15102');
-                $this->db->where('SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON','18153');
+                $this->db->where('STORE_SITE_CODE',$store_sc);
+                $this->db->where('SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON',$order_no);
                 $q = $this->db->get();
 	
 	

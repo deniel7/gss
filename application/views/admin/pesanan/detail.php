@@ -144,15 +144,14 @@
 
 
 
-<div class="responsive">
+<!--<div class="responsive">
             
             <div class="text-center">
-            <!--<button class="demo btn btn-success btn" data-toggle="modal" href="#responsive">Process</button>-->
 	    <a data-toggle="modal" href="#myModal" class="btn btn-success btn">Process</a>
 	    
-            <?php echo form_button(array('class' =>'btn btn-warning btn'),'Back',$js = 'onClick="history.go(-1)"'); ?>
+            <?php //echo form_button(array('class' =>'btn btn-warning btn'),'Back',$js = 'onClick="history.go(-1)"'); ?>
 	    </div>
-</div>
+</div>-->
 <br/>
 
 

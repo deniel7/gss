@@ -441,10 +441,49 @@ class Pesanan_m extends MY_Model {
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
 		$this->db->from('SUPPLIER_ORDER_HEADER');
 		$this->db->where_in('FLAG', '1');
-				
+		
+		$query = $this->db->get();
+			
+		
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				return $row['order_count'];
+			}
+		}
+		
+		return 0;
+    }
+    
+    function count_gold_process()
+    {	
+		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '3');
+		
+		$query = $this->db->get();
+			
+		
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				return $row['order_count'];
+			}
+		}
+		
+		return 0;
+    }
+    
+    function count_print_order()
+    {	
+		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '5');
+		
 		$query = $this->db->get();
 		
-		//echo $this->db->last_query();		
 		
 		if ($query->num_rows() > 0)
 		{
