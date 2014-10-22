@@ -10,13 +10,9 @@ class Dashboard extends MY_Controller {
     
     public function index() {
         $this->load->model('pesanan_m');
-        $this->data->pesanan = $this->pesanan_m->get_all_transaksi();
+        
         $this->data->cabang = $this->session->userdata('kode_cabang');
         //$cb = $this->session->userdata('kode_cabang');
-        //$this->load->model('pesanan_m');
-	$this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
-        $this->data->gold_proc = $this->pesanan_m->count_gold_process();
-        $this->data->print_order = $this->pesanan_m->count_print_order();
         
         $this->data->username = $this->session->userdata('username');
         parent::_view('page',$this->data);
