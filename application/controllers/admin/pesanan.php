@@ -25,7 +25,7 @@ class Pesanan extends MY_Controller {
         //$this->data->pesanan = $this->pesanan_m->get_all();
         $this->data->base_url = base_url().'/admin/pesanan/index';
 		
-	//$this->data->total_rows = $this->db->count_all('order');
+	$this->data->total_rows = $this->db->count_all('order');
 	$this->data->per_page = $this->config->item('hlm');
 	$this->data->uri_segment = 4;
         $this->pagination->initialize($this->data);

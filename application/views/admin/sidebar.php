@@ -13,14 +13,10 @@
                             
                         </li>
                         <li>
-                            
-			    <?php echo anchor(site_url('admin/'),'<i class="fa fa-dashboard fa-fw"></i>Dashboard'); ?>
+                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
 				<?php echo anchor(site_url('admin/pesanan'),'<i class="fa fa-table fa-fw"></i>Orders'); ?>
-			</li>
-			<li>
-				<?php echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
 			</li>
 			<!--<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
