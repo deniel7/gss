@@ -525,16 +525,11 @@ class Store extends CI_Controller {
         
         $data = $this->profile_m->get_by(array('user_id'=>$this->session->userdata('user_id')));
         
-        $this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
         
         $this->data->dc_site_code = $this->session->userdata('dc_site_code');
         $this->data->store_site_code = $this->session->userdata('store_site_code');
         
-        $kode_cabang = $this->input->post('list_cab');
-        if (empty($kode_cabang))
-        {
-            $kode_cabang = 'PST';
-        }
+        
         
         $order_no_gtron = $this->input->post('order_no');
         $pembayaran = $this->input->post('pemb');

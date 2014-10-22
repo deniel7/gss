@@ -94,12 +94,10 @@ class Delivery_order extends MY_Controller {
 	
         if($q->result_array() == NULL){
             
-	    $this->db->set('a.FLAG', '6');
-            $this->db->set('b.FLAG', '6');
+	    $this->db->set('PRINT_STATUS', '1');
             
-            $this->db->where('a.ORDER_NO_GTRON', $order_no);
-            $this->db->where('b.ORDER_NO_GTRON', $order_no);
-            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+            $this->db->where('ORDER_NO_GTRON', $order_no);
+            $this->db->update('SUPPLIER_ORDER_HEADER');
 	    
             //parent::_view('delivery_order/gagal',$this->data);
             redirect (site_url('admin/delivery_order/'));
