@@ -136,6 +136,13 @@
 	<!--<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>-->
 	
 	<?php echo '<div class="pagination"><ul><li>'.$this->pagination->create_links().'</li></ul></div>'?>
+	
+	<br class="clr"/>
+	<br class="clr"/>
+	<br class="clr"/>
+	<br class="clr"/>
+	<br class="clr"/>
+	<br class="clr"/>
 	<?php endif; ?>
 	<?php else : ?>
 	    <?php if (!empty($search_name)): ?>

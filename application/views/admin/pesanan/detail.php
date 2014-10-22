@@ -45,10 +45,7 @@
 						
 					    </tr>
 					    
-					    <tr>
-						<td>Metoda Pembayaran</td>
-						<td>Cash / Credit</td>
-					    </tr>
+					    
 					   
 					</tbody>
 				    </table>
@@ -73,11 +70,12 @@
 					    </tr>
 					    <?php endforeach; ?>
 					    <tr>
-						<td colspan="3"></td>
+						<td colspan="2" style="text-align: right;">Biaya</td>
+						<td>Rp. 1,000</td>
 					    </tr>
 					    <tr>
-						<td style="text-align: right">Total</td>
-						<td><?php echo $data['total_item']; ?></td>
+						<td colspan="2" style="text-align: right">Total</td>
+						
 						<td>Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
 					    </tr>
 					</tbody>
@@ -146,15 +144,14 @@
 
 
 
-<div class="responsive">
+<!--<div class="responsive">
             
             <div class="text-center">
-            <!--<button class="demo btn btn-success btn" data-toggle="modal" href="#responsive">Process</button>-->
 	    <a data-toggle="modal" href="#myModal" class="btn btn-success btn">Process</a>
 	    
-            <?php echo form_button(array('class' =>'btn btn-warning btn'),'Back',$js = 'onClick="history.go(-1)"'); ?>
+            <?php //echo form_button(array('class' =>'btn btn-warning btn'),'Back',$js = 'onClick="history.go(-1)"'); ?>
 	    </div>
-</div>
+</div>-->
 <br/>
 
 

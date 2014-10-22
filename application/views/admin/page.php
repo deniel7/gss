@@ -8,20 +8,20 @@
             <!-- /.row -->
             <div class="row">
                 
-                <div class="col-lg-6 col-md-6">
-                    <div class="panel panel-green">
+                <div class="col-lg-4 col-md-4">
+                    <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>New Tasks!</div>
+                                    <div class="huge"><?php echo $total_pesanan; ?></div>
+                                    <div>New Orders!</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="admin/pesanan">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -30,20 +30,45 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
+                
+                <div class="col-lg-4 col-md-4">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
-                                    <div>New Orders!</div>
+                                    <div class="huge"><?php echo $gold_proc; ?></div>
+                                    <div>Processing on Gold</div>
                                 </div>
                             </div>
                         </div>
                         <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left"><br/></span>
+                                <span class="pull-right"></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                
+                <div class="col-lg-4 col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-print fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $print_order; ?></div>
+                                    <div>Print Delivery Order</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="admin/delivery_order">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -61,7 +86,7 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                            <i class="fa fa-shopping-cart fa-fw"></i> Latest Orders
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -85,75 +110,91 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="row">
-                                <div class="col-lg-4">
+                                <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
-                                                    <th>Amount</th>
-                                                </tr>
+                                            <tr>
+                                              <td>Nomor Transaksi</td>
+                                              <td>Cabang</td>
+                                              <td>Waktu</td>
+                                              <td>Total</td>
+                                              <td>SPV</td>
+                                              <td>No. Struk</td>
+                                              <td>Status</td>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>3326</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:29 PM</td>
-                                                    <td>$321.33</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3325</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:20 PM</td>
-                                                    <td>$234.34</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3324</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:03 PM</td>
-                                                    <td>$724.17</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3323</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>3:00 PM</td>
-                                                    <td>$23.71</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3322</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:49 PM</td>
-                                                    <td>$8345.23</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3321</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:23 PM</td>
-                                                    <td>$245.12</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3320</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:15 PM</td>
-                                                    <td>$5663.54</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3319</td>
-                                                    <td>10/21/2013</td>
-                                                    <td>2:13 PM</td>
-                                                    <td>$943.45</td>
-                                                </tr>
+                                            <?php if($pesanan!= array()): ?>
+                                                    <?php foreach ($pesanan as $item): ?>
+                                                            <tr>
+                                                                <td><?php echo $item->ORDER_NO_GTRON; ?></td>
+                                                                <td><?php echo $item->SITE_STORE_CODE; ?></td>
+                                                                <td><?php echo $item->tanggal_masuk; ?></td>
+                                                                <td><?php echo $this->cart->format_number($item->total_biaya); ?></td>
+                                                                <td><?php echo $item->USERNAME; ?></td>
+                                                                <td><?php echo $item->no_struk; ?></td>
+                                                                <td>
+                                                                    
+                                                                    <?php
+                                                                    
+                                                                            switch($item->FLAG) {
+                                                                            
+                                                                            case '0':
+                                                                            $item->FLAG = '<div style="color:red;">Booked</div>';
+                                                                            continue;
+                                                                            
+                                                                            case '1':
+                                                                            $item->FLAG = '<div style="color:orange;">Confirmed</div>';
+                                                                            continue;
+                                                                            
+                                                                            case '2':
+                                                                            $item->FLAG = '<div style="color:blue;">Picking List Submited</div>';
+                                                                            continue;
+                                                                            
+                                                                            case '3':
+                                                                            $item->FLAG = '<div style="color:purple;">on Progress</div>';
+                                                                            continue;
+                                                                            
+                                                                            case '4':
+                                                                            $item->FLAG = '<div style="color:silver;">Cancel</div>';
+                                                                            continue;
+                                                                    
+                                                                            case '5':
+                                                                            $item->FLAG = '<div style="color:chocolate;">Shipment Gold</div>';
+                                                                            continue;
+                                                                    
+                                                                            case '6':
+                                                                            $item->FLAG = '<div style="color:green;">on Delivery</div>';
+                                                                            continue;
+                                                                    
+                                                                            case '7':
+                                                                            $item->FLAG = '<div style="color:pink;">Receiving Gold</div>';
+                                                                            continue;
+                                                                    
+                                                                            case '8':
+                                                                            $item->FLAG = '<div style="color:black;">Gold Error!</div>';
+                                                                            continue;
+                                                                
+                                                                            }          
+                                                                    echo $item->FLAG;
+                                                                    ?>
+                                                                
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                    <?php endforeach; ?>
+                                                    
+                                            <?php else: ?>
+                                                <p class="bg-info">Belum ada Pesanan</p>
+                                            <?php endif; ?>
+                                            
                                             </tbody>
                                         </table>
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>
                                 <!-- /.col-lg-4 (nested) -->
-                                <div class="col-lg-8">
-                                    <div id="morris-bar-chart"></div>
-                                </div>
+                                
                                 <!-- /.col-lg-8 (nested) -->
                             </div>
                             <!-- /.row -->
@@ -166,12 +207,30 @@
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                            <i class="fa fa-bell fa-fw"></i> Recent Activities
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <a href="#" class="list-group-item">
+                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                                    <span class="pull-right text-muted small"><em>9:59 AM</em>
+                                    </span>
+                                </a>
+                                
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
+                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
+                                    </span>
+                                </a>
+                                
+                                <a href="#" class="list-group-item">
+                                    <i class="fa fa-truck fa-fw"></i> Delivering Order
+                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
+                                    </span>
+                                </a>
+                                
+                                <!--<a href="#" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> New Comment
                                     <span class="pull-right text-muted small"><em>4 minutes ago</em>
                                     </span>
@@ -215,7 +274,7 @@
                                     <i class="fa fa-money fa-fw"></i> Payment Received
                                     <span class="pull-right text-muted small"><em>Yesterday</em>
                                     </span>
-                                </a>
+                                </a>-->
                             </div>
                             <!-- /.list-group -->
                             <a href="#" class="btn btn-default btn-block">View All Alerts</a>

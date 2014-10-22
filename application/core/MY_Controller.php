@@ -67,8 +67,8 @@ class MY_Controller extends CI_Controller {
         }
         
             //$this->data->total_pesanan = $this->pesanan_cabang_m->count_pesanan($this->data->cabang);
-	    $this->load->model('pesanan_m');
-	    $this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
+	    //$this->load->model('pesanan_m');
+	    //$this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
 	    
 	    $this->load->model('user_m');
 	    $this->data->total_n_user = $this->user_m->count_new_user();

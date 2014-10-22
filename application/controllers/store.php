@@ -484,9 +484,7 @@ class Store extends CI_Controller {
         
         $id = $this->session->userdata('user_id');
         
-        if(!empty($id)){
-            $this->data->nama_list= $this->order_m->nama_list('nama',$id);
-        }
+        
         
         if($_POST) {
             $this->cart->update($_POST);   
@@ -527,16 +525,11 @@ class Store extends CI_Controller {
         
         $data = $this->profile_m->get_by(array('user_id'=>$this->session->userdata('user_id')));
         
-        $this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
         
         $this->data->dc_site_code = $this->session->userdata('dc_site_code');
         $this->data->store_site_code = $this->session->userdata('store_site_code');
         
-        $kode_cabang = $this->input->post('list_cab');
-        if (empty($kode_cabang))
-        {
-            $kode_cabang = 'PST';
-        }
+        
         
         $order_no_gtron = $this->input->post('order_no');
         $pembayaran = $this->input->post('pemb');
@@ -870,22 +863,14 @@ class Store extends CI_Controller {
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');
             
-            $data = array(
-               'FLAG' => '1',
-               'no_struk' => $nostruk
-               
-            );
             
-            $data2 = array(
-               'FLAG' => '1'
-               
-               
-            );
-
-            $this->db->where('ORDER_NO_GTRON', $orderno);
-            $this->db->update('SUPPLIER_ORDER_HEADER', $data); 
-            $this->db->update('SUPPLIER_ORDER_DETAIL', $data2); 
-            //$this->pesanan_m->update_by(array('order_no'=>$orderno),array('status_order'=>'3'), array('no_struk'=> $nostruk));
+            $this->db->set('a.FLAG', '1');
+            $this->db->set('a.no_struk',$nostruk);
+            $this->db->set('b.FLAG', '1');
+            
+            $this->db->where('a.ORDER_NO_GTRON', $orderno);
+            $this->db->where('b.ORDER_NO_GTRON', $orderno);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
             
             redirect (site_url('store/transaksi'));
 	} else {

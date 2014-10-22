@@ -439,12 +439,51 @@ class Pesanan_m extends MY_Model {
     function count_new_pesanan()
     {	
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
-		$this->db->from('`order`');
-		$this->db->where_in('status_order', '1');
-				
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '1');
+		
+		$query = $this->db->get();
+			
+		
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				return $row['order_count'];
+			}
+		}
+		
+		return 0;
+    }
+    
+    function count_gold_process()
+    {	
+		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '3');
+		
+		$query = $this->db->get();
+			
+		
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				return $row['order_count'];
+			}
+		}
+		
+		return 0;
+    }
+    
+    function count_print_order()
+    {	
+		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '5');
+		
 		$query = $this->db->get();
 		
-		//echo $this->db->last_query();		
 		
 		if ($query->num_rows() > 0)
 		{
@@ -619,6 +658,7 @@ class Pesanan_m extends MY_Model {
 	$sql = "select * from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		AND SUPPLIER_ORDER_HEADER.FLAG = 1
 		ORDER BY id_order DESC";
 	    
 	    $hasil = $this->db->query($sql);
@@ -646,6 +686,25 @@ class Pesanan_m extends MY_Model {
         } 
         return $data;
 	
+    }
+    
+    public function get_printing($limit1='',$limit2='') {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER
+		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
+		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		AND SUPPLIER_ORDER_HEADER.FLAG = 5
+		AND SUPLIER_ORDER_HEADER.PRINT_STATUS = 0
+		ORDER BY id_order DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
     }
 }
 
