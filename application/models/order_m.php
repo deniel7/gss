@@ -60,17 +60,7 @@ class Order_m extends MY_Model {
         return false;
     }
     
-    function nama_list($nama,$id){
-        $result = array();
-        $array_keys_values = $this->db->query("select * from favoritku where user_id =".$id." GROUP BY nama");
-        foreach($array_keys_values ->result() as $row){
-            $result['0'] = '- Pilih -';
-            $result[$row->nama] = $row->nama;
-        }
-        //$results = array_merge(array('' => '- Pilih Kategori -'), $result);
-        
-        return $result;
-    }
+    
     
     public function get_record($id = 0,$get_user = FALSE) {
         $this->db->where($id);
