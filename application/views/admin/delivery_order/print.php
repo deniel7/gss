@@ -6823,8 +6823,8 @@ button.close {
 			
 			
 			<div class="row">
-				    <div class="col-lg-12">
-					<h5 class="page-header">PRINTED</h5>
+				    <div class="col-lg-12" style="text-align: right">
+					<h5 class="page-header">PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?></h5>
 				    </div>
 				    <!-- /.col-lg-12 -->
 			</div>
