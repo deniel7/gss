@@ -93,14 +93,14 @@
 			<?php foreach($data as $item): ?>
 			<li class="span3">
 			  <div class="thumbnail">
-				<?php //if($item->thumb == ''): ?>
-				    <!--<div class="no-image">
+				<?php if($item->THUMB == NULL): ?>
+				    <div class="thumbnail" style="padding-top:30px; padding-bottom: 30px; text-align: center; color: grey">
 					<span>Belum ada Gambar</span>
-				    </div>-->
-				<?php //else: ?>
-				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/1.jpg'; ?>" /></a>
+				    </div>
+				<?php else: ?>
+				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
 				    
-				<?php //endif; ?>
+				<?php endif; ?>
 				
 				<div class="caption">
 				  <p style="font-size: 11px"><b><?php echo $item->ARTICLE_CODE; ?></b></p>

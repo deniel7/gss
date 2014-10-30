@@ -441,5 +441,24 @@ class Order_m extends MY_Model {
         else
            return null;
     }
+    
+    public function cek_stok($cart = array()){
+       $stat = 'TRUE';
+       $prod = '';
+       foreach ($cart as $item){
+            $this->db->select('ARTICLE_DESC,STOCK_QTY');
+            $this->db->from('DC_STOCK_MASTER');
+            $this->db->where('ARTICLE_CODE',$item['id']);
+            
+            $result = $this->db->get()->row();
+            
+            if($item['qty']>$result->STOCK_QTY){
+                $prod .= $item['id'].'!@#'.$result->ARTICLE_DESC.'###';
+            }
+            
+        }  
+               
+        return $prod;
+    }
 }
 ?>

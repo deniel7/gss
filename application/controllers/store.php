@@ -543,22 +543,22 @@ class Store extends CI_Controller {
         $pembayaran = $this->input->post('pemb');
         
         if($this->form_validation->run()) {
-            $insert = array(    'nama_depan'    =>  $this->input->post('nama_depan'),
-                                'nama_belakang' =>  $this->input->post('nama_belakang'),
-                                'alamat'        =>  $this->input->post('alamat'),
-                                'kode_pos'      =>  $this->input->post('kode_pos'),
-                                'phone'         =>  $this->input->post('phone'),
-                                'ORDER_NO_GTRON'      =>  $order_no_gtron
+            $insert = array(    'nama_depan'      =>  $this->input->post('nama_depan'),
+                                'nama_belakang'   =>  $this->input->post('nama_belakang'),
+                                'alamat'          =>  $this->input->post('alamat'),
+                                'kode_pos'        =>  $this->input->post('kode_pos'),
+                                'phone'           =>  $this->input->post('phone'),
+                                'ORDER_NO_GTRON'  =>  $order_no_gtron
                                 );
             
-            $order = array(     'user_id'       =>  $this->session->userdata('user_id'),
-                                'FLAG'  =>  '0',
-                                'total_biaya'   =>  $this->input->post('total'),
-                                'total_item'    =>  $this->input->post('total_item'),
-                                'ORDER_NO_GTRON'      =>  $order_no_gtron,
-                                'ORDER_NO_GOLD'      =>  $order_no_gtron,
-                                'SITE_CODE'      =>  $this->data->store_site_code,
-                                'DC_CODE'      =>  $this->data->dc_site_code
+            $order = array(     'user_id'         =>  $this->session->userdata('user_id'),
+                                'FLAG'            =>  '0',
+                                'total_biaya'     =>  $this->input->post('total'),
+                                'total_item'      =>  $this->input->post('total_item'),
+                                'ORDER_NO_GTRON'  =>  $order_no_gtron,
+                                'ORDER_NO_GOLD'   =>  $order_no_gtron,
+                                'SITE_CODE'       =>  $this->data->store_site_code,
+                                'DC_CODE'         =>  $this->data->dc_site_code
                                 
                                 );
                                 
@@ -574,14 +574,31 @@ class Store extends CI_Controller {
             }else{
                 
                 $insert['user_id'] = $this->session->userdata('user_id');
-                
-                if($this->profile_m->insert($insert)){
-                    $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);
-                    $this->cart->destroy();
-                    
-                    $this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');
-                    redirect(site_url('store/order_selesai/id/'.$order['ORDER_NO_GTRON']));
+                $cek_stok = $this->order_m->cek_stok($this->cart->contents());
+                if($cek_stok == '') {
+                    if($this->profile_m->insert($insert)){
+                        $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);
+                        $this->cart->destroy();
+                        
+                        $this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');
+                        redirect(site_url('store/order_selesai/id/'.$order['ORDER_NO_GTRON']));
+                    }
                 }
+                else {
+                   
+                    $list_prod = explode('###',$cek_stok);
+                    $alert ='';
+                    
+                    foreach($list_prod as $val) {
+                        $prod = explode('!@#',$val);
+                        
+                        $alert.= $prod[1].'<br/>';
+                        
+                    }
+                    
+                    $this->data->stok = $alert;
+                }
+                
             }
         }
         

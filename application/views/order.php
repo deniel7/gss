@@ -136,6 +136,12 @@ function FillBilling(f) {
 	      <?php echo validation_errors('<div class="alert-danger">', '</div><br/>'); ?>
 	      <br/>
 	  </span>
+	  
+	  <?php
+	    if($stok){
+	      echo "<div class='alert-danger'>Tidak cukup stok untuk produk dibawah ini : <br/><br/><b>".$stok."</b></div><br/>"; 
+	    }
+	  ?>
 	
 	<?php
 	  
@@ -347,3 +353,5 @@ function FillBilling(f) {
     
     <?php endif; ?>
 <?php endif; ?>
+
+  

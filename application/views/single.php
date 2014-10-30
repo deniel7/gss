@@ -53,27 +53,24 @@
 
 <div class="row">	  
     <div id="gallery" class="span3">
-	<a href="<?php echo base_url().'/asset/themes/images/products/large/f1.jpg'; ?>" title="Fujifilm FinePix S2950 Digital Camera">
+	<?php foreach($produk as $item): ?>
+	<a href="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG1; ?>" title="">
 				
-				<img src="<?php echo base_url().'/asset/themes/images/products/large/1.jpg'; ?>" style="width:100%" />
+				<img src="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG1; ?>" style="width:100%" />
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
 			    <div class="carousel-inner">
 			      <div class="item active">
 			       
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f1.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f1.jpg'; ?>" alt=""/></a>
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f2.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f2.jpg'; ?>" alt=""/></a>
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f3.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f3.jpg'; ?>" alt=""/></a>
+			       <a href="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG1; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG1; ?>" alt=""/></a>
+			       <a href="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG2; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG2; ?>" alt=""/></a>
+			       <a href="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG3; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/'.$item->IMG3; ?>" alt=""/></a>
 			      </div>
-			      <div class="item">
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f3.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f3.jpg'; ?>" alt=""/></a>
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f1.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f1.jpg'; ?>" alt=""/></a>
-			       <a href="<?php echo base_url().'/asset/themes/images/products/large/f2.jpg'; ?>"> <img style="width:29%" src="<?php echo base_url().'/asset/themes/images/products/large/f2.jpg'; ?>" alt=""/></a>
-			      </div>
+			      
 			    </div>
 			</div>
     </div>
-    <?php foreach($produk as $item): ?>
+    
     <div class="span9">
 		<h3><?php echo $item->ARTICLE_DESC;?></h3>
 		<small></small>
