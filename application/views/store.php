@@ -38,14 +38,14 @@
 		<?php foreach($data as $item): ?>
 		<div class="row">	  
 			<div class="span2">
-				<?php //if($item->thumb == ''): ?>
-				    <!--<div class="no-image">
+				<?php if($item->THUMB == NULL): ?>
+				    <div class="thumbnail" style="padding-top:30px; padding-bottom: 30px; text-align: center; color: grey">
 					<span>Belum ada Gambar</span>
-				    </div>-->
-				<?php //else: ?>
-				    <a href="<?php echo site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/1.jpg'; ?>" /></a>
+				    </div>
+				<?php else: ?>
+				    <a href="<?php echo site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
 				    
-				<?php //endif; ?>
+				<?php endif; ?>
 			</div>
 			<div class="span4">
 				<h5><?php echo $item->ARTICLE_CODE; ?></h5>
