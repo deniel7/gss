@@ -55,7 +55,7 @@
 		<?php echo form_input(array(
 						    'name' => 'userId',
 						    'id' => 'userId',
-						    'placeholder' => 'Gold User ID',
+						    'placeholder' => 'NIK',
 						    'value'       => $userId	,
 						    'class' => 'form-control input-lg'
 				    )); ?>

@@ -51,8 +51,8 @@ class User extends CI_Controller {
     private $login_rules = array (
                         array(
                                  'field'   => 'user_id', 
-                                 'label'   => 'user_id', 
-                                 'rules'   => 'alpha_numeric|required|max_length[15]|min_length[6]'
+                                 'label'   => 'NIK', 
+                                 'rules'   => 'numeric|required|max_length[15]|min_length[6]'
                               ),
                         array(
                                  'field'   => 'password', 

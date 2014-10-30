@@ -6823,7 +6823,12 @@ button.close {
 			
 			
 			<div class="row">
-				    <div class="col-lg-12" style="text-align: right">
+				    <div class="col-lg-6" style="text-align: left">
+					<h5 class="page-header"> DN Number : <?php echo $row['DN_NO']; ?></h5>
+					
+				    </div>
+				    <div class="col-lg-6" style="text-align: right">
+					
 					<h5 class="page-header">PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?></h5>
 				    </div>
 				    <!-- /.col-lg-12 -->

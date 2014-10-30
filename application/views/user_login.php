@@ -19,10 +19,9 @@
         <?php echo form_input(array(
 					'id' => 'user_id',
                                         'name' => 'user_id',
-					'placeholder' => 'Gold User ID',
-                                        'class' => 'form-control input-lg',
-					'onclick' => 'if(this.value == \'userId\') this.value = \'\'', //IE6 IE7 IE8
-					'onblur' => 'if(this.value == \'\') this.value = \'userId\''       //IE6 IE7 IE8
+					'placeholder' => 'NIK',
+                                        'class' => 'form-control input-lg'
+					
 			)); ?>
 			<br/>
 			<?php echo form_password(array(

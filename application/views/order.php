@@ -76,60 +76,43 @@ function FillBilling(f) {
 <div class="clear"></div>
 <?php
   
-  function random_salt($size=32, $number=false, $hash=false) {
+  //function transaksi_id() {
+  //      $dataMax = mysql_fetch_assoc(mysql_query("SELECT SUBSTR(MAX(`ORDER_NO_GTRON`),-5) AS ID  FROM SUPPLIER_ORDER_HEADER")); // ambil data maximal dari id transaksi
+  //      
+  //      if($dataMax['ID']=='') { // bila data kosong
+  //          $ID = "00001";
+  //      }else {
+  //          $MaksID = $dataMax['ID'];
+  //          $MaksID++;
+  //          if($MaksID < 10) $ID = $param."0000".$MaksID; // nilai kurang dari 10
+  //          else if($MaksID < 100) $ID = $param."000".$MaksID; // nilai kurang dari 100
+  //          else if($MaksID < 1000) $ID = $param."00".$MaksID; // nilai kurang dari 1000
+  //          else if($MaksID < 10000) $ID = $param."0".$MaksID; // nilai kurang dari 10000
+  //          else $ID = $MaksID; // lebih dari 10000
+  //      }
+  //
+  //      return $ID;
+  //  }
     
-    //Get insanely random data
-    $rand = mt_rand().microtime(true).uniqid('',true).join('',stat(__FILE__)).memory_get_usage().getmypid();
-    
-    //Remove everything that isn't a number
-    $rand = preg_replace('/[^0-9]+/', '', $rand);
+    function transaksi_id() {
+        $dataMax = mysql_fetch_assoc(mysql_query("SELECT SUBSTR(MAX(`ORDER_NO_GTRON`),-6) AS ID  FROM SUPPLIER_ORDER_HEADER")); // ambil data maximal dari id transaksi
+        
+        if($dataMax['ID']=='') { // bila data kosong
+            $ID = "000001";
+        }else {
+            $MaksID = $dataMax['ID'];
+            $MaksID++;
+            if($MaksID < 10) $ID = $param."00000".$MaksID; // nilai kurang dari 10
+            else if($MaksID < 100) $ID = $param."0000".$MaksID; // nilai kurang dari 100
+            else if($MaksID < 1000) $ID = $param."000".$MaksID; // nilai kurang dari 1000
+            else if($MaksID < 10000) $ID = $param."00".$MaksID; // nilai kurang dari 10000
+            else $ID = $MaksID; // lebih dari 10000
+        }
 
-    //Randomly shuffle the string
-    $rand = str_shuffle($rand);
-    
-    //Did they just want a long number?
-    if($number) {
-        return substr($rand, 0, $size);
+        return $ID;
     }
-    
-    $offset = 0;
-    for($i=0;$i<$size;$i++) {
-        
-        //Random starting point
-        $start = mt_rand(1,3);
-        //1 to 3 digit number
-        $length = mt_rand(1,3);
-        //Add to the total offset
-        $offset += $start;
-        
-        //If the offset is past the last char on the rand string - start over
-        $offset = ($offset + $length) >= strlen($rand) ? $start : $offset;
-        
-        //Fetch this number
-        $number = substr($rand, $offset, $length);
-        
-        //Force it to be larger than ascii 33
-        while($number < 33) {
-            $number += rand(1, 30);
-        }
-        
-        //Force it to be smaller than ascci 255
-        while($number > 255) {
-            $number -= rand(10, 100);
-        }
-        
-        //Get the ascii symbol for it
-        $string .= chr($number);
-    }
-    
-    //If the user wants us to hash it also
-    if($hash) {
-        return hash('sha256', $string);
-    }
-    
-    return $string;
-} 
-  $order_no = random_salt(5, TRUE);
+  
+  $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaksi_id();
 ?>
 
 <?php if (!$logged_in): ?>
@@ -335,7 +318,7 @@ function FillBilling(f) {
 	$datestring = "%H";
 	$time = time();
 	$t = mdate($datestring, $time);
-	if($t >= 8 && $t <=15){
+	if($t > 8 && $t <=15){
 	  echo "<span class='btn btn-info'>".date('d-m-Y').' /sore ini'."</span>";
 	}else{
 	  //echo date('Y-m-d','+ 1 day');  

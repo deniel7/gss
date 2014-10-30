@@ -18,7 +18,7 @@
 					echo form_input(array(
 						'id' => 'user_id',
 						'name' => 'user_id',
-						'placeholder' => 'User ID',
+						'placeholder' => 'NIK',
 						'class' => 'form-control'
 						
 					));

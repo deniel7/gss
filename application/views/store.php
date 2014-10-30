@@ -22,8 +22,9 @@
 	
 	  
 <div id="myTab" class="pull-right">
- <a href="#listView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-list"></i></span></a>
- <a href="#blockView" data-toggle="tab"><span class="btn btn-large"><i class="icon-th-large"></i></span></a>
+ <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+ <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+ 
 </div>
 <br class="clr"/>
 
@@ -33,7 +34,7 @@
 
 
 <div class="tab-content">
-	<div class="tab-pane active" id="listView">
+	<div class="tab-pane" id="listView">
 		<?php foreach($data as $item): ?>
 		<div class="row">	  
 			<div class="span2">
@@ -47,6 +48,7 @@
 				<?php //endif; ?>
 			</div>
 			<div class="span4">
+				<h5><?php echo $item->ARTICLE_CODE; ?></h5>
 				<h5><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),$item->ARTICLE_DESC);?></h5>
 				<hr class="soft"/>
 				
@@ -71,22 +73,21 @@
 				<h4>Stok : <p class="btn btn-success"><?php echo $this->cart->format_number($stock) ?></p></h4>
 				
 			    <?php } ?>
-			<!--<label class="checkbox">
-				<input type="checkbox">  Adds product to compair
-			</label>--><br/>
-			
-			  <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-large btn-primary"> View</a>
-			  
-			
+			    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-large btn-primary"> View</a>
 				</form>
 			</div>
 		</div>
+		
+		    <div class="col-lg-12">
+			<center></center>
+		    </div>
+		
 		<hr class="soft"/>
 		<?php endforeach; ?>
 		
 	</div>
 
-	<div class="tab-pane" id="blockView">
+	<div class="tab-pane active" id="blockView">
 		
 		<ul class="thumbnails">
 			<?php foreach($data as $item): ?>
@@ -102,7 +103,9 @@
 				<?php //endif; ?>
 				
 				<div class="caption">
+				  <p style="font-size: 11px"><b><?php echo $item->ARTICLE_CODE; ?></b></p>
 				  <p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p>
+				  
 				  
 				   <h4 style="text-align:center">
 	    

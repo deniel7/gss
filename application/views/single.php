@@ -96,11 +96,6 @@
 		    </div>
 			<?php echo form_open(site_url('store/add_cart')); ?>
 			
-			
-			
-			
-			
-			
 			<div class="span9">
 			    <div class="span3">
 				<div class="checkbox">
@@ -160,6 +155,7 @@
 			    
 			    if ($stock != 0 || $stock >0)
 			    {
+				echo form_hidden('recent_stock',$stock);
 				echo form_input(array('id' => 'qty','name' => 'qty','placeholder'=>'jumlah', 'value' =>'1', 'class' => 'span2' ));
 				
 				echo form_submit(array('name' => 'submit','value'=>'Pesan', 'class' => 'btn btn-large btn-primary pull-right' ));

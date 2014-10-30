@@ -66,7 +66,7 @@
 				continue;
 				
 				case '3':
-				$item->FLAG = '<div style="color:blue;">on Progress</div>';
+				$item->FLAG = '<div style="color:blue;">on Progress Gold</div>';
 				continue;
 				
 				case '4':
@@ -74,7 +74,7 @@
 				continue;
 			      
 				case '5':
-				$item->FLAG = '<div style="color:blue;">on Progress</div>';
+				$item->FLAG = '<div style="color:blue;">on Progress Shipment</div>';
 				continue;
 			      
 				case '6':

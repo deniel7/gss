@@ -278,6 +278,7 @@ class Store extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->add_cart);
         
+        $recent_stock = $this->input->post('recent_stock');
             
         if($this->input->post('colorRadio') == 'SV2'){
             $price = $this->input->post('pcash');
@@ -300,12 +301,19 @@ class Store extends CI_Controller {
                         );
         
         
-        
-        
-        $this->cart->insert($data);
-        $this->session->set_flashdata('user_note','<div class="alert-success">Produk berhasil ditambahkan ke dalam List Pemesanan.</div><br/><div class=pull-right><a href='.site_url().'store/kategori><span class="btn btn-info">Tambah Produk</span></a><a href='.site_url().'store/checkout>  <span class="btn btn-success">Pemesanan Selesai</span></a></div>');
-        
-        redirect (site_url($this->input->post('url')));
+            if($data['qty'] > $recent_stock){
+                
+                $this->session->set_flashdata('user_note','<div class="alert-danger">Stok tidak mencukupi</div>');
+            
+                redirect (site_url($this->input->post('url')));
+                
+            }else{
+            
+            $this->cart->insert($data);
+            $this->session->set_flashdata('user_note','<div class="alert-success">Produk berhasil ditambahkan ke dalam List Pemesanan.</div><br/><div class=pull-right><a href='.site_url().'store/kategori><span class="btn btn-info">Tambah Produk</span></a><a href='.site_url().'store/checkout>  <span class="btn btn-success">Pemesanan Selesai</span></a></div>');
+            
+            redirect (site_url($this->input->post('url')));
+            }
         
         }else{
         $this->session->set_flashdata('error', validation_errors('<div class="alert-danger">', '</div><br/>'));
@@ -564,6 +572,7 @@ class Store extends CI_Controller {
             
             
             }else{
+                
                 $insert['user_id'] = $this->session->userdata('user_id');
                 
                 if($this->profile_m->insert($insert)){
