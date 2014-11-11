@@ -36,7 +36,7 @@
 	 
 	 
 	 <li>
-		<?php echo anchor(site_url('user/login'),'<span class="btn btn-large btn-success">Login</span>') ?>
+		<?php echo anchor(site_url('user/login'),'<span class="btn btn-large btn-success">Loginss</span>') ?>
 	 
 	 </li>
 	 
