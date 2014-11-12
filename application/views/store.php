@@ -46,41 +46,52 @@
 				    <a href="<?php echo site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
 				    
 				<?php endif; ?>
+				<center><a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-success">View</a></center>
 			</div>
-			<div class="span4">
-				<h5><?php echo $item->ARTICLE_CODE; ?></h5>
+			<div class="span7">
+				
 				<h5><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),$item->ARTICLE_DESC);?></h5>
 				<hr class="soft"/>
 				
-				<br class="clr"/>
-			</div>
-			<div class="span3 alignR">
-			<form class="form-horizontal qtyFrm">
-			    
-			    <?php
+				<table class="table table-bordered" style="font-size: 11px">
+				<tr>
+				    <td>PLU</td>
+				    <td><b><?php echo $item->PLU; ?></b></td>
+				</tr>
+				<tr>
+				    <td>ARTICLE CODE</td>
+				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
+				</tr>
+				<tr>
+				    <td>ARTICLE CODE</td>
+				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
+				</tr>
+				<?php
 				$stok = $item->STOCK_QTY;
 				$booked = $item->BOOK_QTY;
 				$confirm = $item->CONFIRM_QTY;
 				
 				$stock = $stok - $booked - $confirm;
-				
-				if($stock == 0 || $stock <=0){
 			    
-			    ?>
-			    
-				<h4>Stok : <p class="btn btn-danger">Kosong</p></h4>
-			    <?php }else{ ?>
-				<h4>Stok : <p class="btn btn-success"><?php echo $this->cart->format_number($stock) ?></p></h4>
+				?>
 				
-			    <?php } ?>
-			    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-large btn-primary"> View</a>
-				</form>
+				<tr>
+				    <td>STOK</td>
+				    
+				    <?php if($stock == 0 || $stock <=0){ ?>
+				    <td><p class="btn btn-danger">Kosong</p></td>
+				     <?php }else{ ?>
+				    <td><p class="btn btn-success"><?php echo $this->cart->format_number($stock) ?></p></td>
+				    <?php } ?>
+				</tr>
+				
+				</table>
+				
+				
+				<br class="clr"/>
+				
 			</div>
 		</div>
-		
-		    <div class="col-lg-12">
-			<center></center>
-		    </div>
 		
 		<hr class="soft"/>
 		<?php endforeach; ?>
@@ -103,12 +114,20 @@
 				<?php endif; ?>
 				
 				<div class="caption">
-				  <p style="font-size: 11px"><b><?php echo $item->ARTICLE_CODE; ?></b></p>
-				  <p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p>
-				  
-				  
-				   <h4 style="text-align:center">
-	    
+				<table class="table table-bordered" style="font-size: 11px">
+				<tr>
+				    <td colspan="2"><p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p></td>
+				</tr>
+				<tr>
+				    <td>PLU</td>
+				    <td><b><?php echo $item->PLU; ?></b></td>
+				</tr>
+				<tr>
+				    <td>Article Code</td>
+				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
+				</tr>
+				<tr>
+				    <td>Stok</td>
 				    <?php
 					$stok = $item->STOCK_QTY;
 					$booked = $item->BOOK_QTY;
@@ -119,13 +138,16 @@
 					if($stock == 0 || $stock <=0){
 				    
 				    ?>
-					<p style="font-size:11px" class="btn-danger">Stok Kosong</p>
+					<td class="btn-danger">Kosong</td>
 				    <?php }else{ ?>
-					<p style="font-size:11px" class="btn-success">Stok : <?php echo $stock; ?></p>
+					<td class="btn-success"><?php echo $stock; ?></td>
 					
 				    <?php } ?>
-				   </h4>
-				    <h4 style="text-align:center"><a class="btn btn-primary" href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>">View</a></h4>
+				</tr>
+				</table>
+
+				   
+				    <!--<h4 style="text-align:center"><a class="btn btn-primary" href="<?php //echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>">View</a></h4>-->
 				</div>
 			  </div>
 			</li>
@@ -151,6 +173,7 @@
 	    <?php if (!empty($search_name)): ?>
 		<p>Tidak berhasil ditemukan untuk pencarian: <strong><?php echo $search_name ?></strong></p>
 	    <?php else:?>
+		<h1>Pilih Kategori disamping ini</h1>
 		<p><strong>Tidak ada barang untuk kategori ini.</strong></p>
 	    <?php endif; ?>
 	<?php endif; ?>
