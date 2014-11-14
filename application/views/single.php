@@ -97,8 +97,8 @@
 			    <div class="span3">
 				<div class="checkbox">
 				    <label>
-					<input id="colorRadio" type="radio" name="colorRadio" value="1">
-					&nbsp;<b>PEMBAYARAN KREDIT</b>
+					<input id="colorRadio" type="radio" name="colorRadio" value="1" checked="checked">
+					&nbsp;<b>Harga</b>
 				    </label>
 				</div>
 				<div class="credit box">
@@ -117,7 +117,7 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>PEMBAYARAN TUNAI</b>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>Cash / Tunai &nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cut"></i>&nbsp;5%</b>
 				</label>
 			    </div>
 			    
