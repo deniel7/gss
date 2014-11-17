@@ -325,10 +325,10 @@ function FillBilling(f) {
 	$time = time();
 	$t = mdate($datestring, $time);
 	if($t > 8 && $t <=15){
-	  echo "<span class='btn btn-info'>".date('d-m-Y').' /sore ini'."</span>";
+	  echo "<span class='btn btn-info'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Pagi'."</span>";
 	}else{
 	  //echo date('Y-m-d','+ 1 day');  
-	  echo "<span class='btn btn-warning'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Pagi'."</span>";
+	  echo "<span class='btn btn-warning'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Sore'."</span>";
 	}
 	
 	
