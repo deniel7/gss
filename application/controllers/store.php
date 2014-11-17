@@ -104,22 +104,18 @@ class Store extends CI_Controller {
     }
     
     public function home(){        
-        $data['data'] = $this->produk_m->get_all_produk();
-        $data['sup'] = $this->produk_m->get_all_produk_sup();
-        $data['fash'] = $this->produk_m->get_all_produk_fash();
         
         
-        $data['produk'] = $this->produk_m->get_all_produk();
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
         ->set_css('bootstrap')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
-        ->set_css('prettify')
-        ->set_parsial('slidebanner','slide_banner',$this->data)
+        ->set_css('mystyle')
         ->set_parsial('sidebar','sidebar_view',$this->data)
         ->set_parsial('topmenu','top_view',$this->data)
-        ->render('front',$data);   
+        ->render('home',$data);   
     }
     
    
