@@ -885,6 +885,20 @@ class Store extends CI_Controller {
     public function detail($id = 0) {
        $this->load->model('pesanan_m');
         
+        if ($this->input->post('submit2')){
+            $orderno = $this->input->post('orderno');
+            
+            
+            $this->db->set('a.FLAG', '4');
+            $this->db->set('b.FLAG', '4');
+            
+            $this->db->where('a.ORDER_NO_GTRON', $orderno);
+            $this->db->where('b.ORDER_NO_GTRON', $orderno);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+            
+            redirect (site_url('store/transaksi'));
+	}
+        
         if ($this->input->post('submit')){
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');

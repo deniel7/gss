@@ -83,7 +83,7 @@
             
             <div class="text-center">
             <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">Submit Pesanan</button>
-	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#responsive2">Cancel Pesanan</button>
+	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
             </div>
 </div>
 
@@ -131,6 +131,78 @@
     <?php echo form_close(); ?>
 </div>
 
+
+<div id="responsive2" class="modal fade" tabindex="-1" data-width="160" style="display: none;">
+    <form action="<?php echo site_url(uri_string()); ?>" method="POST">
+    
+    <?php //echo form_open('pesanan/submit_pesanan'); ?>
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <h4 class="modal-title">Submit Pesanan</h4>
+    </div>
+    <div class="modal-body">
+    <div class="row">
+    <div class="span4">
+    
+    <p>
+    <?php
+	
+	echo form_hidden('orderno',$orderno);
+	
+	echo form_input(array(
+					'id' => 'nomor',
+                                        'name' => 'nomor',
+					'placeholder' => 'Nomor Struk Pembayaran',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+    ?>
+    </p>
+    <!--<p><input class="form-control" type="text"></p>-->
+    
+    </div>
+    
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+    <!--<button type="button" class="btn btn-primary">Submit</button>-->
+    <?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
+    </div>
+    <?php echo form_close(); ?>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title">Want to cancel this transaction?</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row-fluid">
+     
+      <form action="<?php echo site_url(uri_string()); ?>" method="POST">
+      
+      <?php
+	
+	echo form_input('orderno',$orderno); 
+	
+      ?>
+      </div>
+      </div>
+      <div class="modal-footer">
+	
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+	<?php echo form_submit('submit2', 'Yes','class = "btn btn-success"'); ?>
+	
+	<?php echo form_close(); ?>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </div>
 
