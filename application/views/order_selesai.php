@@ -149,6 +149,7 @@
         <?php //endforeach; ?>
         </table>
 	  
+	  <p>Transaksi Anda akan <b>dibatalkan</b> jika dalam rentang waktu 60 menit Nota ini tidak dibayar.</p>
 	  </div>
 	</div>
 	<center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>

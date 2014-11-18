@@ -188,7 +188,7 @@
       
       <?php
 	
-	echo form_input('orderno',$orderno); 
+	echo form_hidden('orderno',$orderno); 
 	
       ?>
       </div>
