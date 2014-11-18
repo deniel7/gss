@@ -18,9 +18,9 @@
 		
     <ul id="topMenu" class="nav pull-right">
 	 <?php if ($logged_in): ?>
-	 <li class=""><?php echo anchor(site_url('store/home'),'<span class="btn btn-large btn-default"><i class="icon-home"></i> Home</span>'); ?></li>
-	 
-	 <li class=""><?php echo anchor(site_url('store/transaksi'),'<span class="btn btn-large btn-info"><i class="icon-file"></i> Transaksi</span>'); ?></li>
+	 <li class=""><?php echo anchor(site_url('store/kategori'),'<span class="btn btn-large btn-info">PRODUK</span>'); ?></li>
+	 <li class="">&nbsp;</li>
+	 <li class=""><?php echo anchor(site_url('store/transaksi'),'<span class="btn btn-large btn-warning">TRANSAKSI</span>'); ?></li>
 	 
 	 
 	 
@@ -36,12 +36,12 @@
 	 
 	 
 	 <li>
-		<?php echo anchor(site_url('user/login'),'<span class="btn btn-large btn-success"><i class="icon-user"></i> Login</span>') ?>
+		<?php echo anchor(site_url('user/login'),'<span class="btn btn-large btn-success">Login</span>') ?>
 	 
 	 </li>
 	 
 	 <li>
-		<?php echo anchor(site_url('user/register'),'<span class="btn btn-large btn-info"><i class="icon-share"></i> Register</span>') ?>
+		<?php echo anchor(site_url('user/register'),'<span class="btn btn-large btn-info">Register</span>') ?>
 	 
 	 </li>
 	 
