@@ -83,6 +83,7 @@
             
             <div class="text-center">
             <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">Submit Pesanan</button>
+	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#responsive2">Cancel Pesanan</button>
             </div>
 </div>
 

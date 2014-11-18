@@ -5,7 +5,7 @@
 		{
 		var DocumentContainer = document.getElementById('print');
 		var WindowObject = window.open('', 'PrintWindow',
-		'width=1000,height=600,top=0,left=0,toolbars=no,scrollbars=yes,status=yes,resizable=yes');
+		'width=1000,height=800,top=0,left=0,toolbars=no,scrollbars=yes,status=yes,resizable=yes');
 		WindowObject.document.writeln(DocumentContainer.innerHTML);
 		
                 WindowObject.document.close();
@@ -51,10 +51,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+*{
+	    font-size:8px;
+	}
+
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -102,7 +106,8 @@ dfn {
 
 h1 {
     margin: .67em 0;
-    font-size: 2em
+    font-size: 2em;
+    color:red
 }
 
 mark {
@@ -6813,244 +6818,164 @@ button.close {
 			    ?>
 			    
 
-			<div class="col-lg-12">
-				    
-			<?php
-				      
-				      echo form_hidden('orderno', $row['ORDER_NO_GTRON']);
-				      
-			?>
-			
-			
-			<div class="row">
-				    <div class="col-lg-6" style="text-align: left">
-					<h5 class="page-header"> DN Number : <?php echo $row['DN_NO']; ?></h5>
-					
-				    </div>
-				    <div class="col-lg-6" style="text-align: right">
-					
-					<h5 class="page-header">PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?></h5>
-				    </div>
-				    <!-- /.col-lg-12 -->
-			</div>
-			
-			<div class="row">
-			    <div class="col-lg-12">
-				<div class="panel panel-default">
-						    <div class="panel-heading">
-							<div class="row">
-							<div class="col-lg-6">
-							<img src="<?php echo base_url().'/template/palmtree/images/logo.gif'; ?>" />
-							</div>
-							<div class="col-lg-6">
+			<div>
+					    
+				<?php
+					      
+					      echo form_hidden('orderno', $row['ORDER_NO_GTRON']);
+					      
+				?>
+				
+				
+				<div class="row">
+					<div class="col-lg-12">    
+					    <p style="text-align: left; float: left">
+						DN Number : <?php echo $row['DN_NO']; ?>
+					    </p>
+					    <p style="text-align: right; float: right">
+					    PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?>
+					    </p>
+					</div>
+
+				</div>
+				
+				<div class="row">
+				    <div class="col-lg-12">
+					<div class="panel panel-default">
+							    <div class="panel-heading">
+								<div class="row">
+								<div class="col-lg-6">
+								<img src="<?php echo base_url().'/template/palmtree/images/logo.gif'; ?>" />
+								</div>
+								<div class="col-lg-6">
+								    <div class="panel-body">
+								<div class="table-responsive">
+								    <table class="table table-striped table-bordered table-hover">
+									
+									<tbody>
+									    <tr>
+										<td>Tanggal Pemesanan</td>
+										<td><?php echo $row['tanggal_masuk']; ?></td>
+									    </tr>
+									    <tr>
+										<td>Nomor Order</td>
+										<td><?php echo $row['ORDER_NO_GTRON']; ?></td>
+										
+									    </tr>
+									    <tr>
+										<td>Nama</td>
+										<td><?php echo $row['nama_depan'].' '.$row['nama_belakang']; ?></td>
+										
+									    </tr>
+									    <tr>
+										<td>Alamat</td>
+										<td><?php echo $row['alamat']; ?></td>
+										
+									    </tr>
+									    <tr>
+										<td>Kode Pos</td>
+										<td><?php echo $row['kode_pos']; ?></td>
+									    </tr>
+									    <tr>
+										<td>Telepon</td>
+										<td><?php echo $row['phone']; ?></td>
+									    </tr>
+									</tbody>
+								    </table>
+								</div>
+								<!-- /.table-responsive -->
+							    </div>
+								</div>
+								</div>
+								
+							    </div>
+							    <!-- /.panel-heading -->
 							    <div class="panel-body">
-							<div class="table-responsive">
-							    <table class="table table-striped table-bordered table-hover">
 								
-								<tbody>
-								    <tr>
-									<td>Nama</td>
-									<td><?php echo $row['nama_depan'].' '.$row['nama_belakang']; ?></td>
-									
-								    </tr>
-								    <tr>
-									<td>Alamat</td>
-									<td><?php echo $row['alamat']; ?></td>
-									
-								    </tr>
-								    <tr>
-									<td>Kode Pos</td>
-									<td><?php echo $row['kode_pos']; ?></td>
-								    </tr>
-								    <tr>
-									<td>Telepon</td>
-									<td><?php echo $row['phone']; ?></td>
-								    </tr>
-								</tbody>
-							    </table>
-							</div>
-							<!-- /.table-responsive -->
-						    </div>
-							</div>
-							</div>
-							
-						    </div>
-						    <!-- /.panel-heading -->
-						    <div class="panel-body">
-							<div class="table-responsive">
-							    <table class="table table-striped table-bordered table-hover">
-								
-								<tbody>
-								
-								    <tr>
-									<td>Nomor Order</td>
-									<td><?php echo $row['ORDER_NO_GTRON']; ?></td>
-									
-								    </tr>
-								    
-								    <tr>
-									<td>Tanggal Pemesanan</td>
-									<td><?php echo $row['tanggal_masuk']; ?></td>
-									
-								    </tr>
-								    
-								    
-								   
-								</tbody>
-							    </table>
-							</div>
-							
-							<div class="table-responsive">
-							    <table class="table table-striped table-bordered table-hover">
-								<thead>
-								    <tr>
-									
-									<th>Items</th>
-									<th>Jumlah</th>
-									<th>Harga</th>
-								    </tr>
-								</thead>
-								<tbody>
-								    <?php //foreach($data['detail'] as $detail): ?>
-								    <tr>
-									<td><?php echo $row['ARTICLE_DESC']; ?></td>
-									<td><?php echo $row['kuantitas']; ?></td>
-									<td>Rp. <?php echo $this->cart->format_number($row['subtotal']); ?></td>
-								    </tr>
-								    <?php //endforeach; ?>
-								    <tr>
-									<td colspan="2" style="text-align: right;">Biaya</td>
-									<td>Rp. 1,000</td>
-								    </tr>
-								    <tr>
-									<td style="text-align: right;" colspan="2">Total</td>
-									
-									<td>Rp. <?php echo $this->cart->format_number($row['total_biaya']); ?></td>
-								    </tr>
-								</tbody>
-							    </table>
-							</div>
-							<!-- /.table-responsive -->
-						    </div>
-						    <!-- /.panel-body -->
+								<div class="table-responsive">
+								    <table class="table table-striped table-bordered table-hover">
+									<thead>
+									    <tr>
+										
+										<th>Barang</th>
+										<th>Jumlah</th>
+										<th>Harga</th>
+									    </tr>
+									</thead>
+									<tbody>
+									    <?php //foreach($data['detail'] as $detail): ?>
+									    <tr>
+										<td><?php echo $row['ARTICLE_DESC']; ?></td>
+										<td style="text-align: right"><?php echo $row['kuantitas']; ?></td>
+										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($row['subtotal']); ?></td>
+									    </tr>
+									    <?php //endforeach; ?>
+									    <tr>
+										<td colspan="2" style="text-align: right;">Biaya Kirim</td>
+										<td style="text-align: right">Rp. 1,000</td>
+									    </tr>
+									    <tr>
+										<td style="text-align: right" colspan="2">Total</td>
+										
+										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($row['total_biaya']); ?></td>
+									    </tr>
+									</tbody>
+								    </table>
+								</div>
+								<!-- /.table-responsive -->
+							    </div>
+							    <!-- /.panel-body -->
+					</div>
+				    </div>
 				</div>
-			    </div>
+				
+				<div class="row">
+				    <div class="col-lg-12">
+					<div class="panel panel-default">
+					    <div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover">
+						    <thead>
+							<tr>
+							    
+							    <th>Warehouse GT</th>
+							    <th>Supervisor GT</th>
+							    <th>Loading GT</th>
+							    <th>Pengirim</th>
+							    <th>Penerima</th>
+							</tr>
+						    </thead>
+						    <tbody>
+							<tr>
+							    <td><br/><br/><br/></td>
+							    <td><br/><br/><br/></td>
+							    <td><br/><br/><br/></td>
+							    <td><br/><br/><br/></td>
+							    <td><br/><br/><br/></td>
+							</tr>
+							<tr>
+							    <td>Nama : </td>
+							    <td>Nama :</td>
+							    <td>Nama :</td>
+							    <td>Nama :</td>
+							    <td>Nama :</td>
+							</tr>
+							
+						    </tbody>
+						</table>
+					    </div>
+					</div>
+				    </div>
+				</div>
+				
+				<div class="panel-heading">
+				    <p style="text-align: right">*Barang <b>telah dikirimkan dan diterima</b> dengan baik dan lengkap oleh konsumen</p>
+				</div>
+			    
 			</div>
-			
-			<br/>
-			
-			<div class="row">
-			    <div class="col-lg-3">
-				<div class="panel panel-default">
-						    <div class="panel-heading">
-							<h4>Penerima</h4>
-						    </div>
-						    <!-- /.panel-heading -->
-						    <div class="panel-body">
-							<div class="table-responsive">
-							    <br/><br/>
-							    <tbody>
-								    <tr>
-									<td>Nama :</td>
-									<td>_____________</td>
-									
-								    </tr>
-							    </tbody>
-							</div>
-							
-						    </div>
-						    <div class="panel-heading">
-							<p>* Barang <b>telah diterima</b> dengan baik</p>
-						    </div>
-						    
-				</div>
-			    </div>
-			    
-			    <div class="col-lg-3">
-				<div class="panel panel-default">
-						    <div class="panel-heading">
-							<h4>Pengirim</h4>
-						    </div>
-						    <!-- /.panel-heading -->
-						    <div class="panel-body">
-							<div class="table-responsive">
-							    <br/><br/><br/>
-							    <tbody>
-								    <tr>
-									<td>Nama :</td>
-									<td>_____________</td>
-									
-								    </tr>
-							    </tbody>
-							</div>
-							
-						    </div>
-						    
-						    
-				</div>
-			    </div>
-			    
-			    <div class="col-lg-3">
-				<div class="panel panel-default">
-						    <div class="panel-heading">
-							<h4>Receiving Goods</h4>
-						    </div>
-						    
-						    <div class="panel-body">
-							<div class="table-responsive">
-							    <br/><br/>
-							    <tbody>
-								    <tr>
-									<td>Nama :</td>
-									<td>_____________</td>
-									
-								    </tr>
-							    </tbody>
-							</div>
-							
-						    </div>
-				</div>
-			    </div>
-			    
-			    <div class="col-lg-3">
-				<div class="panel panel-default">
-						    <div class="panel-heading">
-							<h4>Supervisor GT</h4>
-						    </div>
-						    <!-- /.panel-heading -->
-						    <div class="panel-body">
-							<div class="table-responsive">
-							    <br/><br/>
-							    <tbody>
-								    <tr>
-									<td>Nama :</td>
-									<td>_____________</td>
-									
-								    </tr>
-							    </tbody>
-							</div>
-							
-						    </div>
-						    
-						    
-				</div>
-			    </div>
-			
-			
-			
-			
-			
-			
-			
-			
-			
 			</div>
-		    
-		    
-                </div>
-                
-            </div>
+		    </div>
 	    
+	    </div>
 	</div>
         </form>
     </body>
