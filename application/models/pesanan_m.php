@@ -706,6 +706,23 @@ class Pesanan_m extends MY_Model {
 	    $hasil->free_result();
 	    return $data;
     }
+    
+    public function cek_DN($id) {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER
+		WHERE id_order ='$id'
+		AND FLAG = 7";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
 }
 
 ?>

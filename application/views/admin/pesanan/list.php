@@ -45,6 +45,7 @@
   <td>Total</td>
   <td>SPV</td>
   <td>No. Struk</td>
+  <td>Receiving DN</td>
   <td>Status</td>
 </thead>
 <tbody>
@@ -57,6 +58,11 @@
 		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
+		    <td>
+			<?php if ($item->RECEIVING_DN): ?>
+			<p style="color:green">Received</p>
+			<?php endif; ?>
+		    </td>
 		    <td>
 			
 			<?php

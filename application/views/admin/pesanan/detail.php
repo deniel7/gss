@@ -13,11 +13,28 @@
 <?php $orderno = $data['ORDER_NO_GTRON']; ?>
 
 <div id="page-wrapper">
+<?php echo"<br/><div class='bg-danger'>".$error.'</div>';?>
 <div class="row">
-	    <div class="col-lg-12">
+	    <div class="col-lg-10">
 		<h1 class="page-header">Detail Order</h1>
 	    </div>
-	    <!-- /.col-lg-12 -->
+	    <?php if($cek_dn): ?>
+		
+		<?php if ($data['RECEIVING_DN'] ==NULL){ ?>
+		<div class="col-lg-2">
+		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DN</a></h1>
+		</div>
+		
+		<?php }else{ ?>
+		
+		<div class="col-lg-2 col-md-3">
+		    <a data-toggle="modal" href="#long" class="thumbnail">
+		      <img src="<?php echo base_url().'uploads/receiving/'.$data['RECEIVING_DN']; ?>" alt="...">
+		    </a>
+		</div>
+		<?php } ?>
+	    <?php endif; ?>
+
 </div>
 
 <div class="row">
@@ -130,10 +147,32 @@
     </div>
 </div>
 
+
+
+<!-- Modal -->
+  <div class="modal fade" id="long" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" class="modal container hide fade">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">View Receiving DN</h4>
+        </div>
+        <div class="modal-body">
+	    <img src="<?php echo base_url().'uploads/receiving/'.$data['RECEIVING_DN']; ?>">
+	</div>
+        <div class="modal-footer">
+	  
+	  <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div><!-- /.modal-content -->
+    
+  </div><!-- /.modal -->
+
+
 <?php endforeach; ?>
 
 <br/>
-
 
 
 <?php 
@@ -157,39 +196,49 @@
 
 
 
-
-<div id="responsive" class="modal  fade" tabindex="-1" data-width="160" style="display: none;">
-    <form action="<?php echo site_url(uri_string()); ?>" method="POST">
-    
-    <?php //echo form_open('pesanan/submit_pesanan'); ?>
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-    <h4 class="modal-title">Submit Pesanan</h4>
-    </div>
-    <div class="modal-body">
-	<p>Would you like to continue with some arbitrary task?</p>
-    <div class="row">
-    <div class="span4">
-    <!--<h4>Bukti Pembayaran Transaksi</h4>-->
-    <p>
-    
-    </p>
-    <!--<p><input class="form-control" type="text"></p>-->
-    
-    </div>
-    
-    </div>
-    </div>
-    <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-    <!--<button type="button" class="btn btn-primary">Submit</button>-->
-    <?php //echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
-    </div>
-    
 </div>
 
 
-</div>
+<!-- Modal -->
+  <div class="modal fade" id="myUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Processing Order</h4>
+        </div>
+        <div class="modal-body">
+        
+	<?php
+                    //$komplemen = array('id'=>'addForm', 'name'=>'addForm');
+		    echo form_open_multipart(site_url(uri_string()));
+	       ?>
+		
+		    
+		    <div class="row">
+		    
+                    <div class="col-lg-6"><input type="file" name="userfile" id="userfile" size="20" /></div>
+		    </div>
+
+               
+	       
+	
+	<!--<form action="<?php //echo site_url(uri_string()); ?>" method="POST">-->
+	<?php
+	    echo form_hidden('orderno',$orderno);
+	?>
+	</div>
+        <div class="modal-footer">
+	  <?php //echo form_submit('submit', 'Yes','class = "btn btn-primary"'); ?>
+	  <input type="submit" value="upload" name="go_upload" class="btn btn-primary" />
+	  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+          <?php echo form_close(); ?>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -214,6 +263,9 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
+
 
 <style>
 table { border: solid 1px gray; width: 100%; margin: 0 auto;}

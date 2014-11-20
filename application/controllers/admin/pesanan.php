@@ -19,6 +19,7 @@ class Pesanan extends MY_Controller {
         $this->data->cabang = $this->session->userdata('kode_cabang');
 	
 	$this->load->model('konfirmasi_m');
+	$this->load->helper(array('form', 'url'));
     }
     
     public function index(){
@@ -36,57 +37,54 @@ class Pesanan extends MY_Controller {
     }
     
     public function detail($id = 0) {
-        //$id OR redirect(site_url('admin/produk'));
-        
-        //$this->load->library('form_validation');
-        //$this->form_validation->set_error_delimiters('<p class="msg warning">', '</p>');
-        
-        //foreach($this->kategori_m->kategori as $key => $val) {
-        //    $this->data->list_kategori[$val['id_kategori']] = $val['nama_kategori'];
-        //}
-        
-        //$this->data->list_cab = $this->kategori_m->list_cab('kode_cabang','nama_cabang');
-        //$data_lama = $this->produk_m->get($id);
-        //$this->data->gambar = $this->produk_m->get_gambar($id);
-        
-        //$this->form_validation->set_rules($this->rules);
-        //
-        //if($this->form_validation->run()) {
-        //    $data =  array (    
-        //                        'kategori_id'   =>  $this->input->post('kategori')
-        //                    );
-        //    if ($this->produk_m->update($id,$data)) {
-        //        $this->data->sukses = 'Data Berhasil di ubah';
-        //        redirect(site_url('admin/produk'));
-        //    }
-        //}
-        
-        //if(!$this->input->post('submit')){
-        //    $this->data->id = $data_lama->id_produk;
-        //    //ID di ata hanya digunakan untuk inisiasi halaman penambahan gambar
-        //    $this->data->nama_produk = $data_lama->nama_produk;
-        //    $this->data->kode = $data_lama->kode_produk;
-        //    $this->data->kategori = $data_lama->kategori_id;
-        //    $this->data->harga = $data_lama->harga_jual;
-        //    $this->data->harga_baru = $data_lama->harga_baru;
-        //    $this->data->stok = $data_lama->stok;
-        //    $this->data->deskripsi = $data_lama->deskripsi_produk;
-        //
-        //}     
-        
-        //$this->data->cek_konf = $this->pesanan_m->cek_konf(array('id_order'=>$id),true);
-        
         
         //$cab = $this->input->post('cab',TRUE);
-        if ($this->input->post('submit')){
+        //if ($this->input->post('submit')){
             
-            $this->pesanan_m->update_by(array('id_order'=>$id),array('FLAG'=>2));
+            //$this->pesanan_m->update_by(array('id_order'=>$id),array('FLAG'=>2));
             //$this->data->sukses = 'Data berhasil diperbaharui';
-	    redirect(site_url('admin/pesanan'));
+   
+	$this->load->library('form_validation');
+        
+        
+	$this->form_validation->set_rules('userfile','userfile','required'|'xss_clean');
+	
+        
+        if($this->input->post('go_upload')){
+	     
+	    $config['upload_path'] = 'uploads/receiving/';
+            $config['allowed_types'] = 'gif|jpeg|png';
+            $config['max_size']	= '500';
+            //$config['max_width']  = '9';
+            //$config['max_height']  = '7';
+
+            $this->load->library('upload', $config);
+	    
+            
+	    if (!$this->upload->do_upload())
+            {
+                   $this->data->error = $this->upload->display_errors();
+		   $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id),true);
+            }
+            else{
+ 
+            
+	    //$data=$this->upload->do_upload('gambar');
+	    $file=$this->upload->data();
+	    $uploadedFiles = $file['file_name']; 
+	    
+	    
+	    
+	    $this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles));
+	    
+	    redirect(base_url().'admin/pesanan/');
+	    //$this->load->view('admin/add_prod',$data);
+	    }
+       
         
 	} else {
 	    //CEK STATUS KONFIRMASI sudah / blom
-	    //$this->data->cek_k = $this->konfirmasi_m->cek_k($id);
+	    $this->data->cek_dn = $this->pesanan_m->cek_DN($id);
             
 	    //$this->data->detail = $this->pesanan_m->get_record(array('id_order'=>$id),true);
 	    $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id),true);
