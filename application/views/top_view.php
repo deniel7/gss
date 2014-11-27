@@ -24,14 +24,47 @@
 	 
 	 
 	 
-	<div>
+	<!--<div>
 		<form class="form-inline navbar-search" method="post" action="products.html" >
 			<input class="srchTxt" type="text" placeholder="Search Here" />
 			<button type="submit" id="submitButton" class="btn btn-primary">Go</button>
 		</form>
+	
+	<div>-->
+	<?php
+		$attributes = array('id' => 'form_pencarian');
+		echo form_open('store/search_prod');
+	?>
+
+			<span>
+				<?php
+					$data_s = array(
+					'name'        => 'search_name',
+					'id'          => 'search_name',
+					'placeholder' => 'Search here..',
+					'class'   => 'srchTxt'
+					//'value'	      => $search_name,
+					);
+					
+                                        
+                                        
+					echo form_input($data_s);
+					echo form_hidden('dc_site_code', $dc_site_code);
+					echo form_hidden('store_site_code', $store_site_code);
+					echo form_submit('submit', 'Go','class = "btn btn-primary"');
+					echo form_close();
+				?>
+				<ul>
+						<div id="result"></div>
+				</ul>
+			</span>
+			</div>
+	
+	
+	
 	</div>
 	 
-	 <li class="">
+	 
 	 <?php else: ?>
 	 
 	 

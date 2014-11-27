@@ -698,67 +698,91 @@ class Store extends CI_Controller {
         
         $data['link_map'] = ''; 
         $data['search_name'] ='';
+        $data['search_dc_site_code'] = '';
+        $data['search_store_site_code'] = '';
         //$data['data'] = $this->produk_m->get_all_produk2();
 	
+        //$dc_site_code = $this->input->post('dc_site_code');
+        //$store_site_code = $this->input->post('store_site_code');
+        
+        
         if(isset($_POST['submit']))
         {
             $data['search_name'] = $this->input->post('search_name');
+            //$data['search_dc_site_code'] = $this->input->post('dc_site_code');
+            //$data['search_store_site_code'] = $this->input->post('store_site_code');
+            
+            
+            //$dc_site_code = 15199;
+            //$store_site_code = 15102;
+            //
+            //echo $store_site_code;
+            //echo "<br/>";
+            //echo $dc_site_code;
             
             //set session user data untuk pencarian, untuk paging pencarian
             $this->session->set_userdata('sess_name', $data['search_name']);
+            $this->session->set_userdata('sess_dc_site_code', $data['search_dc_site_code']);
+            $this->session->set_userdata('sess_store_site_code', $data['search_store_site_code']);
             
         } else {
             $data['search_name'] = $this->session->userdata('sess_name');
+            $data['search_dc_site_code'] = $this->session->userdata('sess_dc_site_code');
+            $data['search_store_site_code'] = $this->session->userdata('sess_store_site_code');
         }
 		
-		if ($this->config->item('enable_sphinx_search') == '0')
-		{
-			$this->db->select('*');
-			$this->db->from('produk');
-			$this->db->join('kategori', 'produk.kategori_id = kategori.id_kategori');
-			$this->db->join('foto_produk', 'produk.id_produk = foto_produk.produk_id');
-			$this->db->where('status_produk',1);
-			$this->db->where('default',1);
-			$this->db->like('nama_produk', $data['search_name']);
-		}
-		else
-		{
-			$this->load->library('fsphinxlib');
-			$fsphinx = $this->fsphinxlib->create();
-			
-			$res = $fsphinx->query($data['search_name']);
-			
-			$foundId = array(0);
-			
-			if ($res)
-			{
-				if (array_key_exists('total_found', $res))
-				{
-					if ($res['total_found'] > 0)
-					{
-						$foundId = array();
-						if ( is_array($res["matches"]) )
-						{
-							foreach ( $res["matches"] as $key => $docinfo )
-							{
-								$foundId[] = $key;
-							}
-						}
-					}
-				}
-			}			
-			
-			if (count($foundId) > 0)
-			{
-				$this->db->select('*');
-				$this->db->from('produk');
-				$this->db->join('kategori', 'produk.kategori_id = kategori.id_kategori');
-				$this->db->join('foto_produk', 'produk.id_produk = foto_produk.produk_id');
-				$this->db->where('status_produk',1);
-				$this->db->where('default',1);
-				$this->db->where_in('produk.id_produk', $foundId);
-			}	
-		}
+        if ($this->config->item('enable_sphinx_search') == '0')
+        {
+                
+                $this->db->select('*');
+                $this->db->from('DC_STOCK_MASTER');
+                $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+                $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                $this->db->where('DC_SITE_CODE',15199);
+                $this->db->where('STORE_SITE_CODE',15102);
+                $this->db->like('DC_STOCK_MASTER.PLU', $data['search_name']);
+                
+        }
+        else
+        {
+                $this->load->library('fsphinxlib');
+                $fsphinx = $this->fsphinxlib->create();
+                
+                $res = $fsphinx->query($data['search_name']);
+                
+                $foundId = array(0);
+                
+                if ($res)
+                {
+                        if (array_key_exists('total_found', $res))
+                        {
+                                if ($res['total_found'] > 0)
+                                {
+                                        $foundId = array();
+                                        if ( is_array($res["matches"]) )
+                                        {
+                                                foreach ( $res["matches"] as $key => $docinfo )
+                                                {
+                                                        $foundId[] = $key;
+                                                }
+                                        }
+                                }
+                        }
+                }			
+                
+                if (count($foundId) > 0)
+                {
+                    
+                        
+                        $this->db->select('*');
+                        $this->db->from('DC_STOCK_MASTER');
+                        $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+                        $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                        $this->db->where('DC_SITE_CODE',15199);
+                        $this->db->where('STORE_SITE_CODE',15102);
+                        $this->db->where_in('DC_STOCK_MASTER.ARTICLE_CODE', $foundId);
+                }	
+        }
     
         //Pagination init
         $pagination['base_url'] 		= site_url('/store/search/page/');
@@ -777,20 +801,117 @@ class Store extends CI_Controller {
     
         if ($this->config->item('enable_sphinx_search') == '0')
 		{
-			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name']);
+			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$data['search_dc_site_code'],$data['search_store_site_code']);
 		}
 		else
 		{
-			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'], $foundId);
+			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'], $foundId,$data['search_dc_site_code'], $data['search_store_site_code']);
 		}
 		
         $this->load->vars($data);
         
-		$this->template->set_judul('Centralize Delivery & Inventory')
-			->set_css('style')
-			->set_parsial('sidebar','sidebar_view',$this->data)
-			->set_parsial('topmenu','top_view',$this->data)
-			->render('store',$data); 
+	$this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('mystyle')
+       
+        ->set_parsial('sidebar','sidebar_view',$this->data)
+        ->set_parsial('topmenu','top_view',$this->data)
+	->render('store',$data); 
+    
+    }
+    
+    
+    public function search_prod(){
+        
+        if(isset($_POST['submit']))
+        {
+            $data['search_name'] = $this->input->post('search_name');
+            $dc_site_code = $this->input->post('dc_site_code');
+            $store_site_code = $this->input->post('store_site_code');
+            
+            //set session user data untuk pencarian, untuk paging pencarian
+            $this->session->set_userdata('sess_name', $data['search_name']);
+            $this->session->set_userdata('sess_dc_site_code', $dc_site_code);
+            $this->session->set_userdata('sess_store_site_code', $store_site_code);
+           
+            
+        } else {
+            $data['search_name'] = $this->session->userdata('sess_name');
+            $dc_site_code = $this->session->userdata('sess_dc_site_code');
+            $store_site_code = $this->session->userdata('sess_store_site_code');
+        }
+        
+        
+        
+        $this->db->select('*');
+        $this->db->from('DC_STOCK_MASTER');
+        $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+        $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+        $this->db->where('DC_SITE_CODE',$dc_site_code);
+        $this->db->where('STORE_SITE_CODE',$store_site_code);
+        //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+        
+        if($data['search_name'] != ''){
+            $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $data['search_name']);
+            $this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
+            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+            
+            //echo"a";
+            
+           
+        
+        }
+        //else if($data['search_name'] ==NULL && $data['search_mem'] != NULL){
+        //    $this->db->like('CONCAT(membercard)', $data['search_mem']);
+        //    //echo"b";
+        //
+        //}else if($data['search_name'] ==NULL && $data['search_mem'] == NULL && $data['level'] != NULL){
+        //    $this->db->like('CONCAT(level)', $data['level']);
+        //    //echo"c";
+        //
+        //}else{
+        //    $this->db->like('CONCAT(username)', $data['search_name']);
+        //    $this->db->like('CONCAT(membercard)', $data['search_mem']);    
+        //    //echo"d";
+        //}
+        
+        $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+        
+        //Pagination init
+        $pagination['base_url'] 		= site_url('/store/search_prod/page/');
+        $pagination['total_rows'] 		= $this->db->get()->num_rows();
+        $pagination['full_tag_open'] 	        = "";
+        $pagination['full_tag_close'] 	        = "";
+        $pagination['cur_tag_open'] 	        = "<a style='background-color: #E3E3E3'>";
+        $pagination['cur_tag_close'] 	        = "</a>";
+        $pagination['num_tag_open'] 	        = "";
+        $pagination['num_tag_close'] 	        = "";
+        $pagination['per_page'] 		= 9;
+        $pagination['uri_segment'] 		= 4;
+        $pagination['num_links'] 		= 4;
+    
+        $this->pagination->initialize($pagination);
+    
+        $data['data'] = $this->produk_m->SearchResult($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code);
+    
+        $this->load->vars($data);
+        
+        
+	$this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('mystyle')
+       
+        ->set_parsial('sidebar','sidebar_view',$this->data)
+        ->set_parsial('topmenu','top_view',$this->data)
+	->render('store',$data); 
     }
     
     

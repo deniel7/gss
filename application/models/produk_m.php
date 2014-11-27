@@ -488,67 +488,32 @@ class Produk_m extends MY_Model {
 			return $data;
     }
     
-    function SearchResult($perPage,$uri,$search_plu,$search_kat,$search_name)
+    function SearchResult($perPage,$uri,$search_name,$dc_site_code,$store_site_code)
     {
      
-     $this->db->select('*');
-     $this->db->from('produk');
-     $this->db->join('kategori', 'produk.kategori_id = kategori.id_kategori');
+	$this->db->select('*');
+	$this->db->from('DC_STOCK_MASTER');
+	$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+	$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+	$this->db->where('DC_SITE_CODE',$dc_site_code);
+	$this->db->where('STORE_SITE_CODE',$store_site_code);
+	//$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
      
-        if($search_plu !=0 && $search_kat == 151 && $search_name == NULL)
+        if($search_name !='')
 	{
-	    $this->db->like('plu', $search_plu);
+	    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $search_name);
+	    $this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
+	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+	    $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
 	    //echo"a";
 	    
-	}else if($search_plu == 0 && $search_kat != 151 && $search_name == NULL){
-	    
-//           $a =  "select kode_cabang FROM `order` WHERE kode_cabang !=32";
-//           $query = $this->db->query($a);
-//           
-//           if(($query->num_rows() > 0)){
-//            
-//            $this->db->like('CONCAT(plu)', $search_plu);
-//	    $this->db->like('CONCAT(id_kategori)', $search_kat);
-//	    //echo"d";
-//           
-//           }else{ 
-//            $this->db->like('CONCAT(id_kategori)', $search_kat);
-//            //echo"b";
-//           }
-	$this->db->where('id_kategori', $search_kat);
-	//echo"b";
-	
-	
-        }else if($search_plu != 0 && $search_kat != 151 && $search_name == NULL){
-	    $this->db->like('CONCAT(plu)', $search_plu);
-	    $this->db->where('id_kategori', $search_kat);
-	    //echo"c";
-	    
-	}else if($search_plu == 0 && $search_kat == 151 && $search_name != NULL){
-	    $this->db->like('nama_produk', $search_name);
-	    //echo"d";
-	
-	}else if($search_plu != 0 && $search_kat == 151 && $search_name != NULL){
-	    $this->db->like('nama_produk', $search_name);
-	    $this->db->like('plu', $search_plu);
-	    //echo"e";
 	}
-        
-	else if($search_plu == 0 && $search_kat != 151 && $search_name != NULL){
-	    $this->db->like('nama_produk', $search_name);
-	    $this->db->where('id_kategori', $search_kat);
-	    //echo"f";
-	}
-	else{
-	    $this->db->like('nama_produk', $search_name);
-	    $this->db->where('id_kategori', $search_kat);
-	    $this->db->like('plu', $search_plu);
-	    //echo"g";
-	}
+	
          
-	 $this->db->order_by('id_produk','asc');
-         $data = $this->db->get('', $perPage, $uri);
-      
+	 $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+         
+	 $data = $this->db->get('', $perPage, $uri);
+	    //echo $this->db->last_query();
          if($data->num_rows() > 0)
             return $data->result();
          else
@@ -566,31 +531,33 @@ class Produk_m extends MY_Model {
         return $result;
     }
     
-    function SearchResult_front($perPage,$uri,$search_name, $filterId=null)
+    function SearchResult_front($perPage,$uri,$search_name, $filterId=null,$search_dc_site_code, $search_store_site_code)
     {
 		$this->db->select('*');
-		$this->db->from('produk');
-		$this->db->join('kategori', 'produk.kategori_id = kategori.id_kategori');
-		$this->db->join('foto_produk', 'produk.id_produk = foto_produk.produk_id');
-		$this->db->where('status_produk',1);
-		$this->db->where('default',1);
+		$this->db->from('DC_STOCK_MASTER');
+		$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+		$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+		$this->db->where('DC_SITE_CODE',15199);
+		$this->db->where('STORE_SITE_CODE',15102);
+		
+		
 		
 		if (!empty($filterId))
 		{
-			$this->db->where_in('produk.id_produk', $filterId);
+			$this->db->where_in('DC_STOCK_MASTER.ARTICLE_CODE', $filterId);
 		}
 		else if(!empty($search_name))
 		{
-			$this->db->like("CONCAT(nama_produk)",$search_name);  
+			$this->db->like("CONCAT(DC_STOCK_MASTER.PLU)",$search_name);  
 		}		
 
-		$this->db->order_by('id_produk','asc');
+		//$this->db->order_by('id_produk','asc');
 		//$data = $this->db->get('', $perPage, $uri);
 		
 		$this->db->limit($perPage, $uri);
 		
 		$data = $this->db->get();
-
+		echo $this->db->last_query();
 		if($data->num_rows() > 0)
 		{
 			return $data->result();
@@ -600,6 +567,8 @@ class Produk_m extends MY_Model {
 			return null;
 		}
     }
+    
+    
     
     function who_imp(){
 	$sql = "SELECT * FROM `user` WHERE import_time = (SELECT MAX(`import_time`) AS import_time FROM (`user`))";
