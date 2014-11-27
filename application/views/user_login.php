@@ -4,7 +4,9 @@
  
     <div class="row">
         <div class="span12">
+	    <?php echo $this->session->flashdata('login'); ?>
         <?php echo form_fieldset('LOGIN'); ?>
+	
         <?php if(@$error){echo @$error;} ?>
         <?php echo validation_errors(); ?>
         </div>

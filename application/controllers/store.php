@@ -208,9 +208,16 @@ class Store extends CI_Controller {
         $store_site_code = $this->data->store_site_code;
         $dc_site_code = $this->data->dc_site_code;
         
-        $data['data'] = $this->produk_m->get_category_product($dc_site_code,$store_site_code);
-        //echo $this->db->last_query();
+        if($store_site_code !='' AND $dc_site_code !='')
+        {
         
+            $data['data'] = $this->produk_m->get_category_product($dc_site_code,$store_site_code);
+        
+        }else{
+            
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
+        }
         $link = "";
         
         if ($result->num_rows() > 0)
@@ -246,16 +253,18 @@ class Store extends CI_Controller {
         $store_site_code = $this->data->store_site_code;
         $dc_site_code = $this->data->dc_site_code;
         
-        //if(!$this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code)){
-        //    
-        //    redirect (site_url('store'));
-        //}
+        if($store_site_code !='' AND $dc_site_code !='')
+        {
+            $this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code);
+            
+            $this->data->sv2_price = $this->produk_m->get_by_url2($url,$store_site_code,$dc_site_code);
         
-        $this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code);
+        }else{
+            
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
+        }
         
-        $this->data->sv2_price = $this->produk_m->get_by_url2($url,$store_site_code,$dc_site_code);
-        
-        //echo $this->db->last_query();
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
@@ -323,133 +332,7 @@ class Store extends CI_Controller {
         
     }
     
-    public function update_list() {
-       //$this->load->model('pesanan_m');
-       //$this->load->model('produk_m');
-       ////$data = $this->input->post('qty');
-       ////$param = $this->input->post('id_fav');
-       //$id_list = explode(',', $this->input->post('id_list'));
-       //$qty_list = explode(',', $this->input->post('qty_list'));
-       //
-       //var_dump($id_list);
-       //var_dump($qty_list);
-       
-       $this->load->model('pesanan_m');
-        
-        $id_produk = 0;
-
-        foreach ($_POST as $key => $list)
-        {
-            //echo "key:$key value:$list, ";
-            $qty_list = explode('-', $key);
-            if (count($qty_list) == 2)
-            { 
-                if ($qty_list[0] == 'submit')
-                {                    
-                    $id_produk = $qty_list[1];
-                }             
-                
-            }           
-            
-        }
-        
-        
-        if($this->input->post('simpan')){
-            /*
-            $data1 = array ( 
-                        //'qty'=>$this->input->post('qty'),
-                        'id_fav'=>$this->input->post('id_fav')
-                        );
-            $data2 = array ( 
-                        'qty'=>$this->input->post('qty'),
-                        //'id_fav'=>$this->input->post('id_fav')
-                        );
-            
-            $this->pesanan_m->update_list($data1,$data2);
-            */
-            
-            foreach ($_POST as $key => $list)
-            {
-                //echo "key:$key value:$list, ";
-                $qty_list = explode('-', $key);
-                if (count($qty_list) == 3)
-                {                
-                    
-                    if ($qty_list[0] == 'qty')
-                    {                    
-                        $id_fav = $qty_list[2];
-                        $data1 = $id_fav;
-                        $data2 = array ( 
-                                    'qty'=>$list,
-                                    //'id_fav'=>$this->input->post('id_fav')
-                                    );
-                        
-                        $this->pesanan_m->update_list($data1,$data2);
-                    }
-                    
-                    
-                }
-                
-                
-                
-            }
-                
-            
-                    
-            
-        
-        }
-        else
-        {
-            $name = '';
-            $price = '';
-            $kode = '';
-            $qty = 0;
-            foreach ($_POST as $key => $list)
-            { 
-                $qty_list = explode('-', $key);
-                if (count($qty_list) >= 2)
-                {
-                    if ($qty_list[0] == 'name' AND $qty_list[1] == $id_produk)
-                    {                    
-                        $name = $list;
-                    }
-                    
-                    else if ($qty_list[0] == 'price' AND $qty_list[1] == $id_produk)
-                    {                    
-                        $price = $list;
-                    }
-                    
-                    else if ($qty_list[0] == 'kode' AND $qty_list[1] == $id_produk)
-                    {                    
-                        $kode = $list;
-                    }
-                    
-                    else if ($qty_list[0] == 'qty' AND $qty_list[1] == $id_produk)
-                    {                    
-                        $qty = $list;
-                    }
-                }           
-                
-            }
-            
-            $data = array ( 'id'=>$id_produk,
-                            'name'=>$name,
-                            'qty'=>$qty,
-                            'price'=>$price,
-                            'kode'=>$kode
-                            );
-            //var_dump($data);
-            $this->cart->insert($data);
-            $this->session->set_flashdata('user_note','<div class="sukses">Produk berhasil ditambahkan ke dalam keranjang belanja Anda</div>');
-            
-            
-        }
-        
-        
-        redirect (site_url($this->input->post('url')));
-       
-    }
+    
     
     
     
@@ -974,6 +857,8 @@ class Store extends CI_Controller {
     
     public function transaksi() {
         $this->load->model('pesanan_m');
+        
+
         $store_site_code = $this->data->store_site_code;
         
         $this->data->base_url = base_url().'/store/transaksi';
@@ -983,10 +868,15 @@ class Store extends CI_Controller {
 	$this->data->uri_segment = 4;
         $this->pagination->initialize($this->data);
 	
-        $this->data->pesanan = $this->pesanan_m->get_transaksi($this->data->per_page,$this->uri->segment(4,0), $store_site_code);
-	//$this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
-        //$this->template->set_js('jcrop')->set_css('jcrop');
-       
+        if($store_site_code != '')
+        {
+            $this->data->pesanan = $this->pesanan_m->get_transaksi($this->data->per_page,$this->uri->segment(4,0), $store_site_code);
+        
+        }else{
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
+        }
+	
         $this->template->set_judul('Centralize Delivery & Inventory')
         
         ->set_css('bootstrap')

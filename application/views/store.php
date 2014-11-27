@@ -43,14 +43,14 @@
 					<span>Belum ada Gambar</span>
 				    </div>
 				<?php else: ?>
-				    <a href="<?php echo site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
+				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
 				    
 				<?php endif; ?>
 				<center><a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>" class="btn btn-success">View</a></center>
 			</div>
 			<div class="span7">
 				
-				<h5><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),$item->ARTICLE_DESC);?></h5>
+				<h5><?php echo anchor(site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk),$item->ARTICLE_DESC);?></h5>
 				<hr class="soft"/>
 				
 				<table class="table table-bordered" style="font-size: 11px">
@@ -109,14 +109,14 @@
 					<span>Belum ada Gambar</span>
 				    </div>
 				<?php else: ?>
-				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" /></a>
+				    <a href="<?php echo site_url('/store/produk/'.$item->ARTICLE_CODE); ?>"><img src="<?php echo base_url().'/asset/themes/images/products/'.$item->THUMB; ?>" title="<?php echo $item->ARTICLE_DESC; ?>" /></a>
 				    
 				<?php endif; ?>
 				
 				<div class="caption">
 				<table class="table table-bordered" style="font-size: 11px">
 				<tr>
-				    <td colspan="2"><p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->PLU),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p></td>
+				    <td colspan="2"><p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p></td>
 				</tr>
 				<tr>
 				    <td>PLU</td>
@@ -173,7 +173,7 @@
 	    <?php if (!empty($search_name)): ?>
 		<p>Tidak berhasil ditemukan untuk pencarian: <strong><?php echo $search_name ?></strong></p>
 	    <?php else:?>
-		<h1>Pilih Kategori disamping ini</h1>
+		
 		<p><strong>Tidak ada barang untuk kategori ini.</strong></p>
 	    <?php endif; ?>
 	<?php endif; ?>
