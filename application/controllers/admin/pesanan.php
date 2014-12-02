@@ -11,7 +11,6 @@ class Pesanan extends MY_Controller {
         $this->load->model('pesanan_m');
         $this->load->model('kategori_m');
         $this->load->library('pagination');
-        $this->template->set_js('jcrop')->set_css('jcrop');
         $this->data->metadata = $this->template->get_metadata();
         $this->data->judul = $this->template->get_judul();
         
@@ -24,7 +23,7 @@ class Pesanan extends MY_Controller {
     
     public function index(){
         //$this->data->pesanan = $this->pesanan_m->get_all();
-        $this->data->base_url = base_url().'/admin/pesanan/index';
+        //$this->data->base_url = base_url().'/admin/pesanan/index';
 		
 	//$this->data->total_rows = $this->db->count_all('order');
 	$this->data->per_page = $this->config->item('hlm');
@@ -33,6 +32,9 @@ class Pesanan extends MY_Controller {
 	
         $this->data->pesanan = $this->pesanan_m->get_all_transaksi();
 	$this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
+	
+	
+	
         parent::_view('pesanan/list',$this->data);
     }
     

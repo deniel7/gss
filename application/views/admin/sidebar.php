@@ -1,27 +1,142 @@
+
 <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
+                        
+			<!--<li>
                             
+			    <?php //echo anchor(site_url('admin/'),'<i class="fa fa-dashboard fa-fw"></i>Dashboard'); ?>
                         </li>
                         <li>
-                            
-			    <?php echo anchor(site_url('admin/'),'<i class="fa fa-dashboard fa-fw"></i>Dashboard'); ?>
-                        </li>
-                        <li>
-				<?php echo anchor(site_url('admin/pesanan'),'<i class="fa fa-table fa-fw"></i>Orders'); ?>
+				<?php //echo anchor(site_url('admin/pesanan'),'<i class="fa fa-table fa-fw"></i>Orders'); ?>
 			</li>
 			<li>
-				<?php echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
+				<?php //echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
+			</li>-->
+			
+			
+			
+			
+			<li>
+			
+			<div class="col-xs-12">
+				
+				<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php echo base_url(); ?>admin/">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-default" style="width: 100%;">
+						<div class="col-xs-9 text-left">
+							<div style="font-size: 17px">Dashboard</div>
+							<div><br/></div>
+							
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-dashboard fa-2x"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
+			
 			</li>
+			
+			
+			<li>
+			
+			<div class="col-xs-12">
+				
+				<div class="panel panel-red">
+					<a href="<?php echo base_url(); ?>admin/pesanan">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-danger" style="width: 100%">
+						<div class="col-xs-9 text-left">
+							<h4 id="c_pesanan"></h4>
+							<div>New Orders!</div>
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-shopping-cart fa-2x"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
+			
+			</li>
+			
+			<li>
+			
+			<div class="col-xs-12">
+				<div class="panel panel-yellow">
+				    <div class="panel-heading">
+					<div class="row">
+					    
+					    <button type="button" class="btn btn-warning" style="width: 100%">
+					    <div class="col-xs-9 text-left">
+						
+						<h4 id="c_gold_proses"></h4>
+						<div>Gold Process</div>
+					    </div>
+					    <div class="col-xs-3 text-right">
+						<div>
+							<i class="fa fa-tasks fa-2x"></i>
+						</div>
+					    </div>
+					    </button>
+					    
+					</div>
+				    </div>
+				    
+				</div>
+			</div>
+			
+			</li>
+			
+			<li>
+			
+			<div class="col-xs-12">
+				<div class="panel panel-info">
+					<a href="<?php echo base_url(); ?>admin/delivery_order">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						
+						<button type="button" class="btn btn-info" style="width: 100%">
+						<div class="col-xs-9 text-left"">
+						    <h4 id="c_print_do"></h4>
+						    <div>Print Delivery Order</div>
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+						    <i class="fa fa-print fa-2x"></i>
+						    </div>
+						</div>
+						</button>
+						
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+			</div>
+			
+			</li>
+			
 			<!--<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

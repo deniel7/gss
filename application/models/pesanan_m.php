@@ -461,6 +461,7 @@ class Pesanan_m extends MY_Model {
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
 		$this->db->from('SUPPLIER_ORDER_HEADER');
 		$this->db->where_in('FLAG', '3');
+		$this->db->or_where_in('FLAG', '2');
 		
 		$query = $this->db->get();
 			

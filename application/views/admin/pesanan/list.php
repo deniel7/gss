@@ -18,6 +18,46 @@
             
 </script>
 
+<script>
+	    $(document).ready(
+		    function() {
+			
+			setInterval(loaded2, 3000);
+			
+			loaded2();
+		    });
+	    
+	    function loaded2() {
+		//alert('hit');
+		if ($('#c_pesanan').length > 0)
+		{
+		$.ajax({
+			type: 'POST',                        
+			url: '<?php echo site_url('admin/refresh'); ?>',
+			dataType: 'json',
+			
+			async : false,
+			success:function(res){
+			  $('#c_pesanan').html(
+					res.result);
+			  $('#c_gold_proses').html(
+					res.result2);
+			  $('#c_print_do').html(
+					res.result3);
+			  //setTimeout(loaded2,2000);
+			},
+			error:function(res){
+			    alert(JSON.stringify(res));
+			    //setTimeout(loaded2,5000);
+			}
+		    });
+		}
+		
+	    }
+	    
+	    
+	</script>
+
 </head>
 
 <div id="page-wrapper">
