@@ -33,6 +33,26 @@
 	</script>-->
 	
 	
+	<script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.js" type="text/javascript"></script>
+	<script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
+	
+	<style type="text/css">
+		    @import "<?php echo base_url();?>template/palmtree/datatables/media/css/demo_table_jui.css";
+		    @import "<?php echo base_url();?>template/palmtree/datatables/media/themes/smoothness/jquery-ui-1.8.4.custom.css";
+	</style>
+	
+	<script type="text/javascript" charset="utf-8">
+		    $(document).ready(function(){
+			$('#datatables').dataTable({
+			    "sPaginationType":"full_numbers",
+			    "aaSorting":[[0, "desc"]],
+			    "bJQueryUI":true
+			});
+		    })
+		    
+	</script>
+
+	
 	
 	<script>
 	    $(document).ready(
@@ -65,6 +85,8 @@
 					res.result2);
 			  $('#c_print_do').html(
 					res.result3);
+			  $('#c_receiving').html(
+					res.result4);
 			  //setTimeout(loaded2,2000);
 			},
 			error:function(res){

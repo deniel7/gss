@@ -188,254 +188,6 @@ class Pesanan_m extends MY_Model {
     }
     
     
-    function SearchResult($perPage,$uri,$search_orderno,$search_mem,$search_tg1,$search_tg2,$status,$search_cab,$waktu)
-    {
-        
-        $this->db->select('*');
-        $this->db->from('order');
-        $this->db->join('user', 'user.id_user = order.user_id');
-        $this->db->join('user_data', 'user.id_user = user_data.user_id');
-        $this->db->join('cabang', 'order.kode_cabang = cabang.kode_cabang');
-        
-         
-         if (($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem == 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno == 0)){
-	    
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('order.kode_cabang', $search_cab);
-                $this->db->where('tanggal_masuk >=', $search_tg1);
-                $this->db->where('tanggal_masuk <=', $search_tg2);
-                
-                
-            }else{
-                
-	    $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-            
-            }
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status != 0) || (empty($status)) && ($search_cab == 0) && ($search_orderno == 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('status_order', $status);
-                $this->db->like('order.kode_cabang', $search_cab);
-               
-                
-            }else{
-            
-            $this->db->like('status_order', $status);
-            
-            }
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status == 0) && ($search_cab != NULL) && ($search_orderno == 0)){
-            
-            $this->db->like('order.kode_cabang', $search_cab);
-           
-        }
-        
-	else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno == 0) && ($waktu != 0)){
-            
-            $this->db->where('order.waktu_ambil', $waktu);
-            //echo"waktu";
-        }
-	
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno);
-            
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem != 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('order_no', $search_orderno)
-                     ->like('membercard', $search_mem)
-                     ->like('status_order', $status)
-                     ->like('order.kode_cabang', $search_cab);
-                
-                
-            }else{
-            
-            $this->db->like('order_no', $search_orderno)
-                     ->like('membercard', $search_mem);
-            
-            
-            }
-        }
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem == 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-               $this->db->like('order_no', $search_orderno)
-                     ->where('tanggal_masuk >=', $search_tg1)
-                     ->where('tanggal_masuk <=', $search_tg2)
-                     ->like('order.kode_cabang', $search_cab);
-            
-            
-            }else{
-            
-            $this->db->like('order_no', $search_orderno)
-                     ->where('tanggal_masuk >=', $search_tg1)
-                     ->where('tanggal_masuk <=', $search_tg2);
-            
-            }
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno)
-                     ->like('status_order', $status);
-            
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem == 0) && ($status == 0) && ($search_cab != 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno)
-                     ->like('order.kode_cabang', $search_cab);
-            
-        }
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem != 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno == 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('membercard', $search_mem);
-                $this->db->where('tanggal_masuk >=', $search_tg1);
-                $this->db->where('tanggal_masuk <=', $search_tg2);
-                $this->db->like('order.kode_cabang', $search_cab);
-            
-            
-            }else{
-            
-                $this->db->like('membercard', $search_mem);
-                $this->db->where('tanggal_masuk >=', $search_tg1);
-                $this->db->where('tanggal_masuk <=', $search_tg2);
-                
-            }
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem != 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno == 0)){
-            
-            $this->db->like('membercard', $search_mem)
-                     ->like('status_order', $status);
-            
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem != 0) && ($status == 0) && ($search_cab != NULL) && ($search_orderno == 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('membercard', $search_mem)
-                     ->like('order.kode_cabang', $search_cab);
-            }else{
-                $this->db->like('membercard', $search_mem);
-                
-            
-            }
-        }
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem == 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno == 0)){
-            
-            $a =  "select kode_cabang FROM `order` WHERE kode_cabang LIKE '".$search_cab."'";
-            $query = $this->db->query($a);
-            
-            if(($query->num_rows() > 0)){
-                $this->db->like('status_order', $status);
-                $this->db->like('order.kode_cabang', $search_cab);
-                $this->db->where('tanggal_masuk >=', $search_tg1);
-                $this->db->where('tanggal_masuk <=', $search_tg2);
-            
-                
-            }else{
-            
-            $this->db->like('status_order', $status);
-            $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-            
-            }
-        }
-        
-        //TIGA
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem != 0) && ($status == 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno);
-            $this->db->like('membercard', $search_mem);
-            $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-            
-            
-        }
-        
-        else if(($search_tg1 == 0) && ($search_tg2 == 0) && ($search_mem != 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno);
-            $this->db->like('membercard', $search_mem);
-            $this->db->like('status_order', $status);
-            
-            
-        }
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem != 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno == 0)){
-            
-            $this->db->like('membercard', $search_mem);
-            $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-            $this->db->like('status_order', $status);
-                     
-          
-            
-        }
-        
-        else if(($search_tg1 != 0) && ($search_tg2 != 0) && ($search_mem == 0) && ($status != 0) && ($search_cab == 0) && ($search_orderno != 0)){
-            
-            $this->db->like('order_no', $search_orderno);
-            $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-            $this->db->like('status_order', $status);
-                     
-           
-            
-        }
-        
-        else{
-            
-            $this->db->like('order_no', $search_orderno);
-            $this->db->like('membercard', $search_mem);
-            $this->db->like('status_order', $status);
-            $this->db->like('order.kode_cabang', $search_cab);
-            $this->db->where('tanggal_masuk >=', $search_tg1);
-	    $this->db->where('tanggal_masuk <=', $search_tg2);
-           
-        }
-         
-         $this->db->order_by('id_order','asc');
-         $data = $this->db->get('', $perPage, $uri);
-         
-	 
-         if($data->num_rows() > 0)
-            return $data->result();
-         else
-            return null;
-    }      
-    
     function count_new_pesanan()
     {	
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
@@ -482,7 +234,28 @@ class Pesanan_m extends MY_Model {
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
 		$this->db->from('SUPPLIER_ORDER_HEADER');
 		$this->db->where_in('FLAG', '5');
+		$this->db->where_in('PRINT_STATUS', '0');
 		
+		$query = $this->db->get();
+		
+		
+		if ($query->num_rows() > 0)
+		{
+			foreach ($query->result_array() as $row)
+			{
+				return $row['order_count'];
+			}
+		}
+		
+		return 0;
+    }
+    
+    function count_receiving()
+    {	
+		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		$this->db->from('SUPPLIER_ORDER_HEADER');
+		$this->db->where_in('FLAG', '7');
+		$this->db->where_in('RECEIVING_DN', 'NULL');
 		$query = $this->db->get();
 		
 		
@@ -660,6 +433,43 @@ class Pesanan_m extends MY_Model {
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 		
+		ORDER BY id_order DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
+    public function get_new_orders() {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER
+		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
+		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		WHERE SUPPLIER_ORDER_HEADER.FLAG = 1
+		ORDER BY id_order DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
+    public function get_all_receiving() {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER
+		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
+		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		WHERE SUPPLIER_ORDER_HEADER.FLAG = 7
+		AND SUPPLIER_ORDER_HEADER.RECEIVING_DN = 'NULL'
 		ORDER BY id_order DESC";
 	    
 	    $hasil = $this->db->query($sql);

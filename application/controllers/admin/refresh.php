@@ -21,13 +21,13 @@ class Refresh extends CI_Controller {
         $this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
 	$this->data->total_gold_proses = $this->pesanan_m->count_gold_process();
         $this->data->total_print_do = $this->pesanan_m->count_print_order();
-//        $this->load->model('user_m');
-//	$this->data->total_n_user = $this->user_m->count_new_user();
+        $this->data->total_receiving = $this->pesanan_m->count_receiving();
         
         $data = array();
         $data['result'] = '<a href='.site_url('admin/pesanan').'><p style=color:white>'.$this->data->total_pesanan.'</p></a>';
-        $data['result2'] = '<a href='.site_url('admin/pesanan').'><p style=color:white>'.$this->data->total_gold_proses.'</p></a>';
-        $data['result3'] = '<a href='.site_url('admin/pesanan').'><p style=color:white>'.$this->data->total_print_do.'</p></a>';
+        $data['result2'] = '<p style=color:white>'.$this->data->total_gold_proses.'</p>';
+        $data['result3'] = '<a href='.site_url('admin/delivery_order').'><p style=color:white>'.$this->data->total_print_do.'</p></a>';
+	$data['result4'] = '<a href='.site_url('admin/receiving').'><p style=color:white>'.$this->data->total_receiving.'</p></a>';
         echo json_encode($data);
     }
     

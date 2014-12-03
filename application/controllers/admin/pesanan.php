@@ -30,7 +30,7 @@ class Pesanan extends MY_Controller {
 	$this->data->uri_segment = 4;
         $this->pagination->initialize($this->data);
 	
-        $this->data->pesanan = $this->pesanan_m->get_all_transaksi();
+        $this->data->pesanan = $this->pesanan_m->get_new_orders();
 	$this->data->list_cab= $this->pesanan_m->list_cab('kode_cabang','nama_cabang');
 	
 	
