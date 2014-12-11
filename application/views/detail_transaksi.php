@@ -60,10 +60,13 @@
         <td><?php echo $data['total_item']; ?></td>
         <td> Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
     </tr>
+    <tr><td><br/></td></tr>
     <tr>
         <td></td>
-        <td colspan="3"><b>Rincian :: </b></td>
+        <td colspan="3"><b>Detail : </b></td>
     </tr>
+    
+    
     <?php foreach($data['detail'] as $detail): ?>
     <tr>
         <td></td>
@@ -72,6 +75,11 @@
         <td>Rp. <?php echo $this->cart->format_number($detail['subtotal']); ?></td>
     </tr>
     <?php endforeach; ?>
+    <tr>
+        <td></td>
+        <td colspan="2" style="text-align: right"><b>Biaya Kirim</b></td>
+	<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
+    </tr>
 </table>
 
 

@@ -6,7 +6,7 @@ class Option_m extends MY_Model {
     
     public function __construct(){
         parent::__construct();
-        parent::set_table('option','id_option');
+        parent::set_table('BIAYA','id');
     }
     
     
@@ -80,7 +80,7 @@ class Option_m extends MY_Model {
         //$query->result_array();
         
         $this->db->select('*', FALSE);
-	$this->db->from('`option`');
+	$this->db->from('`BIAYA`');
         
         $query = $this->db->get();
         
@@ -106,5 +106,19 @@ class Option_m extends MY_Model {
         
         return false;
     }
+    
+    
+    
+    
+    public function biaya(){
+	$data = array();
+        $array_keys_values = $this->db->query("select * from BIAYA");
+        foreach($array_keys_values ->result() as $row){
+            $data[$row->biaya] =  $row->region.' = Rp. '.$row->biaya;
+        }
+        return $data;		
+	
+    }
+    
 }
 ?>

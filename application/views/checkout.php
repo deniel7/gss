@@ -1,25 +1,66 @@
-<script>
-function myFunction()
-{
-var x;
-var r=confirm("Press a button!");
-if (r==true)
-  {
-    x="You pressed OK!";
-  }
-else
-  {
-    x="You pressed Cancel!";
-  }
-document.getElementById("demo").innerHTML=x;
-}
-</script>
+<?php
 
+function transaksi_id() {
+        $dataMax = mysql_fetch_assoc(mysql_query("SELECT SUBSTR(MAX(`ORDER_NO_GTRON`),-6) AS ID  FROM SUPPLIER_ORDER_HEADER")); // ambil data maximal dari id transaksi
+        
+        if($dataMax['ID']=='') { // bila data kosong
+            $ID = "000001";
+        }else {
+            $MaksID = $dataMax['ID'];
+            $MaksID++;
+            if($MaksID < 10) $ID = $param."00000".$MaksID; // nilai kurang dari 10
+            else if($MaksID < 100) $ID = $param."0000".$MaksID; // nilai kurang dari 100
+            else if($MaksID < 1000) $ID = $param."000".$MaksID; // nilai kurang dari 1000
+            else if($MaksID < 10000) $ID = $param."00".$MaksID; // nilai kurang dari 10000
+            else $ID = $MaksID; // lebih dari 10000
+        }
+
+        return $ID;
+    }
+  
+
+
+$order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaksi_id();
+
+?>
+<div class="row">
+  <div class="span12">
+<div class="span12">
 <?php if (!$logged_in): ?>
     <div class="error">Anda Harus Login terlebih dahulu untuk melakukan langkah berikutnya.</div>
     <br/>
     <div><?php echo anchor(site_url('user/login'),'LOGIN disini') ?></div>
 <?php else: ?>
+
+  <?php if($this->session->flashdata('pesan')): ?>
+    <?php echo $this->session->flashdata('pesan');
+	  
+	  $this->load->model('order_m');
+	  $id = $this->session->userdata('user_id');
+	  $order = $this->order_m->get_record(array('user_id'=>$id));
+	  
+    ?>
+</div>
+<?php else:?>
+    
+    
+      <span>
+	  <?php if(@$error){echo @$error;} ?>
+	  <?php echo validation_errors('<div class="alert-danger">', '</div><br/>'); ?>
+	  <br/>
+      </span>
+      
+      <?php
+	if($stok){
+	  echo "<div class='alert-danger'>Tidak cukup stok untuk produk dibawah ini : <br/><br/><b>".$stok."</b></div><br/>"; 
+	}
+      ?>
+   
+
+
+
+
+
 
 <div class="span12">
   <p>
@@ -27,21 +68,21 @@ document.getElementById("demo").innerHTML=x;
       <li id="checkout-step-0" class="checkout-step"  style="border-bottom: 3px solid red;">
 	<a id="checkout-step-link-0" class="checkout-step-link" href="javascript:void(0)" title="Review Pesanan">
             <div class="checkout-step-number-active">1</div>
-            <div class="checkout-step-label-active">Review Pesanan</div>
+            <div class="checkout-step-label-active">Pengiriman</div>
         </a>
       </li>
       
       <li id="checkout-step-1" class="checkout-step" style="border-bottom: 3px solid #CCC;">
 	<a id="checkout-step-link-1" class="checkout-step-link" href="javascript:void(0)" title="Pengiriman &amp Pembayaran">
             <div class="checkout-step-number">2</div>
-            <div class="checkout-step-label">Pengiriman</div>
+            <div class="checkout-step-label">Review Pesanan</div>
         </a>
       </li>
       
       <li id="checkout-step-2" class="checkout-step" style="border-bottom: 3px solid #CCC;">
 	<a id="checkout-step-link-2" class="checkout-step-link" href="javascript:void(0)" title="Pemesanan Selesai">
             <div class="checkout-step-number">3</div>
-            <div class="checkout-step-label">Pemesanan Selesai</div>
+            <div class="checkout-step-label">Print Nota</div>
         </a>
       </li>
       
@@ -55,7 +96,10 @@ document.getElementById("demo").innerHTML=x;
 
 <div class="span12">
 <!--<h2>Catatan Belanja</h2>-->
-<?php echo form_open(site_url(uri_string())); ?>
+<?php
+  echo form_open(site_url(uri_string()));
+  
+?>
 
 <table class="table table-bordered">
 <thead>
@@ -94,7 +138,7 @@ document.getElementById("demo").innerHTML=x;
 			<?php endif; ?>
 
 	  </td>
-      <td align="center"><?php echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
+      <td align="center"><?php echo $items['qty']; ?><?php //echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
 	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>
 	  <td style="text-align:center">
 	  <?php
@@ -103,7 +147,7 @@ document.getElementById("demo").innerHTML=x;
 	    }else{
 	      echo "CASH";
 	    }
-	    //echo form_hidden(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
+	    echo form_input(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
 	  ?>
 	  </td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
@@ -112,12 +156,14 @@ document.getElementById("demo").innerHTML=x;
 
 <?php $i++; ?>
 
-<?php endforeach; ?>
+
+<?php endforeach; ?> 
+
 
 <tr>
   <!--<button onclick="myFunction()">try</button>-->
   <td></td>
-  <td align="center"><?php echo form_submit('', 'Update Jumlah'); ?></td>
+  <td align="center"><?php //echo form_submit('', 'Update Jumlah'); ?></td>
   <td></td>
   <td></td>
   <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
@@ -125,20 +171,123 @@ document.getElementById("demo").innerHTML=x;
 </tr>
 </tbody>
 </table>
-<a href="<?php echo site_url('store/kategori') ?>" class="btn btn-large"><i class="icon-arrow-left"></i> Back </a>
-<a href="<?php echo site_url('store/order') ?>" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+
+<?php 
+        echo form_fieldset('Alamat Pengiriman','class="produk"');
+	echo form_hidden('order_no',$order_no);
+	echo form_input('total_item',$items['qty']);
+	echo form_input('total',$this->cart->total());
+	//echo form_hidden('pemb',$items['pembayaran']);
+	
+
+	
+	echo form_input(array(
+					'id' => 'nama_depan',
+                                        'name' => 'nama_depan',
+					'placeholder' => 'Nama Depan',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+	echo "<br/>";
+	
+	echo form_input(array(
+					'id' => 'nama_belakang',
+                                        'name' => 'nama_belakang',
+					'placeholder' => 'Nama Belakang',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+	echo "<br/>";
+	
+	echo form_textarea(array(
+					'id' => 'alamat',
+                                        'name' => 'alamat',
+					'placeholder' => 'Alamat',
+                                        'style' => 'width:400px;height:50px;'
+			)); 
+	
+	echo "<br/>";
+        
+	echo form_input(array(
+					'id' => 'kota',
+                                        'name' => 'kota',
+					'placeholder' => 'Kota',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+       
+       echo "<br/>";
+       
+       echo form_input(array(
+					'id' => 'kode_pos',
+                                        'name' => 'kode_pos',
+					'placeholder' => 'Kode Pos',
+                                        'class' => 'form-control input-lg'
+			)); 
+       
+        echo "<br/>";
+       
+	echo form_input(array(
+					'id' => 'phone',
+                                        'name' => 'phone',
+					'placeholder' => 'Telepon',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+	
+	
+	echo form_fieldset_close();
+	?>
 
 
 
-<div class="clear"></div>
+
+<br/><br/>
+        <div>
+	
+	<br/>
+	
+	<?php
+	  
+	  echo form_fieldset('Biaya Pengiriman','class="produk"');
+	  
+	  echo form_dropdown('biaya',$biaya);
+	  
+	  echo form_fieldset_close();
+	  
+	?>
+	</div>
+
+
 <br/><br/>
 <hr/>
 <br/><br/>
+<br/><br/>
+
+<div>
+<a href="<?php echo site_url('store/kategori') ?>" class="btn btn-large"><i class="icon-arrow-left"></i> Back </a>
+<!--<a href="<?php //echo site_url('store/order') ?>" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>-->
+<?php echo form_submit(array('name'=>'submit','value'=>'Next','class'=>'btn btn-large pull-right')); ?>
+</div>
+
+
 
   
   <?php } ?>
 </div>
+
+<?php
+	
+	
+	echo "<br/><br/>";
+	//echo '<div style= text-align:center>'.form_submit(array('name'=>'submit','value'=>'Pemesanan Selesai','class'=>'btn btn-large btn-success')).'</div>';
+	echo "<br/><br/>";
+	?>
+	
 <?php endif; ?>
+<?php endif; ?>
+</div>
+</div>
 <script type="text/javascript">
 jQuery(function($) {
 	$("#hapus").colorbox({

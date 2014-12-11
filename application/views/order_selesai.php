@@ -129,7 +129,7 @@
           <td></td>
 	  <td></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Handling Fee</strong></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php //echo $this->cart->format_number($biaya); ?>1,000</strong></td>
+          <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?></strong></td>
 	  
 	</tr>
 	

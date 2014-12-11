@@ -15,6 +15,7 @@ class Order_m extends MY_Model {
         if(parent::insert($data)){
             $id = $this->db->insert_id();
             foreach ($cart as $item){
+
                 $detail = array( 'id_order'=>$id,
                                  'ORDER_NO_GTRON'=>$order_no_gtron,
                                  'ORDER_NO_GOLD'=>$order_no_gtron,
@@ -24,7 +25,7 @@ class Order_m extends MY_Model {
                                  'SITE_CODE' => $dc_site_code,
                                  'FLAG' => $flag,
                                  'SV' => $pembayaran,
-                                 'subtotal'=>$item['subtotal']);
+                                 'subtotal'=> $item['subtotal']);
                 $this->db->insert('SUPPLIER_ORDER_DETAIL',$detail);
             }
             
@@ -443,19 +444,27 @@ class Order_m extends MY_Model {
     }
     
     public function cek_stok($cart = array()){
+        //echo "cek stok";
        $stat = 'TRUE';
        $prod = '';
        foreach ($cart as $item){
-            $this->db->select('ARTICLE_DESC,STOCK_QTY');
+            $this->db->select('ARTICLE_DESC,STOCK_QTY,BOOK_QTY, CONFIRM_QTY');
             $this->db->from('DC_STOCK_MASTER');
             $this->db->where('ARTICLE_CODE',$item['id']);
             
             $result = $this->db->get()->row();
             
-            if($item['qty']>$result->STOCK_QTY){
+            $book = $result->BOOK_QTY;
+            $confirm = $result->CONFIRM_QTY;
+            $stok = $result->STOCK_QTY;
+            
+            $sisa = $stok - $book - $confirm;
+            
+            if($item['qty'] >= $sisa){
                 $prod .= $item['id'].'!@#'.$result->ARTICLE_DESC.'###';
             }
             
+          
         }  
                
         return $prod;

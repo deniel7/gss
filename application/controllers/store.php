@@ -367,38 +367,6 @@ class Store extends CI_Controller {
     }
     
     public function checkout() {
-        $this->load->model('order_m');
-        
-        $id = $this->session->userdata('user_id');
-        
-        
-        
-        if($_POST) {
-            $this->cart->update($_POST);   
-        }
-        
-        if($this->input->post('submit')){
-             $nama_list = $this->input->post('nama_list');
-             
-             //echo $nama_list;
-             $this->order_m->insert_fav($this->cart->contents(), $nama_list);
-        }
-        
-        $this->data->side = 0;
-        
-        $this->template->set_judul('Centralize Delivery & Inventory')
-        ->set_js('jquery')
-        ->set_css('bootstrap')
-        ->set_css('base')
-        ->set_css('bootstrap-responsive')
-        ->set_css('font-awesome')
-        ->set_css('mystyle')
-        ->set_parsial('topmenu','top_view',$this->data)
-        ->render('checkout',$this->data); 
-    }
-    
-    public function order() {
-        
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->profile_rules);
         
@@ -408,7 +376,7 @@ class Store extends CI_Controller {
         $this->load->model('option_m');
         $this->load->helper('date');
         
-        $this->data->biaya= $this->option_m->option();
+        $this->data->biaya= $this->option_m->biaya();
         
         $data = $this->profile_m->get_by(array('user_id'=>$this->session->userdata('user_id')));
         
@@ -421,6 +389,14 @@ class Store extends CI_Controller {
         $order_no_gtron = $this->input->post('order_no');
         $pembayaran = $this->input->post('pemb');
         
+        //$id = $this->session->userdata('user_id');
+        
+        
+        
+        //if($_POST) {
+        //    $this->cart->update($_POST);   
+        //}
+        
         if($this->form_validation->run()) {
             $insert = array(    'nama_depan'      =>  $this->input->post('nama_depan'),
                                 'nama_belakang'   =>  $this->input->post('nama_belakang'),
@@ -430,9 +406,14 @@ class Store extends CI_Controller {
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron
                                 );
             
+            $total = $this->input->post('total');
+            $biaya = $this->input->post('biaya');
+            $total_biaya = $total + $biaya;
+            
             $order = array(     'user_id'         =>  $this->session->userdata('user_id'),
                                 'FLAG'            =>  '0',
-                                'total_biaya'     =>  $this->input->post('total'),
+                                'total_biaya'     =>  $total_biaya,
+                                'biaya_kirim'     =>  $this->input->post('biaya'),
                                 'total_item'      =>  $this->input->post('total_item'),
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron,
                                 'ORDER_NO_GOLD'   =>  $order_no_gtron,
@@ -453,15 +434,21 @@ class Store extends CI_Controller {
             }else{
                 
                 $insert['user_id'] = $this->session->userdata('user_id');
+                
                 $cek_stok = $this->order_m->cek_stok($this->cart->contents());
                 if($cek_stok == '') {
+                    //echo $this->input->post('total_item');
+                    //echo "<br/>";
+                    //echo $total_biaya;
+                    
                     if($this->profile_m->insert($insert)){
                         $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);
                         $this->cart->destroy();
                         
-                        $this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');
-                        redirect(site_url('store/order_selesai/id/'.$order['ORDER_NO_GTRON']));
+                        //$this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');
+                        redirect(site_url('store/order/'.$order['ORDER_NO_GTRON']));
                     }
+                   
                 }
                 else {
                    
@@ -498,6 +485,32 @@ class Store extends CI_Controller {
             
         }
         
+        
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('mystyle')
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('checkout',$this->data); 
+    }
+    
+    public function order($ordernumb) {
+        
+        
+        $this->load->model('pesanan_m');
+        
+        
+        $this->data->dc_site_code = $this->session->userdata('dc_site_code');
+        $store_site_code = $this->data->store_site_code;
+        
+        
+        $this->data->pembeli = $this->pesanan_m->print_pembeli($ordernumb);
+        $this->data->transaksi = $this->pesanan_m->print_transaksi($ordernumb, $store_site_code);
+        
+        
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
         ->set_css('bootstrap')
@@ -510,14 +523,14 @@ class Store extends CI_Controller {
         
     }
     
-    public function order_selesai() {
+    public function order_selesai($ordernumb) {
         $this->load->model('pesanan_m');
         
         $store_site_code = $this->data->store_site_code;
         
-        $get = $this->uri->uri_to_assoc();
-        $ordernumb = $get['id'];
-        $this->data->nomor = $ordernumb;
+        //$get = $this->uri->uri_to_assoc();
+        //$ordernumb = $get['id'];
+        //$this->data->nomor = $ordernumb;
         
         
         $this->data->pembeli = $this->pesanan_m->print_pembeli($ordernumb);

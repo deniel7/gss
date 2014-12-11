@@ -88,7 +88,7 @@
 					    <?php endforeach; ?>
 					    <tr>
 						<td colspan="2" style="text-align: right;">Biaya</td>
-						<td>Rp. 1,000</td>
+						<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
 					    </tr>
 					    <tr>
 						<td colspan="2" style="text-align: right">Total</td>

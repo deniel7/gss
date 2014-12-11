@@ -74,8 +74,11 @@ class Delivery_order extends MY_Controller {
     
     
     public function print_do(){
-        $order_no =  $this->input->post('orderno');
+        $this->load->model('pesanan_m');
+	
+	$order_no =  $this->input->post('orderno');
 	$store_sc = $this->input->post('store_sc');
+	$id_order = $this->input->post('id_order');
         
 	
 	$this->db->select('*');
@@ -89,7 +92,7 @@ class Delivery_order extends MY_Controller {
                 $this->db->where('SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON',$order_no);
                 $q = $this->db->get();
 	
-	
+	//echo $this->db->last_query();
 	
 	
         if($q->result_array() == NULL){
@@ -100,11 +103,16 @@ class Delivery_order extends MY_Controller {
             $this->db->update('SUPPLIER_ORDER_HEADER');
 	    
             //parent::_view('delivery_order/gagal',$this->data);
-            redirect (site_url('admin/delivery_order/'));
+            
+	    redirect (site_url('admin/delivery_order/'));
         }else{
             
 	    $this->data->q = $q;
-	   
+	    $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id_order),true);
+	    //echo $this->db->last_query();
+	    
+	    //print_r($this->data->detail);
+	    
 	    parent::_view('delivery_order/print',$this->data);
 		
 	

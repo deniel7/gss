@@ -255,7 +255,7 @@ class Pesanan_m extends MY_Model {
 		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
 		$this->db->from('SUPPLIER_ORDER_HEADER');
 		$this->db->where_in('FLAG', '7');
-		$this->db->where_in('RECEIVING_DN', 'NULL');
+		$this->db->where('RECEIVING_DN', NULL);
 		$query = $this->db->get();
 		
 		
@@ -469,7 +469,7 @@ class Pesanan_m extends MY_Model {
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 		WHERE SUPPLIER_ORDER_HEADER.FLAG = 7
-		AND SUPPLIER_ORDER_HEADER.RECEIVING_DN = 'NULL'
+		AND SUPPLIER_ORDER_HEADER.RECEIVING_DN IS NULL
 		ORDER BY id_order DESC";
 	    
 	    $hasil = $this->db->query($sql);

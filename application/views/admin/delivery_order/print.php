@@ -6812,8 +6812,8 @@ button.close {
 			    
 			    <?php $data_table=array();
 		
-				    foreach ($q->result_array() as $row) {
-					    $data_table[]=$row;
+				    foreach ($q->result_array() as $rows) {
+					    $data_table[]=$rows;
 				    }
 			    ?>
 			    
@@ -6822,7 +6822,7 @@ button.close {
 					    
 				<?php
 					      
-					      echo form_hidden('orderno', $row['ORDER_NO_GTRON']);
+					      echo form_hidden('orderno', $rows['ORDER_NO_GTRON']);
 					      
 				?>
 				
@@ -6830,7 +6830,7 @@ button.close {
 				<div class="row">
 					<div class="col-lg-12">    
 					    <p style="text-align: left; float: left">
-						DN Number : <?php echo $row['DN_NO']; ?>
+						DN Number : <?php echo $rows['DN_NO']; ?>
 					    </p>
 					    <p style="text-align: right; float: right">
 					    PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?>
@@ -6855,30 +6855,30 @@ button.close {
 									<tbody>
 									    <tr>
 										<td>Tanggal Pemesanan</td>
-										<td><?php echo $row['tanggal_masuk']; ?></td>
+										<td><?php echo $rows['tanggal_masuk']; ?></td>
 									    </tr>
 									    <tr>
 										<td>Nomor Order</td>
-										<td><?php echo $row['ORDER_NO_GTRON']; ?></td>
+										<td><?php echo $rows['ORDER_NO_GTRON']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Nama</td>
-										<td><?php echo $row['nama_depan'].' '.$row['nama_belakang']; ?></td>
+										<td><?php echo $rows['nama_depan'].' '.$rows['nama_belakang']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Alamat</td>
-										<td><?php echo $row['alamat']; ?></td>
+										<td><?php echo $rows['alamat']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Kode Pos</td>
-										<td><?php echo $row['kode_pos']; ?></td>
+										<td><?php echo $rows['kode_pos']; ?></td>
 									    </tr>
 									    <tr>
 										<td>Telepon</td>
-										<td><?php echo $row['phone']; ?></td>
+										<td><?php echo $rows['phone']; ?></td>
 									    </tr>
 									</tbody>
 								    </table>
@@ -6903,21 +6903,22 @@ button.close {
 									    </tr>
 									</thead>
 									<tbody>
-									    <?php //foreach($data['detail'] as $detail): ?>
+									    <?php //print_r($detail); ?>
+									    <?php foreach($detail as $detail2){ ?>
 									    <tr>
-										<td><?php echo $row['ARTICLE_DESC']; ?></td>
-										<td style="text-align: right"><?php echo $row['kuantitas']; ?></td>
-										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($row['subtotal']); ?></td>
+										<td><?php echo $rows['ARTICLE_DESC']; ?></td>
+										<td><?php echo $rows['kuantitas']; ?></td>
+										<td>Rp. <?php echo $this->cart->format_number($rows['subtotal']); ?></td>
 									    </tr>
-									    <?php //endforeach; ?>
+									    <?php } ?>
 									    <tr>
 										<td colspan="2" style="text-align: right;">Biaya Kirim</td>
-										<td style="text-align: right">Rp. 1,000</td>
+										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($rows['biaya_kirim']); ?></td>
 									    </tr>
 									    <tr>
 										<td style="text-align: right" colspan="2">Total</td>
 										
-										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($row['total_biaya']); ?></td>
+										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($rows['total_biaya']); ?></td>
 									    </tr>
 									</tbody>
 								    </table>
