@@ -408,12 +408,30 @@ class Store extends CI_Controller {
             
             $total = $this->input->post('total');
             $biaya = $this->input->post('biaya');
-            $total_biaya = $total + $biaya;
+            $biaya_nego = $this->input->post('biaya_nego');
             
+            //echo $biaya_nego;
+            //echo "<br/>";
+            //echo $biaya;
+            
+            if($biaya_nego != 0){
+                
+                $biaya_kirim = $biaya_nego;
+                $total_biaya = $total + $biaya_nego;
+                //echo "total biaya nego".$total_biaya."<br/>";
+            }else{
+               
+                
+                $biaya_kirim = $biaya;
+                $total_biaya = $total + $biaya;
+                //echo "biaya".$total_biaya;
+            }
+            
+            //echo $total_biaya;
             $order = array(     'user_id'         =>  $this->session->userdata('user_id'),
                                 'FLAG'            =>  '0',
                                 'total_biaya'     =>  $total_biaya,
-                                'biaya_kirim'     =>  $this->input->post('biaya'),
+                                'biaya_kirim'     =>  $biaya_kirim,
                                 'total_item'      =>  $this->input->post('total_item'),
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron,
                                 'ORDER_NO_GOLD'   =>  $order_no_gtron,
@@ -439,7 +457,7 @@ class Store extends CI_Controller {
                 if($cek_stok == '') {
                     //echo $this->input->post('total_item');
                     //echo "<br/>";
-                    //echo $total_biaya;
+                    //echo $pembayaran;
                     
                     if($this->profile_m->insert($insert)){
                         $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);

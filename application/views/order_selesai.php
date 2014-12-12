@@ -85,71 +85,56 @@
 	    <table class="table table-bordered" style="margin-top: 20px;">
 	<thead>
         <tr>
-          <th>Nama Barang</th>
-          <th style="text-align:right">QTY</th>
-	  <th style="text-align:center">Pembayaran</th>
-          <th style="text-align:right">Harga Satuan</th>
-          <th style="text-align:right">Sub-Total</th>
+          <th>PLU</th>
+	  <th>Nama Barang</th>
+          <th style="text-align:right">Jumlah</th>
+	  <th style="text-align:center">SV</th>
+          
         </tr>
         </thead>
         <?php foreach ($transaksi as $item): ?>
         
         	<tr>
+		  <td>
+		      <p><strong><?php echo $item->PLU; ?></strong></p>
+        	  </td>
         	  <td>
 		      <p><strong><?php echo $item->ARTICLE_DESC; ?></strong></p>
         	  </td>
-		  <td align="center"><?php echo $item->kuantitas; ?></td>
-		  <td align="center">
+		  <td style="text-align: right"><?php echo $item->kuantitas; ?></td>
+		  <td colspan="2" style="text-align: right">
 		    <?php
-		      if($item->SV == '1'){
-			echo "CREDIT";
-		      }else{
-			echo "CASH";
-		      }
+		//      if($item->SV == '1'){
+		//	echo "CREDIT";
+		//      }else{
+		//	echo "CASH";
+		//      }
+			echo $item->SV;
 		    ?>
 		  </td>
-        	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE); ?></td>
-        	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->subtotal); ?></td>
+        	  
         	</tr>
         
         <?php $i++;$total_belanja = $total_belanja + $item->subtotal; ?>
         
         <?php endforeach; ?>
         
-	<tr>
-	  <td></td>
-          <td></td>
-	  <td></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Jumlah</strong></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($total_belanja); ?></strong></td>
-	</tr>
+	
 	
 	<tr>
 	  <td></td>
           <td></td>
 	  <td></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Handling Fee</strong></td>
+          <td style="text-align:right; background-color: #FFF0F0;"><strong>Biaya Kirim</strong></td>
           <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?></strong></td>
 	  
 	</tr>
 	
-        <tr>
-          <td></td>
-          <td></td>
-	  <td></td>
-	  <?php
-	    
-	    //$total_belanja = $this->cart->total();
-	    //$total = $total_belanja + $biaya;
-	    //echo $total_item;
-	  ?>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></strong></td>
-        </tr>
+        
         <?php //endforeach; ?>
         </table>
 	  
-	  <p>Transaksi Anda akan <b>dibatalkan</b> jika dalam rentang waktu 60 menit Nota ini tidak dibayar.</p>
+	  <p>Transaksi Anda akan <b>batal</b> jika melebihi 30 menit belum melakukan transaksi di kassa.</p>
 	  </div>
 	</div>
 	<center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>

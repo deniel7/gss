@@ -104,12 +104,12 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 <table class="table table-bordered">
 <thead>
   <tr>
+    <th>PLU</th>
   <th>Nama Barang</th>
   <th>Jumlah</th>
+  <th>SV</th>
   <th>Hapus</th>
-  <th>Pembayaran</th>
-  <th>Harga Satuan</th>
-  <th>Sub-Total</th>
+  
   </tr>
 </thead>
 
@@ -121,7 +121,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	<?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
 
 	<tr>
-	 
+	  <td style="text-align: right"><?php echo $items['PLU']; ?></td>
 	  <td>
 		<?php echo $items['name']; ?>
 		
@@ -138,20 +138,21 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 			<?php endif; ?>
 
 	  </td>
-      <td align="center"><?php echo $items['qty']; ?><?php //echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
-	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>
-	  <td style="text-align:center">
+      <td style="text-align: right"><?php echo $items['qty']; ?><?php //echo form_input(array('name' => $i.'[qty]', 'value' => $items['qty'], 'maxlength' => '3', 'size' => '5')); ?></td>
+	  
+	  <td style="text-align:right">
 	  <?php
-	    if($items['pembayaran'] == '1'){
-	      echo "CREDIT";
-	    }else{
-	      echo "CASH";
-	    }
-	    echo form_hidden(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
+	    //if($items['pembayaran'] == '1'){
+	    //  echo "CREDIT";
+	    //}else{
+	    //  echo "CASH";
+	    //}
+	    echo form_input(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '3'));
 	  ?>
 	  </td>
-	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
-	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['subtotal']); ?></td>
+	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>
+	  <!--<td style="text-align:right">Rp. <?php //echo $this->cart->format_number($items['price']); ?></td>
+	  <td style="text-align:right">Rp. <?php //echo $this->cart->format_number($items['subtotal']); ?></td>-->
 	</tr>
 
 <?php $i++; ?>
@@ -160,15 +161,15 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 <?php endforeach; ?> 
 
 
-<tr>
-  <!--<button onclick="myFunction()">try</button>-->
+<!--<tr>
+  
   <td></td>
-  <td align="center"><?php //echo form_submit('', 'Update Jumlah'); ?></td>
+  <td align="center"></td>
   <td></td>
   <td></td>
   <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
-  <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($this->cart->total()); ?></strong></td>
-</tr>
+  <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php //echo $this->cart->format_number($this->cart->total()); ?></strong></td>
+</tr>-->
 </tbody>
 </table>
 
@@ -257,7 +258,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	  
 	
 	echo form_input(array(
-					
+					'id' => 'biaya_nego',
                                         'name' => 'biaya_nego',
 					'placeholder' => 'Diatas 26 KM',
                                         'class' => 'form-control input-lg'

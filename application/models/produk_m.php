@@ -657,7 +657,7 @@ class Produk_m extends MY_Model {
     }
     
     public function get_by_url($url,$store_site_code,$dc_site_code) {
-	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,STOCK_QTY,BOOK_QTY, CONFIRM_QTY,SALES_UNIT_PRICE, THUMB, IMG1, IMG2, IMG3 from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,c.SV,STOCK_QTY,BOOK_QTY, CONFIRM_QTY,SALES_UNIT_PRICE, THUMB, IMG1, IMG2, IMG3 from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
 				    Where a.SUBCLASS = b.MS_CHILD
 				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
 				    AND a.DC_SITE_CODE = '$dc_site_code'
@@ -672,7 +672,7 @@ class Produk_m extends MY_Model {
     }
     
     public function get_by_url2($url,$store_site_code,$dc_site_code) {
-	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,STOCK_QTY,SALES_UNIT_PRICE from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+	$string_query           = "select DISTINCT(a.ARTICLE_CODE),c.PLU,C.SV,a.ARTICLE_DESC,STOCK_QTY,SALES_UNIT_PRICE from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
 				    Where a.SUBCLASS = b.MS_CHILD
 				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
 				    AND a.DC_SITE_CODE = '$dc_site_code'

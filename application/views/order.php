@@ -94,37 +94,40 @@ function FillBilling(f) {
 	  <table class="table table-bordered">
 	  <thead>
 	  <tr>
+	    <th>PLU</th>
 	    <th>Nama Barang</th>
-	    <th align="center">QTY</th>
-	    <th align="center">Pembayaran</th>
-	    <th style="text-align:right">Harga Satuan</th>
-	    <th style="text-align:right">Sub-Total</th>
+	    <th align="center">Jumlah</th>
+	    <th align="center">SV</th>
+	    
 	  </tr>
 	  </thead>
 	  
 		  <?php foreach ($transaksi as $item): ?>
 		  <tr>
 		    <td>
+			<p><strong><?php echo $item->PLU; ?></strong></p>
+		    </td>
+		    <td>
 			<p><strong><?php echo $item->ARTICLE_DESC; ?></strong></p>
 		    </td>
 		    <td align="center"><?php echo $item->kuantitas; ?></td>
 		    <td align="center">
 		      <?php
-			if($item->SV == '1'){
-			  echo "CREDIT";
-			}else{
-			  echo "CASH";
-			}
+			//if($item->SV == '1'){
+			//  echo "CREDIT";
+			//}else{
+			//  echo "CASH";
+			//}
+			echo $item->SV;
 		      ?>
 		    </td>
-		    <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE); ?></td>
-		    <td style="text-align:right">Rp. <?php echo $this->cart->format_number($item->subtotal); ?></td>
+		    
 		  </tr>
 	  
 	  
 		   <?php endforeach; ?>
 		  <tr>
-		    <td></td>
+		    
 		    <td></td>
 		    <td></td>
 		    <td style="text-align:right; background-color: #FFF0F0;"><strong>Biaya Kirim</strong></td>
@@ -133,17 +136,14 @@ function FillBilling(f) {
 		  </tr>
 	  
 		  <tr>
-		    <td></td>
-		    <td></td>
-		    <td></td>
+		    
 		    <?php
 		      
 		      $total_belanja = $this->cart->total();
 		      $total = $total_belanja + $biaya;
 		      
 		    ?>
-		    <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
-		    <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></strong></td>
+		    
 		  </tr>
 	  
 	  </table>

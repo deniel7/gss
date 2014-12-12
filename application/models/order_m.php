@@ -460,7 +460,7 @@ class Order_m extends MY_Model {
             
             $sisa = $stok - $book - $confirm;
             
-            if($item['qty'] >= $sisa){
+            if($item['qty'] > $sisa){
                 $prod .= $item['id'].'!@#'.$result->ARTICLE_DESC.'###';
             }
             

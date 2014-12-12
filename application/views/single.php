@@ -98,7 +98,7 @@
 				<div class="checkbox">
 				    <label>
 					<input id="colorRadio" type="radio" name="colorRadio" value="1" checked="checked">
-					&nbsp;<b>Harga</b>
+					&nbsp; SV <?php echo $item->SV; ?>
 				    </label>
 				</div>
 				<div class="credit box">
@@ -108,7 +108,7 @@
 			    
 			    </div>
 			    <div class="span3">
-			    : Rp. <?php echo $this->cart->format_number($item->SALES_UNIT_PRICE) ?>
+			    : <?php echo $item->PLU; ?>
 			    </div>
 			</div>
 			
@@ -117,7 +117,7 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp;<b>Cash / Tunai &nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cut"></i>&nbsp;5%</b>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp; SV <?php echo $price->SV; ?>
 				</label>
 			    </div>
 			    
@@ -129,7 +129,7 @@
 			
 			</div>
 			
-			<div class="span3">: Rp. <?php echo $this->cart->format_number($price->SALES_UNIT_PRICE) ?></div>
+			<div class="span3">: <?php echo $price->PLU; ?></div>
 			</div>
 			<?php endforeach; ?>
 		</div>
