@@ -175,8 +175,8 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 <?php 
         echo form_fieldset('Alamat Pengiriman','class="produk"');
 	echo form_hidden('order_no',$order_no);
-	echo form_input('total_item',$items['qty']);
-	echo form_input('total',$this->cart->total());
+	echo form_hidden('total_item',$items['qty']);
+	echo form_hidden('total',$this->cart->total());
 	//echo form_hidden('pemb',$items['pembayaran']);
 	
 
@@ -255,6 +255,13 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	  
 	  echo form_fieldset_close();
 	  
+	
+	echo form_input(array(
+					
+                                        'name' => 'biaya_nego',
+					'placeholder' => 'Diatas 26 KM',
+                                        'class' => 'form-control input-lg'
+			)); 
 	?>
 	</div>
 
