@@ -107,7 +107,7 @@
 				      
 				      echo form_hidden('orderno',$item->ORDER_NO_GTRON);
 				      echo form_hidden('store_sc',$item->STORE_SITE_CODE);
-				      echo form_input('id_order',$item->id_order);
+				      echo form_hidden('id_order',$item->id_order);
 				  ?>
 				  </div>
 				  </div>

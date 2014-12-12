@@ -147,7 +147,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	    }else{
 	      echo "CASH";
 	    }
-	    echo form_input(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
+	    echo form_hidden(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '5'));
 	  ?>
 	  </td>
 	  <td style="text-align:right">Rp. <?php echo $this->cart->format_number($items['price']); ?></td>
