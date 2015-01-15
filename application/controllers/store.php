@@ -285,10 +285,12 @@ class Store extends CI_Controller {
         
         $recent_stock = $this->input->post('recent_stock');
             
-        if($this->input->post('colorRadio') == 'SV2'){
+        if($this->input->post('colorRadio') == 2){
             $price = $this->input->post('pcash');
+            $plu = $this->input->post('plu_cash');
         }else{
             $price = $this->input->post('pcredit');
+            $plu = $this->input->post('plu_credit');
         }
         
         //$this->form_validation->set_rules('field' => 'colorRadio', 'label' => 'colorRadio', 'rules' => 'required');
@@ -301,7 +303,7 @@ class Store extends CI_Controller {
                         'name'=>$this->input->post('ARTICLE_DESC'),
                         'qty'=>$this->input->post('qty'),
                         'price'=>$price,
-                        'PLU'=>$this->input->post('PLU'),
+                        'PLU'=>$plu,
                         'pembayaran' => $this->input->post('colorRadio')
                         );
         
@@ -460,7 +462,7 @@ class Store extends CI_Controller {
                     //echo $pembayaran;
                     
                     if($this->profile_m->insert($insert)){
-                        $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron,$pembayaran);
+                        $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron);
                         $this->cart->destroy();
                         
                         //$this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');

@@ -121,7 +121,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	<?php echo form_hidden($i.'[rowid]', $items['rowid']); ?>
 
 	<tr>
-	  <td style="text-align: right"><?php echo $items['PLU']; ?></td>
+	  <td style="text-align: right"><?php echo $items['PLU']; ?> </td>
 	  <td>
 		<?php echo $items['name']; ?>
 		
@@ -147,7 +147,8 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	    //}else{
 	    //  echo "CASH";
 	    //}
-	    echo form_input(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '3'));
+	    //echo form_input(array('name' => 'pemb', 'value' => $items['pembayaran'], 'maxlength' => '3', 'size' => '3'));
+	    echo $items['pembayaran'];
 	  ?>
 	  </td>
 	  <td style="text-align:center"><?php echo anchor('store/confirm_delete/'.$items['rowid'],'<img src="'.base_url().'images/delete.png" alt="hapus" />',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?></td>

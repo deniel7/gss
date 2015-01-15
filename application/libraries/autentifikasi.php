@@ -60,7 +60,8 @@ Class Autentifikasi {
         if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
             if ($user = $this->ci->user_m->get_adminId($user_id)) {
                 if ($user->PASSWORD == md5($password)) {
-                    $this->ci->session->set_userdata(array(
+                    $this->session->sess_expiration = '1800';
+		    $this->ci->session->set_userdata(array(
 								'user_id'	=> $user->USER_ID,
 								'username'	=> $user->USERNAME,
 								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,

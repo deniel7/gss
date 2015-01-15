@@ -1,13 +1,22 @@
-<head>
-
-<script>
+<script type="text/javascript">
 	    $(document).ready(
 		    function() {
 			
 			setInterval(loaded2, 3000);
 			
 			loaded2();
-		    });
+			
+		    }
+		    
+		    
+		    
+		    );
+	    
+	    function get_id(){
+			
+			//alert(p);
+			
+		    } 
 	    
 	    function loaded2() {
 		//alert('hit');
@@ -40,9 +49,11 @@
 	    }
 	    
 	    
+	    
+	    
 	</script>
 
-</head>
+
 
 <div id="page-wrapper">
             <div class="row">
@@ -84,14 +95,36 @@
 					<td><?php echo $item->USERNAME; ?></td>
 					<td><?php echo $item->no_struk; ?></td>
 					
-					<td><a data-toggle="modal" href="#myModal" class="btn btn-info btn"><i class="fa fa-print fa-fw"></i>Print</a></td>
-					
+					<td>
+					    
+					    <input type="hidden" id="id_order_<?php echo $item->id_order; ?>" value="<?php echo $item->id_order; ?>" />
+					    <button type="button" class="btn btn-info btn-sm" id="btn_print_<?php echo $item->id_order; ?>">
+						<i class="fa fa-print fa-fw"></i>Print
+					      </button>
+					      <form id="upd_<?php echo $item->id_order; ?>" method="post" action="<?php echo site_url(uri_string()).'/print_do/'; ?>">
+						<?php
+				      
+						    echo form_hidden('orderno',$item->ORDER_NO_GTRON);
+						    echo form_hidden('store_sc',$item->STORE_SITE_CODE);
+						    echo form_hidden('id_order',$item->id_order);
+						?>
+					      </form>
+					</td>
+					<script>
+					    $("#btn_print_<?php echo $item->id_order; ?>").click(function(){
+						var id_order = $(this).attr("id").split("_")[2];
+						var x = confirm("Want to print Delivery Order for this transaction?");
+						if (x) {
+						    $("#upd_"+id_order).submit();
+						}
+					    });
+					</script>
 				    </tr>
 			    
 			    
 			    
 			    <!-- Modal -->
-			    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			    <div class="modal fade" id="myModal<?php echo $item->id_order; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			      <div class="modal-dialog">
 				<div class="modal-content">
 				  <div class="modal-header">
@@ -122,12 +155,14 @@
 			      </div><!-- /.modal-dialog -->
 			    </div><!-- /.modal -->
 			    
-			    
-			    
-			    
-			    
-			    
 			    <?php endforeach; ?>
+			    
+			    
+			    <div class="modal fade" style="width: 100px;" id="myModals" tabindex="-1" role="dialog" aria-labelledby="comment-label" aria-hidden="true">
+				<h1>Hello</h1>
+			    </div> 
+			    
+			    
 			    
 		    <?php else: ?>
 			<p class="bg-info btn-lg" style="text-align: center">Belum ada Data Print Delivery Order</p>

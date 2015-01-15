@@ -102,13 +102,17 @@
 				    </label>
 				</div>
 				<div class="credit box">
-				    <?php $pprice = $this->cart->format_number($item->SALES_UNIT_PRICE); ?>
+				    <?php
+					    $pprice = $this->cart->format_number($item->SALES_UNIT_PRICE);
+					    $plu_credit = $item->PLU;
+				    ?>
 				<input type="hidden" name='pcredit' class='form-control input-lg' value='<?php echo $pprice ?>'>
+				<input type="hidden" name='plu_credit' class='form-control input-lg' value='<?php echo $plu_credit ?>'>
 				</div>
 			    
 			    </div>
 			    <div class="span3">
-			    : <?php echo $item->PLU; ?>
+			    : <?php echo $plu_credit; ?>
 			    </div>
 			</div>
 			
@@ -122,14 +126,19 @@
 			    </div>
 			    
 			    <div class="cash box">
-				    <?php $cprice = $this->cart->format_number($price->SALES_UNIT_PRICE); ?>
+				    <?php
+					    $cprice = $this->cart->format_number($price->SALES_UNIT_PRICE);
+					    $plu_cash = $price->PLU;
+				    
+				    ?>
 				
 				<input type="hidden" name='pcash' class='form-control input-lg' value='<?php echo $cprice ?>'>
+				<input type="hidden" name='plu_cash' class='form-control input-lg' value='<?php echo $plu_cash ?>'>
 				</div>
 			
 			</div>
 			
-			<div class="span3">: <?php echo $price->PLU; ?></div>
+			<div class="span3">: <?php echo $plu_cash; ?></div>
 			</div>
 			<?php endforeach; ?>
 		</div>
@@ -145,7 +154,7 @@
 			<?php 
 			    
 			    echo form_hidden('ARTICLE_CODE',$item->ARTICLE_CODE);
-			    echo form_hidden('PLU',$item->PLU);
+			    //echo form_hidden('PLU',$item->PLU);
 			    echo form_hidden('ARTICLE_DESC',$item->ARTICLE_DESC);
 			    echo form_hidden('url',uri_string());
 			    //echo form_hidden('SALES_UNIT_PRICE',$item->SALES_UNIT_PRICE);

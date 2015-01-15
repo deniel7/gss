@@ -6809,20 +6809,13 @@ button.close {
 
 			    </style>
 			    </head>
-			    
-			    <?php $data_table=array();
-		
-				    foreach ($q->result_array() as $rows) {
-					    $data_table[]=$rows;
-				    }
-			    ?>
-			    
-
-			<div>
+			    <?php foreach($detail as $data): ?>
+			    <?php $orderno = $data['ORDER_NO_GTRON']; ?>
+			    <div>
 					    
 				<?php
 					      
-					      echo form_hidden('orderno', $rows['ORDER_NO_GTRON']);
+					      echo form_hidden('orderno', $orderno);
 					      
 				?>
 				
@@ -6830,7 +6823,7 @@ button.close {
 				<div class="row">
 					<div class="col-lg-12">    
 					    <p style="text-align: left; float: left">
-						DN Number : <?php echo $rows['DN_NO']; ?>
+						DN Number : <?php echo $data['DN_NO']; ?>
 					    </p>
 					    <p style="text-align: right; float: right">
 					    PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?>
@@ -6838,6 +6831,7 @@ button.close {
 					</div>
 
 				</div>
+				
 				
 				<div class="row">
 				    <div class="col-lg-12">
@@ -6855,30 +6849,30 @@ button.close {
 									<tbody>
 									    <tr>
 										<td>Tanggal Pemesanan</td>
-										<td><?php echo $rows['tanggal_masuk']; ?></td>
+										<td><?php echo $data['tanggal_masuk']; ?></td>
 									    </tr>
 									    <tr>
 										<td>Nomor Order</td>
-										<td><?php echo $rows['ORDER_NO_GTRON']; ?></td>
+										<td><?php echo $data['ORDER_NO_GTRON']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Nama</td>
-										<td><?php echo $rows['nama_depan'].' '.$rows['nama_belakang']; ?></td>
+										<td><?php echo $data['nama_depan'].' '.$data['nama_belakang']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Alamat</td>
-										<td><?php echo $rows['alamat']; ?></td>
+										<td><?php echo $data['alamat']; ?></td>
 										
 									    </tr>
 									    <tr>
 										<td>Kode Pos</td>
-										<td><?php echo $rows['kode_pos']; ?></td>
+										<td><?php echo $data['kode_pos']; ?></td>
 									    </tr>
 									    <tr>
 										<td>Telepon</td>
-										<td><?php echo $rows['phone']; ?></td>
+										<td><?php echo $data['phone']; ?></td>
 									    </tr>
 									</tbody>
 								    </table>
@@ -6903,22 +6897,21 @@ button.close {
 									    </tr>
 									</thead>
 									<tbody>
-									    <?php //print_r($detail); ?>
-									    <?php foreach($detail as $detail2){ ?>
+									    <?php foreach($data['detail'] as $detail): ?>
 									    <tr>
-										<td><?php echo $rows['ARTICLE_DESC']; ?></td>
-										<td><?php echo $rows['kuantitas']; ?></td>
-										<td>Rp. <?php echo $this->cart->format_number($rows['subtotal']); ?></td>
+										<td><?php echo $detail['ARTICLE_DESC']; ?></td>
+										<td style="text-align: right"><?php echo $detail['kuantitas']; ?></td>
+										<td style="text-align: right"><?php echo $this->cart->format_number($detail['subtotal']); ?></td>
 									    </tr>
-									    <?php } ?>
+									    <?php endforeach; ?>
 									    <tr>
-										<td colspan="2" style="text-align: right;">Biaya Kirim</td>
-										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($rows['biaya_kirim']); ?></td>
+										<td colspan="2" style="text-align: right">Biaya</td>
+										<td style="text-align: right"><?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
 									    </tr>
 									    <tr>
-										<td style="text-align: right" colspan="2">Total</td>
+										<td colspan="2" style="text-align: right">Total</td>
 										
-										<td style="text-align: right">Rp. <?php echo $this->cart->format_number($rows['total_biaya']); ?></td>
+										<td style="text-align: right"><?php echo $this->cart->format_number($data['total_biaya']); ?></td>
 									    </tr>
 									</tbody>
 								    </table>
@@ -6930,7 +6923,11 @@ button.close {
 				    </div>
 				</div>
 				
-				<div class="row">
+				
+				
+			    </div>
+			    
+			    <div class="row">
 				    <div class="col-lg-12">
 					<div class="panel panel-default">
 					    <div class="table-responsive">
@@ -6970,14 +6967,18 @@ button.close {
 				
 				<div class="panel-heading">
 				    <p style="text-align: right">*Barang <b>telah dikirimkan dan diterima</b> dengan baik dan lengkap oleh konsumen</p>
-				</div>
-			    
-			</div>
+				</div>	
+
+
+			    <?php endforeach; ?>
+
+
+
 			</div>
 		    </div>
-	    
+		</form>
+		</div>
 	    </div>
 	</div>
-        </form>
     </body>
 </html>

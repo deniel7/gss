@@ -66,6 +66,8 @@
 			//var myTimer = setTimeout(doStuff, 1000);
 			
 			loaded2();
+			
+			
 		    });
 	    
 	    function loaded2() {
@@ -92,6 +94,7 @@
 			error:function(res){
 			    alert(JSON.stringify(res));
 			    //setTimeout(loaded2,5000);
+			    
 			}
 		    });
 		}
