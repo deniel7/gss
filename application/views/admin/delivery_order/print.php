@@ -2667,7 +2667,7 @@ table td[class*=col-], table th[class*=col-] {
     background-color: #ebcccc
 }
 
-@media screen and (max-width:767px) {
+
     .table-responsive {
         width: 100%;
         margin-bottom: 15px;
@@ -2703,7 +2703,7 @@ table td[class*=col-], table th[class*=col-] {
     .table-responsive>.table-bordered>tbody>tr:last-child>th, .table-responsive>.table-bordered>tfoot>tr:last-child>th, .table-responsive>.table-bordered>tbody>tr:last-child>td, .table-responsive>.table-bordered>tfoot>tr:last-child>td {
         border-bottom: 0
     }
-}
+
 
 fieldset {
     min-width: 0;
