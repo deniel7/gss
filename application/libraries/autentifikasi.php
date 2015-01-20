@@ -16,11 +16,11 @@ Class Autentifikasi {
     
     public function login($user_id,$password,$store_site_code) {
 	
-        if ((strlen($user_id) > 0) AND (strlen($password) > 0)AND ($store_site_code != NULL)) {
+        if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
             
 	    if ($user = $this->ci->user_m->get_by_userId($user_id)) {
 
-		if ($user->PASSWORD == md5($password) AND $user->STORE_SITE_CODE == $store_site_code) {
+		if ($user->PASSWORD == md5($password)) {
                     $status = 1;
 		    $level ='user';
 		    
@@ -60,7 +60,7 @@ Class Autentifikasi {
         if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
             if ($user = $this->ci->user_m->get_adminId($user_id)) {
                 if ($user->PASSWORD == md5($password)) {
-                    $this->session->sess_expiration = '1800';
+                    //$this->session->sess_expiration = '7200';
 		    $this->ci->session->set_userdata(array(
 								'user_id'	=> $user->USER_ID,
 								'username'	=> $user->USERNAME,

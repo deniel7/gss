@@ -16,7 +16,7 @@
         
         <?php echo form_open(site_url(uri_string()),'class="order"'); ?>
         
-	<?php echo form_dropdown('store_site_code',$site_master); ?>
+	<?php //echo form_dropdown('store_site_code',$site_master); ?>
         <br/>
         <?php echo form_input(array(
 					'id' => 'user_id',

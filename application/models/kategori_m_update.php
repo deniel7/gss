@@ -11,11 +11,17 @@ class Kategori_m extends MY_Model {
     public function __construct(){
         parent::__construct();
         parent::set_table('MS_MASTER c','MS_CHILD');
-        //$this->db->join('MS_MASTER c1', 'c1.MS_PARENT = c.MS_CHILD', 'left')
+        $this->db->join('MS_MASTER c1', 'c1.MS_PARENT = c.MS_CHILD', 'left')
         //->join('MS_MASTER c2', 'c2.MS_PARENT = c1.MS_CHILD', 'left')
-        //->join('DC_STOCK_MASTER', 'c2.MS_CHILD = DC_STOCK_MASTER.SUBCLASS', 'left');
+        ->join('DC_STOCK_MASTER', 'c1.MS_CHILD = DC_STOCK_MASTER.SUBCLASS')
         //$this->db->join('DC_STOCK_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+        //$this->db->where('DC_STOCK_MASTER.STOCK_QTY !=0');
+        ->group_by('c.MS_PARENT');
 
+        
+        
+        
+        
         self::get_kategori_menu();
         
         $this->kategori_menu_list = ''.$this->kategori_menu.'';
@@ -84,26 +90,28 @@ class Kategori_m extends MY_Model {
         return $data;
     }
     
-    private function get_kategori_menu($find_child = FALSE,$parent_id = 'L6') {
+    private function get_kategori_menu($find_child = FALSE,$parent_id = 'NULL') {
         if($find_child == FALSE){
-            $older = parent::get_many_by(array('c.MS_PARENT'=>'L6'));
+            $older = parent::get_many_by(array('DC_STOCK_MASTER.STOCK_QTY !='=>'0'));
             
             //$older = $this->db->where('c2.MS_PARENT IS NOT NULL', null);
-            
+            echo "a";
             //echo $this->db->last_query();
             foreach ($older as $parent) {
-                $this->kategori_menu .= '<li>'.anchor(site_url('/produk/'.$parent->MS_CHILD), $parent->MS_CHILD_DESC.'<span>v</span>','id="'.$parent->MS_CHILD.'"');
+                $this->kategori_menu .= '<li>'.anchor(site_url('/produk/'.$parent->MS_CHILD), $parent->MS_PARENT_DESC.'<span>v</span>','id="'.$parent->MS_CHILD.'"');
                 $this->get_kategori_menu(TRUE,$parent->MS_CHILD);
                 $this->kategori_menu .= '</li>';
             }
         }else{
             
-            if(parent::get_many_by(array('MS_PARENT'=>$parent_id))) {
+            if(parent::get_many_by(array('MS_PARENT !='=>$parent_id))) {
                 $this->kategori_menu .= '<ul>';
                 $child = parent::get_many_by(array('MS_PARENT'=>$parent_id));
-                // echo $this->db->last_query();
+                echo "b";
+                //echo $this->db->last_query();
+                
                 foreach ($child as $item) {
-                    $this->kategori_menu .= '<li>'.anchor(site_url('/store/kategori/'.$item->MS_CHILD), $item->MS_CHILD_DESC.'<span>v</span>','id="'.$item->MS_CHILD.'"');
+                    $this->kategori_menu .= '<li>'.anchor(site_url('/store/kategori/'.$item->MS_PARENT), $item->MS_CHILD_DESC.'<span>v</span>','id="'.$item->MS_PARENT.'"');
                     
                     $this->kategori_menu .= '<li>'.$this->get_kategori_menu(TRUE,$item->MS_CHILD);
                     $this->kategori_menu .= '</li>';

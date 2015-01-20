@@ -88,64 +88,7 @@ class User extends CI_Controller {
                               )
                          );
     
-    private $konfirmasi_rules = array (
-                        array(
-                                 'field'   => 'nama', 
-                                 'label'   => 'Nama', 
-                                 'rules'   => 'required'
-                              ),
-                        array(
-                                 'field'   => 'order_no', 
-                                 'label'   => 'Nomor Order', 
-                                 'rules'   => 'numeric|required'
-                              ),
-                        array(
-                                 'field'   => 'nominal', 
-                                 'label'   => 'Nominal', 
-                                 'rules'   => 'numeric|required|min_length[4]'
-                              ),
-                        array(
-                                 'field'   => 'tanggal', 
-                                 'label'   => 'Tanggal Transfer', 
-                                 'rules'   => 'required'
-                              ),
-                        array(
-                                 'field'   => 'dari_rekening', 
-                                 'label'   => 'Dari Rekening', 
-                                 'rules'   => 'alpha_numeric|required'
-                              ),
-                        array(
-                                 'field'   => 'norek', 
-                                 'label'   => 'No Rekening', 
-                                 'rules'   => 'alpha_numeric|required'
-                              ),
-                        array(
-                                 'field'   => 'rekening_tujuan', 
-                                 'label'   => 'Rekening Tujuan', 
-                                 'rules'   => 'required'
-                              )
-                         );
     
-    private $konfirmasi_pesanan_rules = array (
-                        array(
-                                 'field'   => 'nama_pengirim', 
-                                 'label'   => 'Nama Pengirim', 
-                                 'rules'   => 'alpha_numeric|required'
-                              ),
-                        array(
-                                 'field'   => 'order_no', 
-                                 'label'   => 'Nomor Order', 
-                                 'rules'   => 'numeric|required'
-                              )                        
-                         );
-    
-    private $add_fav_rules = array (
-                        array(
-                                 'field'   => 'nama', 
-                                 'label'   => 'Nama List', 
-                                 'rules'   => 'required'
-                              )                        
-    );
     
     public function __construct() {
         parent::__construct();

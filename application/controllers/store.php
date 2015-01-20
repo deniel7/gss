@@ -70,6 +70,7 @@ class Store extends CI_Controller {
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');   
         $this->data->kategori = $this->kategori_m->kategori_menu_list;
+        //echo $this->db->last_query();
         $this->data->cart = $this->cart->contents();
         
         $is_active = $this->autentifikasi->sudah_login();
