@@ -22,9 +22,8 @@
 	
 	  
 <div id="myTab" class="pull-right">
- <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
- <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
- 
+ <a href="#listView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-list"></i></span></a>
+ <a href="#blockView" data-toggle="tab"><span class="btn btn-large"><i class="icon-th-large"></i></span></a>
 </div>
 <br class="clr"/>
 
@@ -34,7 +33,7 @@
 
 
 <div class="tab-content">
-	<div class="tab-pane" id="listView">
+	<div class="tab-pane active" id="listView">
 		<?php foreach($data as $item): ?>
 		<div class="row">	  
 			<div class="span2">
@@ -54,18 +53,15 @@
 				<hr class="soft"/>
 				
 				<table class="table table-bordered" style="font-size: 11px">
-				<tr>
+				<!--<tr>
 				    <td>PLU</td>
-				    <td><b><?php echo $item->PLU; ?></b></td>
-				</tr>
+				    <td><b><?php //echo $item->PLU; ?></b></td>
+				</tr>-->
 				<tr>
 				    <td>ARTICLE CODE</td>
 				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
 				</tr>
-				<tr>
-				    <td>ARTICLE CODE</td>
-				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
-				</tr>
+				
 				<?php
 				$stok = $item->STOCK_QTY;
 				$booked = $item->BOOK_QTY;
@@ -88,7 +84,7 @@
 				</table>
 				
 				
-				<br class="clr"/>
+				<!--<br class="clr"/>-->
 				
 			</div>
 		</div>
@@ -98,7 +94,7 @@
 		
 	</div>
 
-	<div class="tab-pane active" id="blockView">
+	<div class="tab-pane" id="blockView">
 		
 		<ul class="thumbnails">
 			<?php foreach($data as $item): ?>
@@ -118,10 +114,10 @@
 				<tr>
 				    <td colspan="2"><p style="font-size: 11px"><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),character_limiter($item->ARTICLE_DESC, $this->config->item('produk_name_limiter')));?></p></td>
 				</tr>
-				<tr>
+				<!--<tr>
 				    <td>PLU</td>
-				    <td><b><?php echo $item->PLU; ?></b></td>
-				</tr>
+				    <td><b><?php //echo $item->PLU; ?></b></td>
+				</tr>-->
 				<tr>
 				    <td>Article Code</td>
 				    <td><b><?php echo $item->ARTICLE_CODE; ?></b></td>
