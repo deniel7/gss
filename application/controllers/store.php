@@ -108,7 +108,7 @@ class Store extends CI_Controller {
         
         //$this->session->set_userdata('store_site_code', $ssc);
         
-        echo "<div class='btn-info' style= padding-left:80px>Now, You're on : ";
+        echo "<div class='btn btn-mini btn-primary' style= margin-left:80px>Sekarang, Anda berada di : ";
         echo $user->SITE_DESC."</div>";
         
         //echo $this->data->store_site_code;
