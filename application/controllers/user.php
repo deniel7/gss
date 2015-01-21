@@ -136,18 +136,18 @@ class User extends CI_Controller {
         if($this->form_validation->run()) {
             $user_id = $this->input->post('user_id');
             $password = $this->input->post('password');
-            $store_site_code = $this->input->post('store_site_code');
+            //$store_site_code = $this->input->post('store_site_code');
             
             
-            if(!$this->autentifikasi->login($user_id,$password,$store_site_code)) {
-                $this->session->set_flashdata('pesan', '<div class="alert-error" style="text-align:center">Maaf, Proses Login Gagal <br/><br/>Ada kesalahan input pada Cabang / NIK / password Anda<br/><br/>Silahkan mencoba Login kembali</div><br/><br/><br/>');
+            if(!$this->autentifikasi->login($user_id,$password)) {
+                $this->session->set_flashdata('pesan', '<div class="alert-error" style="text-align:center">Maaf, Proses Login Gagal <br/><br/>Ada kesalahan input pada NIK / password Anda<br/><br/>Silahkan mencoba Login kembali</div><br/><br/><br/>');
                 //$this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect(site_url('user/login'));
                 //echo "gagal";
                 
             } else {
                 
-                $this->session->set_flashdata('pesan', '<div class="sukses">SELAMAT DATANG : '.$this->session->userdata('user_desc').'</div>');
+                $this->session->set_flashdata('pesan', 'Halo! Selamat Datang  ');
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect(site_url('store/'));
                 //echo"berhasil";

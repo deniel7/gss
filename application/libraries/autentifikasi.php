@@ -14,7 +14,7 @@ Class Autentifikasi {
         $this->ci->load->model('user_m');
     }
     
-    public function login($user_id,$password,$store_site_code) {
+    public function login($user_id,$password) {
 	
         if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
             
@@ -31,6 +31,7 @@ Class Autentifikasi {
 								'site_desc'	=> $user->SITE_DESC,
 								'dc_site_code' => $user->DC_SITE_CODE,
 								'dc_supp_code' => $user->DC_SUPP_CODE,
+								'multiuser' => $user->MULTIUSER,
 								'level'	=> $level,
 								'logged_in' => TRUE,
 								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,

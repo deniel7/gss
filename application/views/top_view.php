@@ -62,7 +62,35 @@
 	
 	
 	
+	
+	
+	
+	<div class="navbar-inner">
+		<?php if ($logged_in AND $multiuser == 1): ?>
+		<div><p><b>Hai Multi-User, Anda ingin memasuki cabang mana?</b></p></div>
+			<?php echo form_open('store/'); ?>
+			<div class="span3">
+				<?php echo form_dropdown('store_site_code',$site_master); ?>
+			</div>
+			
+			<div class="span2" style="text-align: left">
+			<?php
+								
+								echo form_submit(array(
+								'value' => 'Submit',
+								'id' =>'submit',
+								'name' => 'submit',
+								'class' => 'btn btn-lg btn-success btn-block'
+								));
+								
+								echo form_close();
+							?>
+			</div>
+			<?php endif; ?>
+		
 	</div>
+	
+</div>
 	 
 	 
 	 <?php else: ?>
@@ -85,8 +113,8 @@
   </div>
 </div>
 
-<?php if($this->session->flashdata('pesan')): ?>
-		<?php echo $this->session->flashdata('pesan'); ?>
-	    <?php endif; ?>
+
+
 </div>
 </div>
+	

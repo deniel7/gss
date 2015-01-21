@@ -66,6 +66,7 @@ class Store extends CI_Controller {
         
         $this->load->model('kategori_m');
         $this->load->model('produk_m');
+       
         
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');   
@@ -78,7 +79,7 @@ class Store extends CI_Controller {
         $this->data->logged_in = $is_active && $is_allow;
         
         $this->load->helper('text');
-        
+        $this->data->site_master = $this->user_m->site_master();
         $this->data->side = 1;
         $this->data->user_id = $this->session->userdata('user_id');
         $this->data->user_desc = $this->session->userdata('user_desc');
@@ -86,9 +87,36 @@ class Store extends CI_Controller {
         $this->data->site_desc = $this->session->userdata('site_desc');
         $this->data->dc_supp_code = $this->session->userdata('dc_supp_code');
         $this->data->dc_site_code = $this->session->userdata('dc_site_code');
+        $this->data->multiuser = $this->session->userdata('multiuser');
     }
     
     public function index(){        
+        $this->load->model('user_m');
+        $ssc = $this->input->post('store_site_code');
+        
+        if($ssc){
+        
+        $user = $this->user_m->get_site_desc($ssc);
+            
+        $this->session->set_userdata(array(
+								
+								'store_site_code'	=> $ssc,
+								'site_desc'	=> $user->SITE_DESC,
+								
+					));
+        
+        
+        //$this->session->set_userdata('store_site_code', $ssc);
+        
+        echo "<div class='btn-info' style= padding-left:80px>Now, You're on : ";
+        echo $user->SITE_DESC."</div>";
+        
+        //echo $this->data->store_site_code;
+        //echo "<br/>";
+        //echo $this->data->user_id;
+        //echo "<br/>";
+        //echo $this->data->site_desc;
+        }
         
         
         $this->template->set_judul('Centralize Delivery & Inventory')
@@ -105,6 +133,9 @@ class Store extends CI_Controller {
     }
     
     public function home(){        
+        
+        
+        
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')

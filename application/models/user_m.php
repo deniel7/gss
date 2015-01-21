@@ -198,6 +198,21 @@ class User_m extends MY_Model {
 			
     }
     
+    public function get_site_desc($ssc){
+			
+			$sql = "SELECT *
+				FROM SITE_MASTER
+				WHERE
+				SITE_CODE = $ssc";
+			
+			$query = $this->db->query($sql);    
+			$data = $query->row();
+			
+			return $data;
+			
+			
+    }
+    
     
 }
 ?>
