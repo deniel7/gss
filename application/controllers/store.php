@@ -60,7 +60,7 @@ class Store extends CI_Controller {
         //}
         
         $this->load->model('option_m');
-        
+        $this->load->helper('my_helper');
         $this->load->library('pagination');
         $this->template->set_template('palmtree');
         
@@ -539,6 +539,7 @@ class Store extends CI_Controller {
         
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery.bsFormAlerts')
         ->set_js('jquery')
         ->set_css('bootstrap')
         ->set_css('base')
@@ -1003,6 +1004,25 @@ class Store extends CI_Controller {
         ->set_parsial('topmenu','top_view',$this->data)
         ->render('detail_transaksi',$this->data); 
         
+    }
+    
+    public function multi_dropdown()
+    {
+       
+        $data['multilevel'] = $this->kategori_m->get_data();
+        //$this->load->view('multilevel/multilevel_dropdown',$data);
+        
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('mystyle')
+       
+        ->set_parsial('sidebar','sidebar_view',$this->data)
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('home',$data);   
     }
 }
 ?>

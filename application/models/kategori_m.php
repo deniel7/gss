@@ -116,4 +116,26 @@ class Kategori_m extends MY_Model {
         }
        
     }
+    
+    
+    //public function get_data($induk=0)
+    //{
+    //    $data = array();
+    //    $this->db->from('multileveldata');
+    //    $this->db->where('induk',$induk);
+    //    $result = $this->db->get();
+    //    echo $this->db->last_query();    
+    //    foreach($result->result() as $row)
+    //    {
+    //    $data[] = array(
+    //    'id' =>$row->id,
+    //    'nama' =>$row->nama,
+    //    
+    //    // recursive
+    //    'child' =>$this->get_data($row->id)
+    //    );
+    //    
+    //    }
+    //    return $data;    
+    //}
 }
