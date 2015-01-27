@@ -539,6 +539,7 @@ class Store extends CI_Controller {
         
         
         $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery.bsFormAlerts')
         ->set_js('jquery')
         ->set_css('bootstrap')
         ->set_css('base')
@@ -1004,5 +1005,7 @@ class Store extends CI_Controller {
         ->render('detail_transaksi',$this->data); 
         
     }
+    
+    
 }
 ?>

@@ -21,7 +21,18 @@
 
 <div class="well well-small">
 	<ul id="acdnmenu" class="accordion">
-	    <li class="files" id="one"><?php echo $kategori; ?></li>
+	    <li class="files" id="one"><?php //echo $kategori; ?></li>
 	</ul>
 </div>
 <div style="height: 155px"></div>
+<div>
+    <?php
+	
+	<?php foreach ($kategoris as $item): ?>
+	
+	<?php echo $item->ATTRIB_DESC; ?>
+	
+	<?php endforeach; ?>
+	
+    ?>
+</div>
