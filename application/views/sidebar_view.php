@@ -23,21 +23,5 @@
 	<ul id="acdnmenu" class="accordion">
 	    <li class="files" id="one"><?php echo $kategori; ?></li>
 	</ul>
-	
-	<!--<ul class="dropdown">Hello
-	<?php
-	//foreach($multilevel as $data)
-	//{
-	//echo '<li><a href="#">'.$data['nama'].'</a>';
-	//echo '<ul class="sub_menu">';
-	//echo print_recursive_list($data['child']);
-	//echo '</ul>';
-	}
-	?>
-	</ul>-->
 </div>
 <div style="height: 155px"></div>
-
-<div>
-    
-</div>
