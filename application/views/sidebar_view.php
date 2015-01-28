@@ -21,7 +21,27 @@
 
 <div class="well well-small">
 	<ul id="acdnmenu" class="accordion">
-	    <li class="files" id="one"><?php echo $kategori; ?></li>
+	    <li class="files" id="one">
+		<?php //echo $kategori; ?>
+		<?php foreach ($kat as $item): ?>
+		<li class="btn-info">
+		    <!--<a href="#" id="a">-->
+					
+			<?php //echo $item->ATTRIB_DESC; ?><!--<span>`</span>-->
+			<?php echo anchor(site_url('/store/kategori/'.$item->ATTRIB_CODE), $item->ATTRIB_DESC.'<span>`</span>','id="'.$item->MS_CHILD.'"'); ?>			
+		    <!--</a>-->
+		</li>
+		<?php endforeach; ?>
+	    
+	    </li>
 	</ul>
 </div>
+
+<!--<div class="well well-small">
+	<ul id="acdnmenu" class="accordion">
+	    <li class="files" id="one">
+		<?php //echo $kategori; ?>
+	    </li>
+	</ul>
+</div>-->
 <div style="height: 155px"></div>

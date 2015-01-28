@@ -491,21 +491,31 @@ class Produk_m extends MY_Model {
     function SearchResult($perPage,$uri,$search_name,$dc_site_code,$store_site_code)
     {
      
-	$this->db->select('*');
-	$this->db->from('DC_STOCK_MASTER');
-	$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
-	$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-	$this->db->where('DC_SITE_CODE',$dc_site_code);
-	$this->db->where('STORE_SITE_CODE',$store_site_code);
+	//$this->db->select('*');
+	//$this->db->from('DC_STOCK_MASTER');
+	//$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+	//$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+	//$this->db->where('DC_SITE_CODE',$dc_site_code);
+	//$this->db->where('STORE_SITE_CODE',$store_site_code);
 	//$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-     
+	$st="ART_ATTRIB.END_DATE >= 'CURDATE()'";
+	  
+	$this->db->select('*');
+		$this->db->from('DC_STOCK_MASTER');
+		$this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+		$this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+		$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+		$this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+		$this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+		$this->db->where($st, NULL, FALSE);
+	
         if($search_name !='')
 	{
 	    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $search_name);
 	    $this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
 	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
 	    $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
-	    //echo"a";
+	    //echo $this->db->last_query();
 	    
 	}
 	
@@ -513,7 +523,7 @@ class Produk_m extends MY_Model {
 	 $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
          
 	 $data = $this->db->get('', $perPage, $uri);
-	    //echo $this->db->last_query();
+	    
          if($data->num_rows() > 0)
             return $data->result();
          else
@@ -539,7 +549,6 @@ class Produk_m extends MY_Model {
 		$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
 		$this->db->where('DC_SITE_CODE',15199);
 		$this->db->where('STORE_SITE_CODE',15102);
-		
 		
 		
 		if (!empty($filterId))
@@ -607,14 +616,26 @@ class Produk_m extends MY_Model {
     public function get_category_product($dc_site_code,$store_site_code){
                 $kat = $this->uri->segment(3,0);
                 //$string_query           = "select * from produk a,kategori b, foto_produk c Where a.kategori_id = b.id_kategori AND a.id_produk = c.produk_id AND c.default = 1 AND b.url =".$this->uri->segment(3,0).";
-		$string_query           = "select * from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
-					    Where a.SUBCLASS = b.MS_CHILD
+		//$string_query           = "select * from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+		//			    Where a.SUBCLASS = b.MS_CHILD
+		//			    AND a.ARTICLE_CODE = c.ARTICLE_CODE
+		//			    AND a.SUBCLASS = '$kat'
+		//			    AND a.DC_SITE_CODE = '$dc_site_code'
+		//			    AND c.STORE_SITE_CODE = $store_site_code
+		//			    GROUP BY a.ARTICLE_CODE
+		//			    ";
+					    
+		$string_query           = "select * from DC_STOCK_MASTER a,ART_ATTRIB b, STORE_SALES_MASTER c, DELIVARABLE_MASTER d
+		
+					    Where a.ARTICLE_CODE = b.ART_CODE
 					    AND a.ARTICLE_CODE = c.ARTICLE_CODE
-					    AND a.SUBCLASS = '$kat'
+					    AND a.ARTICLE_CODE = d.ARTICLE_CODE
+					    AND b.ATTRIB_CODE = '$kat'
 					    AND a.DC_SITE_CODE = '$dc_site_code'
-					    AND c.STORE_SITE_CODE = $store_site_code
+					    AND c.STORE_SITE_CODE = '$store_site_code'
+					    AND b.END_DATE >= CURDATE()
 					    GROUP BY a.ARTICLE_CODE
-					    ";
+			    ";
                 $query          	= $this->db->query($string_query);              
 		
                 $config['base_url']     = base_url().'/store/kategori/'.$this->uri->segment(3,0);
@@ -634,7 +655,7 @@ class Produk_m extends MY_Model {
                 $this->pagination->initialize($config);         
 		
 		$data= $this->db->query($string_query." limit $offset,$num");    
-		
+		//echo $this->db->last_query();
                 return $data->result();
     }
     

@@ -10,7 +10,7 @@ class Kategori_m extends MY_Model {
     
     public function __construct(){
         parent::__construct();
-        parent::set_table('MS_MASTER c','MS_CHILD');
+        parent::set_table('MS_MASTER c', 'MS_CHILD');
         //$this->db->join('MS_MASTER c1', 'c1.MS_PARENT = c.MS_CHILD', 'left')
         //->join('MS_MASTER c2', 'c2.MS_PARENT = c1.MS_CHILD', 'left')
         //->join('DC_STOCK_MASTER', 'c2.MS_CHILD = DC_STOCK_MASTER.SUBCLASS', 'left');
@@ -115,5 +115,21 @@ class Kategori_m extends MY_Model {
             
         }
        
+    }
+    
+    
+    public function kat() {
+        
+        $data = array();
+	$sql = "select * from ART_ATTRIB
+		GROUP BY ATTRIB_DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
     }
 }

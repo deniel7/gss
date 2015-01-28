@@ -72,6 +72,7 @@ class Store extends CI_Controller {
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');   
         $this->data->kategori = $this->kategori_m->kategori_menu_list;
         //echo $this->db->last_query();
+        $this->data->kat = $this->kategori_m->kat();
         $this->data->cart = $this->cart->contents();
         
         $is_active = $this->autentifikasi->sudah_login();
@@ -797,10 +798,12 @@ class Store extends CI_Controller {
         
         $this->db->select('*');
         $this->db->from('DC_STOCK_MASTER');
-        $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+        $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+        $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
         $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-        $this->db->where('DC_SITE_CODE',$dc_site_code);
-        $this->db->where('STORE_SITE_CODE',$store_site_code);
+        $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+        $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+        $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE()');
         //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
         
         if($data['search_name'] != ''){
@@ -828,7 +831,7 @@ class Store extends CI_Controller {
         //}
         
         $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-        
+        $this->db->last_query();
         //Pagination init
         $pagination['base_url'] 		= site_url('/store/search_prod/page/');
         $pagination['total_rows'] 		= $this->db->get()->num_rows();
