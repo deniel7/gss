@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 			
-			<div class="span6">
+			<!--<div class="span6">
 				<h5>INFORMATION</h5>
 				<a href="contact.html">SYARAT & KETENTUAN</a>  
 				<a href="register.html">CONTACT</a>  
@@ -13,7 +13,7 @@
 			 <div class="span6">
 				<h5>TUTORIAL</h5>
 				<a href="contact.html">CARA PENGGUNAAN APLIKASI</a>  
-			 </div>
+			 </div>-->
 		 </div>
 		<p class="pull-right">&copy; YOGYA GROUP</p>
 	</div><!-- Container End -->

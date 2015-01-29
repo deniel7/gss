@@ -5,7 +5,7 @@
     <div class="well well-large">
 	
 	    
-	    <h3>Proses Booking</h3>
+	    <h4>Proses Booking</h4>
 	    <hr/>
 
 	    
@@ -21,33 +21,33 @@
 		
     </div>
 </div>
-
-
-
-	
-	<div class="span3">
-		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/home.jpeg"/><b>Cek Stok - Booking - Print Nota</b></p>
-		</div>
-	</div>
-	
-	<div class="span3">
-		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/home2.jpeg"/><b>Membayar Nota Pembelian</b></p>
-		</div>
-	</div>
-	
-	<div class="span3">
-		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/home3.jpeg"/><b>Konfirmasi Pembelian</b></p>
-		</div>
-	</div>
-
-
-<div class="span9">
-    <div class="well well-large">
-	<h4><img src="<?php echo base_url();?>template/palmtree/images/start.gif"/>Pilih kategori disamping untuk memulai</h4>
+<!--<div class="span9">
+    <div class="well">
+	<img src="<?php //echo base_url();?>template/palmtree/images/start.gif"/>Pilih kategori disamping untuk memulai
     </div>
-</div>
+</div>-->
+
+
+
+	
+	<div class="span3">
+		<div class="well well-large">
+			<p><img src="<?php echo base_url();?>template/palmtree/images/booking.jpeg"/><b>Cek Stok - Booking - Print Nota</b></p>
+		</div>
+	</div>
+	
+	<div class="span3">
+		<div class="well well-large">
+			<p><img src="<?php echo base_url();?>template/palmtree/images/bayar.jpeg"/><b>Membayar Nota Pembelian</b></p>
+		</div>
+	</div>
+	
+	<div class="span3">
+		<div class="well well-large">
+			<p><img src="<?php echo base_url();?>template/palmtree/images/confirm.jpeg"/><b>Konfirmasi Pembelian</b></p>
+		</div>
+	</div>
+
+
 
 </div>

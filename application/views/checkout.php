@@ -183,63 +183,71 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	
 
 	
-	echo form_input(array(
-					'id' => 'nama_depan',
-                                        'name' => 'nama_depan',
-					'placeholder' => 'Nama Depan',
-                                        'class' => 'form-control input-lg'
-			)); 
-	
-	echo "<br/>";
-	
-	echo form_input(array(
-					'id' => 'nama_belakang',
-                                        'name' => 'nama_belakang',
-					'placeholder' => 'Nama Belakang',
-                                        'class' => 'form-control input-lg'
-			)); 
-	
-	echo "<br/>";
-	
-	echo form_textarea(array(
-					'id' => 'alamat',
-                                        'name' => 'alamat',
-					'placeholder' => 'Alamat',
-                                        'style' => 'width:400px;height:50px;'
-			)); 
-	
-	echo "<br/>";
-        
-	echo form_input(array(
-					'id' => 'kota',
-                                        'name' => 'kota',
-					'placeholder' => 'Kota',
-                                        'class' => 'form-control input-lg'
-			)); 
-	
-       
-       echo "<br/>";
-       
-       echo form_input(array(
-					'id' => 'kode_pos',
-                                        'name' => 'kode_pos',
-					'placeholder' => 'Kode Pos',
-                                        'class' => 'form-control input-lg'
-			)); 
-       
-        echo "<br/>";
-       
-	echo form_input(array(
-					'id' => 'phone',
-                                        'name' => 'phone',
-					'placeholder' => 'Telepon',
-                                        'class' => 'form-control input-lg'
-			)); 
-	
-	
-	
-	echo form_fieldset_close();
-	?>
+//	echo form_input(array(
+//					'id' => 'nama_depan',
+//                                        'name' => 'nama_depan',
+//					'placeholder' => 'Nama Depan',
+//                                        'class' => 'form-control input-lg'
+//			)); 
+//	
+//	echo "<br/>";
+//	
+//	echo form_input(array(
+//					'id' => 'nama_belakang',
+//                                        'name' => 'nama_belakang',
+//					'placeholder' => 'Nama Belakang',
+//                                        'class' => 'form-control input-lg'
+//			)); 
+//	
+//	echo "<br/>";
+//	
+//	echo form_textarea(array(
+//					'id' => 'alamat',
+//                                        'name' => 'alamat',
+//					'placeholder' => 'Alamat',
+//                                        'style' => 'width:400px;height:50px;'
+//			)); 
+//	
+//	echo "<br/>";
+//        
+//	echo form_input(array(
+//					'id' => 'kota',
+//                                        'name' => 'kota',
+//					'placeholder' => 'Kota',
+//                                        'class' => 'form-control input-lg'
+//			)); 
+//	
+//       
+//       echo "<br/>";
+//       
+//       echo form_input(array(
+//					'id' => 'kode_pos',
+//                                        'name' => 'kode_pos',
+//					'placeholder' => 'Kode Pos',
+//                                        'class' => 'form-control input-lg'
+//			)); 
+//       
+//        echo "<br/>";
+//       
+//	echo form_input(array(
+//					'id' => 'phone',
+//                                        'name' => 'phone',
+//					'placeholder' => 'Telepon',
+//                                        'class' => 'form-control input-lg'
+//			)); 
+?>
+
+<input id="nama_depan" name="nama_depan" class="form-control input-lg" type="text" required placeholder="Nama Depan" oninvalid="this.setCustomValidity('Kolom Nama Depan Harus diisi')"></input><br/>
+<input id="nama_belakang" name="nama_belakang" class="form-control input-lg" type="text"  required placeholder="Nama Belakang" oninvalid="this.setCustomValidity('Kolom Nama Belakang Harus diisi')"></input><br/>
+<textarea required="true" style="width:400px;height:50px;" placeholder="Alamat" id="alamat" rows="12" cols="90" name="alamat" oninvalid="this.setCustomValidity('Kolom Alamat Harus diisi')"></textarea><br/>
+<input id="kota" name="kota" class="form-control input-lg" type="text" required placeholder="Kota" title="Bandung" pattern="^[a-zA-Z]+$"></input><br/>
+<input id="kode_pos" name="kode_pos" class="form-control input-lg" type="text"  required placeholder="Kode Pos" title="40101" pattern="[0-9]{2,20}"></input><br/>
+<input id="phone" name="phone" class="form-control input-lg" type="text" required placeholder="Telepon" title="02212345678 / 0856232323232" pattern="[0-9]{3,15}"></input><br/>
+
+
+<?php
+echo form_fieldset_close();
+?>
 
 
 
@@ -258,13 +266,14 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	  echo form_fieldset_close();
 	  
 	
-	echo form_input(array(
-					'id' => 'biaya_nego',
-                                        'name' => 'biaya_nego',
-					'placeholder' => 'Diatas 26 KM',
-                                        'class' => 'form-control input-lg'
-			)); 
+//	echo form_input(array(
+//					'id' => 'biaya_nego',
+//                                        'name' => 'biaya_nego',
+//					'placeholder' => 'Diatas 26 KM',
+//                                        'class' => 'form-control input-lg'
+//			)); 
 	?>
+	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text"  required placeholder="Diatas 26 KM" title="70000" pattern="[0-9]{2,20}"></input>
 	</div>
 
 
