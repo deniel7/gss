@@ -13,7 +13,7 @@
 		    font-size:12px;
 		}
 		.print_area{
-		    width:230px;
+		    width:210px;
 		}
 		table,td{
 		  
