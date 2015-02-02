@@ -13,7 +13,7 @@
 		    font-size:12px;
 		}
 		.print_area{
-		    width:200px;
+		    width:230px;
 		}
 		table,td{
 		  
@@ -84,7 +84,7 @@
           <th>PLU</th>
 	  <th>Nama Barang</th>
           <th style="text-align:right">Jml</th>
-	  <th style="text-align:center">SV</th>
+	  <!--<th style="text-align:center">SV</th>-->
           
         </tr>
         </thead>
@@ -98,16 +98,12 @@
 		      <p><strong><?php echo $item->ARTICLE_DESC; ?></strong></p>
         	  </td>
 		  <td style="text-align: right"><?php echo $item->kuantitas; ?></td>
-		  <td colspan="2" style="text-align: right">
+		 <!-- <td colspan="2" style="text-align: right">-->
 		    <?php
-		//      if($item->SV == '1'){
-		//	echo "CREDIT";
-		//      }else{
-		//	echo "CASH";
-		//      }
-			echo $item->SV;
+		
+			//echo $item->SV;
 		    ?>
-		  </td>
+		 <!-- </td>-->
         	  
         	</tr>
         
