@@ -10,10 +10,10 @@
 	      <style type="text/css">
 	      
 		*{
-		    font-size:10px;
+		    font-size:14px;
 		}
 		.print_area{
-		    width:350px;
+		    width:280px;
 		}
 		table,td{
 		  
@@ -59,12 +59,8 @@
                     <td><?php echo $item->ORDER_NO_GTRON; ?></td>
                 </tr>
                 <tr>
-                    <td class="hdr">Nama Depan</td>
-                    <td><?php echo $item->nama_depan; ?></td>
-                </tr>
-                <tr>
-                    <td class="hdr">Nama Belakang</td>
-                    <td><?php echo $item->nama_belakang; ?></td>
+                    <td class="hdr">Nama</td>
+                    <td><?php echo $item->nama_depan." ".$item->nama_belakang; ?></td>
                 </tr>
                 <tr>
                     <td class="hdr">Alamat</td>
@@ -122,11 +118,8 @@
 	
 	
 	<tr>
-	  <td></td>
-          <td></td>
-	  <td></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Biaya Kirim</strong></td>
-          <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?></strong></td>
+	  <td><strong>Biaya Kirim</strong></td>
+          <td colspan="3" style="background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?></strong></td>
 	  
 	</tr>
 	

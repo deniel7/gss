@@ -273,7 +273,7 @@ echo form_fieldset_close();
 //                                        'class' => 'form-control input-lg'
 //			)); 
 	?>
-	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text"  required placeholder="Diatas 26 KM" title="70000" pattern="[0-9]{2,20}"></input>
+	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text" placeholder="Diatas 26 KM" title="70000" pattern="[0-9]{2,20}"></input>
 	</div>
 
 
