@@ -10,7 +10,7 @@
 	      <style type="text/css">
 	      
 		*{
-		    font-size:14px;
+		    font-size:12px;
 		}
 		.print_area{
 		    width:250px;
