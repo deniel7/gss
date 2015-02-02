@@ -13,7 +13,7 @@
 		    font-size:14px;
 		}
 		.print_area{
-		    width:280px;
+		    width:250px;
 		}
 		table,td{
 		  
@@ -83,7 +83,7 @@
         <tr>
           <th>PLU</th>
 	  <th>Nama Barang</th>
-          <th style="text-align:right">Jumlah</th>
+          <th style="text-align:right">Jml</th>
 	  <th style="text-align:center">SV</th>
           
         </tr>
