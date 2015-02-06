@@ -50,7 +50,10 @@ $route['admin/(:any)'] = 'admin/$1';
 $route['produk/(:any)/(:any)'] = 'store/produk/$2';
 //$route['produk/(:any)'] = 'store/kategori/$1';
 
+$route['master'] = 'master/dashboard';
+$route['master/logout'] = 'master/dashboard/logout';
 
+$route['master/(:any)'] = 'master/$1';
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
