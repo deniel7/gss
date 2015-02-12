@@ -19,6 +19,7 @@ class Dashboard extends MY_Controller {
         $this->data->print_order = $this->pesanan_m->count_print_order();
         
         $this->data->username = $this->session->userdata('username');
+	$this->data->multiuser = $this->session->userdata('multiuser');
         parent::_view('page',$this->data);
     }
     

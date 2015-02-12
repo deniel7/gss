@@ -13,9 +13,40 @@
 			<li>
 				<?php //echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
 			</li>-->
+			<?php if($multiuser == 1){ ?>
+			<li>
 			
+			<div class="col-xs-12">
+				
+				<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php echo base_url(); ?>admin/produk">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-default" style="width: 100%;">
+						<div class="col-xs-9 text-left">
+							<div style="font-size: 17px">Master Product</div>
+							
+							
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-edit fa-fw"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
 			
+			</li>
+			<?php } ?>
 			
+			<?php if($multiuser == 0){ ?>
 			
 			<li>
 			
@@ -166,7 +197,7 @@
 			</div>
 			
 			</li>
-			
+			<?php } ?>
 			<!--<li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

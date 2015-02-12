@@ -1,32 +1,41 @@
-<style>
-.clasp
-{
-	text-align:center;
-	background-color:#eee;
-}
 
-.lunchbox
-{
-	display:none;
-	background-color:#f5f5f5;
-}
-</style>
+<div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
 
-<script type="text/javascript">
-
-function lunchboxOpen(lunchID) {
-	document.getElementById('lunch_' + lunchID).style.display = "block";
-	document.getElementById('clasp_' + lunchID).innerHTML="<a href=\"javascript:lunchboxClose('" + lunchID + "');\"><ul class='box f-right'><li><span><strong>Close" + lunchID + "</a></strong></span></li></ul>";
-}
-
-function lunchboxClose(lunchID) {
-	document.getElementById('lunch_' + lunchID).style.display = "none";
-	document.getElementById('clasp_' + lunchID).innerHTML="<a href=\"javascript:lunchboxOpen('" + lunchID + "');\"><ul class='box f-right'><li><span><strong>Open" + lunchID + "</a></strong></span></li></ul>";
-}
-
-</script>
-
-<h1><?php echo $judul ?></h1>
+		
+		
+                            
+                                
+                                    <div class="table-responsive">
+                        <table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
+				<thead>
+				<tr>
+				  <td>Nomor Transaksi</td>
+				  <td>Cabang</td>
+				  <td>Waktu</td>
+				  <td>Total</td>
+				  <td>SPV</td>
+				  <td>No. Struk</td>
+				  <td>Status</td>
+				</thead>
+				<tbody>
+				
+				
+				</tbody>
+				
+			</table>
+                                    </div>
+                                    <!-- /.table-responsive -->
+                                
+                                <!-- /.col-lg-4 (nested) -->
+                                <?php //} ?>
+                                <!-- /.col-lg-8 (nested) -->
+                            
+                            <!-- /.row -->
+                        
+		
+		
 <div id="menu" class="box">
 	<ul class="box f-right">
 	   <!--<li><a href="<?php //echo site_url('admin/produk/tambah') ?>" id="add"><span><strong>Import Produk Baru</strong></span></a></li>-->
@@ -234,7 +243,9 @@ function lunchboxClose(lunchID) {
 <?php else: ?>
     <p class="msg info">Belum ada Produk yang tersedia</p>
 <?php endif; ?>
-
+		</div>
+	    </div>
+</div>
 <script type="text/javascript">
 jQuery(function($) {
 	$("#add").colorbox({

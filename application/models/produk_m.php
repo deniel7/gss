@@ -708,7 +708,21 @@ class Produk_m extends MY_Model {
     }
     
     
-    
+    public function get_master_produk() {
+        
+        $data = array();
+	$sql = "select * from DC_STOCK_MASTER
+		
+		";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
     
     
     

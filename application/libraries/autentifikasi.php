@@ -66,7 +66,8 @@ Class Autentifikasi {
 								'user_id'	=> $user->USER_ID,
 								'username'	=> $user->USERNAME,
 								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
-								'level'		=> $level
+								'level'		=> $level,
+								'multiuser'	=> $user->MULTIUSER
 					));
                     
                     
@@ -168,7 +169,7 @@ Class Autentifikasi {
     public function role($level = array()) {
         foreach ($level as $key=>$val){
             $status = $this->ci->session->userdata('level') == $val ? ALLOW : NOT_ALLOW;
-            if ($status == 1){break;}
+            if ($status == 1){break;} 
         }
         return $status;
     }
