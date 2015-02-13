@@ -11,7 +11,7 @@
 	<span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="<?php echo site_url(); ?>"><img src="<?php echo base_url();?>asset/themes/images/logo.gif" alt="Bootsshop"/></a>
+    <a class="brand" href="<?php echo site_url(); ?>"><img src="<?php echo base_url();?>asset/themes/images/logo.png" alt="Yogya Elektronik"/></a>
 		
 		
 		

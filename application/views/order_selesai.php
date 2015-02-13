@@ -45,7 +45,7 @@
 	      </style>
 	      </head>
 	      
-	      <p><img src="<?php echo base_url().'asset/themes/images/logo.gif';?>" /></a></p>
+	      <p><img src="<?php echo base_url().'asset/themes/images/logo.png';?>" /></a></p>
 
             <table class="table table-bordered">
 		<?php $i = 1;$total_belanja = 0; ?>

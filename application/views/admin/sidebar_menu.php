@@ -8,7 +8,7 @@
 			<div class="padding box">
 
 				<!-- Logo (Max. width = 200px)-->
-				<p id="logo"><a href="#"><img src="<?php echo base_url().'asset/images/logo.gif';?>" alt="Our logo" title="Visit Site" /></a></p>
+				<p id="logo"><a href="#"><img src="<?php echo base_url().'asset/images/logo.png';?>" alt="Our logo" title="Visit Site" /></a></p>
                  
 	
 			</div> <!-- /padding -->

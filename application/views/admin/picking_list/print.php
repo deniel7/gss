@@ -71,7 +71,7 @@
 			$data_table[]=$row;
 		}
         ?>
-        <p><img src="<?php echo base_url().'asset/images/logo.gif';?>" /></a></p>
+        <p><img src="<?php echo base_url().'asset/images/logo.png';?>" /></a></p>
         <p style= "float:right">
             <?php
                 switch($row['status_print']) {

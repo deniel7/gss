@@ -32,19 +32,19 @@
 	
 	<div class="span3">
 		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/booking.jpeg"/><b>Cek Stok - Booking - Print Nota</b></p>
+			<p><img src="<?php echo base_url();?>template/palmtree/images/booking.jpg"/><b>Cek Stok - Booking - Print Nota</b></p>
 		</div>
 	</div>
 	
 	<div class="span3">
 		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/bayar.jpeg"/><b>Membayar Nota Pembelian</b></p>
+			<p><img src="<?php echo base_url();?>template/palmtree/images/bayar.jpg"/><b>Membayar Nota Pembelian</b></p>
 		</div>
 	</div>
 	
 	<div class="span3">
 		<div class="well well-large">
-			<p><img src="<?php echo base_url();?>template/palmtree/images/confirm.jpeg"/><b>Konfirmasi Pembelian</b></p>
+			<p><img src="<?php echo base_url();?>template/palmtree/images/confirm.jpg"/><b>Konfirmasi Pembelian</b></p>
 		</div>
 	</div>
 
