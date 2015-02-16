@@ -114,6 +114,7 @@
 			
 			<div class="col-xs-12">
 				<div class="panel panel-yellow">
+				    <a href="<?php echo base_url(); ?>admin/gold_process">
 				    <div class="panel-heading">
 					<div class="row">
 					    
@@ -132,7 +133,7 @@
 					    
 					</div>
 				    </div>
-				    
+				    </a>
 				</div>
 			</div>
 			
