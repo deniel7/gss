@@ -47,7 +47,4 @@
 			<p><img src="<?php echo base_url();?>template/palmtree/images/confirm.jpg"/><b>Konfirmasi Pembelian</b></p>
 		</div>
 	</div>
-
-
-
 </div>
