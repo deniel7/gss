@@ -35,6 +35,7 @@
   <td>Waktu</td>
   <td>Total</td>
   <td>SPV</td>
+  <td>Cabang</td>
   <td>No. Struk</td>
   <td>Status</td>
 </thead>
@@ -46,6 +47,7 @@
 		    <td><?php echo $item->tanggal_masuk; ?></td>
 		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
+		    <td><?php echo $item->SITE_DESC; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
 		    <td>
 			

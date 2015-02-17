@@ -80,14 +80,15 @@
         <td colspan="2" style="text-align: right"><b>Biaya Kirim</b></td>
 	<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
     </tr>
+    
 </table>
 
 
 <br/>
 <div>
 
-<?php if ($data['FLAG'] == 0){ ?>
-<div class="responsive">
+<?php if ($data['FLAG'] == 0 AND $multiuser != 1){ ?>
+<div class="responsive" style="margin-bottom: 50px">
             
             <div class="text-center">
             <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">Submit Pesanan</button>
@@ -99,7 +100,7 @@
     }
     endforeach;
 ?>
-<div id="responsive" class="modal fade" tabindex="-1" data-width="160" style="display: none;">
+<div id="responsive" class="modal fade" tabindex="-1" data-width="160" style="display: none">
     <form action="<?php echo site_url(uri_string()); ?>" method="POST">
     
     <?php //echo form_open('pesanan/submit_pesanan'); ?>

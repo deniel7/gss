@@ -164,7 +164,9 @@
 				echo form_hidden('recent_stock',$stock);
 				echo form_input(array('id' => 'qty','name' => 'qty','placeholder'=>'jumlah', 'value' =>'1', 'class' => 'span2' ));
 				
-				echo form_submit(array('name' => 'submit','value'=>'Pesan', 'class' => 'btn btn-large btn-primary pull-right' ));
+				if($multiuser == 0){
+				    echo form_submit(array('name' => 'submit','value'=>'Pesan', 'class' => 'btn btn-large btn-primary pull-right' ));
+				}
 			    
 			    }else{
 				echo"<center><div class='alert-info'>Stock Unavailable</div></center>";	
