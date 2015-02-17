@@ -55,7 +55,7 @@ class Receiving extends MY_Controller {
         if($this->input->post('go_upload')){
 	     
 	    $config['upload_path'] = 'uploads/receiving/';
-            $config['allowed_types'] = 'gif|jpeg|png|jpg|JPG';
+            $config['allowed_types'] = 'gif|jpeg|png';
             $config['max_size']	= '500';
             //$config['max_width']  = '9';
             //$config['max_height']  = '7';

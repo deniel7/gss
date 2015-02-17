@@ -26,15 +26,11 @@
 				<thead>
 				<tr>
 				  <td>Nomor Transaksi</td>
-                                  <td>No PO</td>
-                                  <td>DN No.</td>
-                                  <td>REC No.</td>
 				  <td>Cabang</td>
-				  <td>Waktu Transaksi</td>
+				  <td>Waktu</td>
 				  <td>Total</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>
-                                  <td>Receiving File</td>
 				  <td>Status</td>
 				</thead>
 				<tbody>
@@ -42,19 +38,12 @@
 					<?php foreach ($pesanan as $item): ?>
 						<tr>
 						    <td><?php echo anchor(uri_string().'/pesanan/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
-						    <td><?php echo $item->ORDER_NO_GOLD; ?></td>
-                                                    <td><?php echo $item->DN_NO; ?></td>
-                                                    <td><?php echo $item->REC_NO; ?></td>
-                                                    <td><?php echo $item->SITE_STORE_CODE; ?></td>
+						    <td><?php echo $item->SITE_STORE_CODE; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
 						    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>
 						    <td><?php echo $item->no_struk; ?></td>
-                                                    <td>
-                                                            <?php if ($item->RECEIVING_DN): ?>
-                                                            <p style="color:green">Received</p>
-                                                            <?php endif; ?>
-                                                    <td>
+						    <td>
 							
 							<?php
 							
