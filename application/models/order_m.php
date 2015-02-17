@@ -18,7 +18,7 @@ class Order_m extends MY_Model {
 
                 $detail = array( 'id_order'=>$id,
                                  'ORDER_NO_GTRON'=>$order_no_gtron,
-                                 'ORDER_NO_GOLD'=>$order_no_gtron,
+                                 'ORDER_NO_GOLD'=>0,
                                  'ARTICLE_CODE'=>$item['id'],
                                  'PLU'=>$item['PLU'],
                                  'kuantitas'=>$item['qty'],

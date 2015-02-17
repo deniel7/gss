@@ -141,6 +141,33 @@
 			<div class="span3">: <?php echo $plu_cash; ?></div>
 			</div>
 			<?php endforeach; ?>
+			
+			<?php foreach($sv3_price as $sv3): ?>
+			<div class="span9">
+			<div class="span3">
+			    <div class="checkbox">
+				<label>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="3">&nbsp;&nbsp; SV <?php echo $sv3->SV; ?>
+				</label>
+			    </div>
+			    
+			    <div class="cash box">
+				    <?php
+					    $sv3price = $this->cart->format_number($sv3->SALES_UNIT_PRICE);
+					    $plu_sv3 = $sv3->PLU;
+				    
+				    ?>
+				
+				<input type="hidden" name='psv3' class='form-control input-lg' value='<?php echo $sv3price ?>'>
+				<input type="hidden" name='plu_sv3' class='form-control input-lg' value='<?php echo $plu_sv3 ?>'>
+				</div>
+			
+			</div>
+			
+			<div class="span3">: <?php echo $plu_sv3; ?></div>
+			</div>
+			<?php endforeach; ?>
+			
 		</div>
 		
 		<hr class="soft"/>

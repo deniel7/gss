@@ -49,7 +49,7 @@
 			</div>
 			<div class="span7">
 				
-				<h5><?php echo anchor(site_url('/store/produk/'.$item->url_produk.'/'.$item->id_produk),$item->ARTICLE_DESC);?></h5>
+				<h5><?php echo anchor(site_url('/store/produk/'.$item->ARTICLE_CODE),$item->ARTICLE_DESC);?></h5>
 				<hr class="soft"/>
 				
 				<table class="table table-bordered" style="font-size: 11px">

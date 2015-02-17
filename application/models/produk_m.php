@@ -707,6 +707,20 @@ class Produk_m extends MY_Model {
 	return $data->result();
     }
     
+    public function get_by_url3($url,$store_site_code,$dc_site_code) {
+	$string_query           = "select DISTINCT(a.ARTICLE_CODE),c.PLU,c.SV,a.ARTICLE_DESC,STOCK_QTY,SALES_UNIT_PRICE from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+				    Where a.SUBCLASS = b.MS_CHILD
+				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
+				    AND a.DC_SITE_CODE = '$dc_site_code'
+				    AND c.STORE_SITE_CODE = $store_site_code
+				    AND a.ARTICLE_CODE = $url
+				    AND c.SV = 3
+					    ";
+        $query          	= $this->db->query($string_query);              
+	$data= $this->db->query($string_query);   
+	
+	return $data->result();
+    }
     
     public function get_master_produk() {
         

@@ -291,6 +291,8 @@ class Store extends CI_Controller {
             $this->data->produk = $this->produk_m->get_by_url($url,$store_site_code,$dc_site_code);
             
             $this->data->sv2_price = $this->produk_m->get_by_url2($url,$store_site_code,$dc_site_code);
+            
+             $this->data->sv3_price = $this->produk_m->get_by_url3($url,$store_site_code,$dc_site_code);
         
         }else{
             
@@ -469,7 +471,7 @@ class Store extends CI_Controller {
                                 'biaya_kirim'     =>  $biaya_kirim,
                                 'total_item'      =>  $this->input->post('total_item'),
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron,
-                                'ORDER_NO_GOLD'   =>  $order_no_gtron,
+                                'ORDER_NO_GOLD'   =>  '0',
                                 'SITE_CODE'       =>  $this->data->store_site_code,
                                 'DC_CODE'         =>  $this->data->dc_site_code
                                 
