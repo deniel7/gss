@@ -794,10 +794,11 @@ class Store extends CI_Controller {
             $data['search_name'] = $this->session->userdata('sess_name');
             $dc_site_code = $this->session->userdata('sess_dc_site_code');
             $store_site_code = $this->session->userdata('sess_store_site_code');
+            $multiuser = $this->session->userdata('multiuser');
         }
         
         
-        
+        if($this->data->multiuser == 0){
         $this->db->select('*');
         $this->db->from('DC_STOCK_MASTER');
         $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
@@ -807,6 +808,15 @@ class Store extends CI_Controller {
         $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
         $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE()');
         //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+        }else{
+            
+            $this->db->select('*');
+            $this->db->from('DC_STOCK_MASTER');
+            $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+            $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+            $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+            $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE()');
+        }
         
         if($data['search_name'] != ''){
             $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $data['search_name']);
@@ -815,25 +825,10 @@ class Store extends CI_Controller {
             
             //echo"a";
             
-           
-        
         }
-        //else if($data['search_name'] ==NULL && $data['search_mem'] != NULL){
-        //    $this->db->like('CONCAT(membercard)', $data['search_mem']);
-        //    //echo"b";
-        //
-        //}else if($data['search_name'] ==NULL && $data['search_mem'] == NULL && $data['level'] != NULL){
-        //    $this->db->like('CONCAT(level)', $data['level']);
-        //    //echo"c";
-        //
-        //}else{
-        //    $this->db->like('CONCAT(username)', $data['search_name']);
-        //    $this->db->like('CONCAT(membercard)', $data['search_mem']);    
-        //    //echo"d";
-        //}
         
         $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-        $this->db->last_query();
+        
         //Pagination init
         $pagination['base_url'] 		= site_url('/store/search_prod/page/');
         $pagination['total_rows'] 		= $this->db->get()->num_rows();
@@ -849,7 +844,7 @@ class Store extends CI_Controller {
     
         $this->pagination->initialize($pagination);
     
-        $data['data'] = $this->produk_m->SearchResult($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code);
+        $data['data'] = $this->produk_m->SearchResult($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $multiuser);
     
         $this->load->vars($data);
         

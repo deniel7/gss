@@ -488,9 +488,9 @@ class Produk_m extends MY_Model {
 			return $data;
     }
     
-    function SearchResult($perPage,$uri,$search_name,$dc_site_code,$store_site_code)
+    function SearchResult($perPage,$uri,$search_name,$dc_site_code,$store_site_code,$multiuser)
     {
-     
+	if($multiuser == 0){
 	//$this->db->select('*');
 	//$this->db->from('DC_STOCK_MASTER');
 	//$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
@@ -501,13 +501,25 @@ class Produk_m extends MY_Model {
 	$st="ART_ATTRIB.END_DATE >= 'CURDATE()'";
 	  
 	$this->db->select('*');
-		$this->db->from('DC_STOCK_MASTER');
-		$this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
-		$this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
-		$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-		$this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
-		$this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-		$this->db->where($st, NULL, FALSE);
+	$this->db->from('DC_STOCK_MASTER');
+	$this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+	$this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+	$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+	$this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+	$this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+	$this->db->where($st, NULL, FALSE);
+	
+	}else{
+	    //echo "<br/> ini juga multiuser loh";
+	    
+	    $this->db->select('*');
+	    $this->db->from('DC_STOCK_MASTER');
+	    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+	    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+	    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+	    $this->db->where($st, NULL, FALSE);
+	}
+	
 	
         if($search_name !='')
 	{
