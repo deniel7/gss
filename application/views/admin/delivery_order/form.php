@@ -81,20 +81,40 @@
 		      <td>Total</td>
 		      <td>SPV</td>
 		      <td>No. Struk</td>
-		      <td>Status</td>
+		      <td>Print Status</td>
+		      <td>Action</td>
 		      
 		    </thead>
 		    <tbody>
 		    <?php if($pesanan!= array()): ?>
 			    <?php foreach ($pesanan as $item): ?>
 				    <tr>
-					<td><?php echo $item->ORDER_NO_GTRON; ?></td>
+					<td>
+					
+					    <?php echo $item->ORDER_NO_GTRON; ?>
+					    
+					    <?php
+						    $print = $item->PRINT_STATUS;
+						    
+						    if($print == 0){
+							echo"
+							<p class='btn btn-danger btn-sm' style='font-size:9px; text-align:right'>
+							<i class='fa fa-exclamation-circle fa-fw'></i>New
+							</p";
+							
+						    }
+					    
+					    ?>
+					
+					</td>
 					<td><?php echo $item->SITE_STORE_CODE; ?></td>
 					<td><?php echo $item->tanggal_masuk; ?></td>
 					<td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
 					<td><?php echo $item->USERNAME; ?></td>
 					<td><?php echo $item->no_struk; ?></td>
-					
+					<td>
+					    
+					</td>
 					<td>
 					    
 					    <input type="hidden" id="id_order_<?php echo $item->id_order; ?>" value="<?php echo $item->id_order; ?>" />

@@ -31,9 +31,9 @@
             
 	    <div class="row">
                 <div class="col-lg-12">
-                    <form action="<?php echo site_url(uri_string()).'/printed/'; ?>" method="POST">
+                    <form action="<?php echo site_url().'admin/delivery_order/printed/'; ?>" method="POST">
 				  
-				  
+		    <?php //echo site_url().'delivery_order/printed/'; ?>
 		    <center>
 			<!--<input name="button" type="button"  value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg" />-->
 			<input type="submit" name="submit" value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg">
@@ -6826,7 +6826,12 @@ button.close {
 						DN Number : <?php echo $data['DN_NO']; ?>
 					    </p>
 					    <p style="text-align: right; float: right">
-					    PRINTED on : <?php echo date('d/m/Y - H:i:s'); ?>
+					   <?php
+						echo $copied.' : ';
+					   
+					    ?>
+					    
+					    <?php echo date('d/m/Y - H:i:s'); ?>
 					    </p>
 					</div>
 
@@ -6839,7 +6844,7 @@ button.close {
 							    <div class="panel-heading">
 								<div class="row">
 								<div class="col-lg-6">
-								<img src="<?php echo base_url().'/template/palmtree/images/logo.gif'; ?>" />
+								<img src="<?php echo base_url().'/template/palmtree/images/logo.png'; ?>" />
 								</div>
 								<div class="col-lg-6">
 								    <div class="panel-body">

@@ -54,23 +54,26 @@ class Delivery_order extends MY_Controller {
 	$this->db->where('STORE_SALES_MASTER.SV = SUPPLIER_ORDER_DETAIL.SV');
 	$this->db->where('STORE_SITE_CODE',$store_sc);
 	$this->db->where('SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON',$order_no);
+	$this->db->where('PRINT_STATUS', 0);
 	$q = $this->db->get();
 	
-	//echo $this->db->last_query();
-	//parent::_view('delivery_order/print',$this->data);
 	
         if($q->result_array() == NULL){
+          
+//	    $this->db->set('PRINT_STATUS', '1');
+//            $this->db->where('ORDER_NO_GTRON', $order_no);
+//            $this->db->update('SUPPLIER_ORDER_HEADER');
+//	    redirect (site_url('admin/delivery_order/'));
+
+	$this->data->copied = "RE-PRINT";
+	$this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id_order),true);
+
+	parent::_view('delivery_order/print',$this->data);
+	
+	        
+	}else{
             
-	    $this->db->set('PRINT_STATUS', '1');
-            
-            $this->db->where('ORDER_NO_GTRON', $order_no);
-            $this->db->update('SUPPLIER_ORDER_HEADER');
-	    
-            //parent::_view('delivery_order/gagal',$this->data);
-            
-	    redirect (site_url('admin/delivery_order/'));
-        }else{
-            
+	    $this->data->copied = "PRINT";
 	    //$this->data->q = $q;
 	    $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id_order),true);
 	    //echo $this->db->last_query();
@@ -84,7 +87,8 @@ class Delivery_order extends MY_Controller {
     
     public function printed(){
         $order_no =  $this->input->post('orderno');
-	
+        
+        
             $this->db->set('PRINT_STATUS', '1');
             
             $this->db->where('ORDER_NO_GTRON', $order_no);
