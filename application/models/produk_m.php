@@ -498,7 +498,7 @@ class Produk_m extends MY_Model {
 	//$this->db->where('DC_SITE_CODE',$dc_site_code);
 	//$this->db->where('STORE_SITE_CODE',$store_site_code);
 	//$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-	$st="ART_ATTRIB.END_DATE >= 'CURDATE()'";
+	$st="ART_ATTRIB.END_DATE >= CURDATE() AND ART_ATTRIB.START_DATE <= CURDATE()";
 	  
 	$this->db->select('*');
 	$this->db->from('DC_STOCK_MASTER');
@@ -523,10 +523,10 @@ class Produk_m extends MY_Model {
 	
         if($search_name !='')
 	{
-	    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $search_name);
-	    $this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
+	    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($search_name));
+	    //$this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
 	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-	    $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
+	    //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
 	    //echo $this->db->last_query();
 	    
 	}

@@ -806,7 +806,7 @@ class Store extends CI_Controller {
         $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
         $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
         $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-        $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE()');
+        $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE() AND ART_ATTRIB.START_DATE <= CURDATE()');
         //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
         }else{
             
@@ -815,13 +815,13 @@ class Store extends CI_Controller {
             $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
             $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
             $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-            $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE()');
+            $this->db->where('ART_ATTRIB.END_DATE','>= CURDATE() AND ART_ATTRIB.START_DATE <= CURDATE()');
         }
         
         if($data['search_name'] != ''){
-            $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', $data['search_name']);
-            $this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
-            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
+            //$this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
+            //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
             
             //echo"a";
             
