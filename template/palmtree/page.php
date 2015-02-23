@@ -9,9 +9,7 @@
 			<?php
 			if(!empty($slidebanner)){
 						echo $slidebanner;	
-					}else{
-						
-					}
+			}
 			?>
 </div>
 

@@ -4,13 +4,13 @@
 				<li id="settingslink2"><?php //echo anchor(site_url('user/register'),'REGISTRASI') ?></li>-->
 				<?php //else: ?>
 
-<div id="logoArea" class="navbar">
+<div>
 <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
 	<span class="icon-bar"></span>
 </a>
-  <div class="navbar-inner">
+  <div>
     <a class="brand" href="<?php echo site_url(); ?>"><img src="<?php echo base_url();?>asset/themes/images/logo.png" alt="Yogya Elektronik"/></a>
 		
 		
