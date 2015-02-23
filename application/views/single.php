@@ -98,7 +98,7 @@
 				<div class="checkbox">
 				    <label>
 					<input id="colorRadio" type="radio" name="colorRadio" value="1" checked="checked">
-					&nbsp; SV <?php echo $item->SV; ?>
+					&nbsp; TC <?php echo $item->SV; ?> (harga promo / cicilan)
 				    </label>
 				</div>
 				<div class="credit box">
@@ -121,7 +121,7 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp; SV <?php echo $price->SV; ?>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="2">&nbsp;&nbsp; TC <?php echo $price->SV; ?> (harga cash / debit) 
 				</label>
 			    </div>
 			    
@@ -147,7 +147,7 @@
 			<div class="span3">
 			    <div class="checkbox">
 				<label>
-				    <input id="colorRadio" type="radio" name="colorRadio" value="3">&nbsp;&nbsp; SV <?php echo $sv3->SV; ?>
+				    <input id="colorRadio" type="radio" name="colorRadio" value="3">&nbsp;&nbsp; TC<?php echo $sv3->SV; ?> (harga normal)
 				</label>
 			    </div>
 			    

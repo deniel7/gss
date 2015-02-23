@@ -106,3 +106,53 @@
 
 
 <?php endif; ?>
+<br/><hr/>
+<div class="row">
+<div>
+	    <div class="span2" style="color: red">Booked</div>
+	    <div class="span10">Transaksi sudah dalam proses pemesanan oleh konsumen</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: orange">Confirmed</div>
+	    <div class="span10">Transaksi dalam kondisi konsumen sudah melakukan pembayaran di kassa dan sudah dilakukan konfirmasi ke dalam aplikasi</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: blue">on Progress</div>
+	    <div class="span10">Transaksi dalam kondisi pemrosesan oleh GOLD</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: blue">on Progress Shipment</div>
+	    <div class="span10">Transaksi dalam kondisi pemrosesan persiapan pengiriman</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: green">on Delivery</div>
+	    <div class="span10">Transaksi dalam kondisi sedang dalam pengiriman kepada konsumen</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: magenta">Transaction Completed</div>
+	    <div class="span10">Transaksi selesai</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: brown">Cancel</div>
+	    <div class="span10">Transaksi dalam kondisi pembatalan</div>
+</div>
+</div>
+<br/><hr/>
