@@ -162,15 +162,6 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 <?php endforeach; ?> 
 
 
-<!--<tr>
-  
-  <td></td>
-  <td align="center"></td>
-  <td></td>
-  <td></td>
-  <td style="text-align:right; background-color: #FFF0F0;"><strong>Total</strong></td>
-  <td style="text-align:right; background-color: #FFF0F0;"><strong>Rp. <?php //echo $this->cart->format_number($this->cart->total()); ?></strong></td>
-</tr>-->
 </tbody>
 </table>
 
@@ -179,62 +170,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	echo form_hidden('order_no',$order_no);
 	echo form_hidden('total_item',$total_item);
 	echo form_hidden('total',$this->cart->total());
-	//echo form_hidden('pemb',$items['pembayaran']);
 	
-
-	
-//	echo form_input(array(
-//					'id' => 'nama_depan',
-//                                        'name' => 'nama_depan',
-//					'placeholder' => 'Nama Depan',
-//                                        'class' => 'form-control input-lg'
-//			)); 
-//	
-//	echo "<br/>";
-//	
-//	echo form_input(array(
-//					'id' => 'nama_belakang',
-//                                        'name' => 'nama_belakang',
-//					'placeholder' => 'Nama Belakang',
-//                                        'class' => 'form-control input-lg'
-//			)); 
-//	
-//	echo "<br/>";
-//	
-//	echo form_textarea(array(
-//					'id' => 'alamat',
-//                                        'name' => 'alamat',
-//					'placeholder' => 'Alamat',
-//                                        'style' => 'width:400px;height:50px;'
-//			)); 
-//	
-//	echo "<br/>";
-//        
-//	echo form_input(array(
-//					'id' => 'kota',
-//                                        'name' => 'kota',
-//					'placeholder' => 'Kota',
-//                                        'class' => 'form-control input-lg'
-//			)); 
-//	
-//       
-//       echo "<br/>";
-//       
-//       echo form_input(array(
-//					'id' => 'kode_pos',
-//                                        'name' => 'kode_pos',
-//					'placeholder' => 'Kode Pos',
-//                                        'class' => 'form-control input-lg'
-//			)); 
-//       
-//        echo "<br/>";
-//       
-//	echo form_input(array(
-//					'id' => 'phone',
-//                                        'name' => 'phone',
-//					'placeholder' => 'Telepon',
-//                                        'class' => 'form-control input-lg'
-//			)); 
 ?>
 
 <input id="nama_depan" name="nama_depan" class="form-control input-lg" type="text" required placeholder="Nama Depan" oninvalid="this.setCustomValidity('Kolom Nama Depan Harus diisi')"></input><br/>
@@ -249,7 +185,20 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 echo form_fieldset_close();
 ?>
 
-
+<br/><br/>
+<div>
+  <br/>
+  
+  <?php
+	  
+	  echo form_fieldset('Tanggal Pengiriman','class="produk"');
+	  
+	  //echo form_dropdown('biaya',$biaya);
+	  
+	  echo form_fieldset_close();
+  ?>
+  
+</div>
 
 
 <br/><br/>

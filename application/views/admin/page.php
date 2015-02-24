@@ -34,7 +34,7 @@
 				  <td>Total</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>
-                                  <td>Receiving File</td>
+                                  <td>Konfirmasi File</td>
 				  <td>Status</td>
 				</thead>
 				<tbody>
