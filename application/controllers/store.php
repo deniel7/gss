@@ -446,10 +446,16 @@ class Store extends CI_Controller {
             $total = $this->input->post('total');
             $biaya = $this->input->post('biaya');
             $biaya_nego = $this->input->post('biaya_nego');
+            $tanggal = $this->input->post('tgl');
             
-            //echo $biaya_nego;
-            //echo "<br/>";
-            //echo $biaya;
+            if($tanggal != 0){
+                $tgl = $this->input->post('tgl');    
+            }else{
+                $tgl = NULL;
+            }
+            
+            $catatan = $this->input->post('catatan');
+
             
             if($biaya_nego != 0){
                 
@@ -473,7 +479,9 @@ class Store extends CI_Controller {
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron,
                                 'ORDER_NO_GOLD'   =>  '0',
                                 'SITE_CODE'       =>  $this->data->store_site_code,
-                                'DC_CODE'         =>  $this->data->dc_site_code
+                                'DC_CODE'         =>  $this->data->dc_site_code,
+                                'ORDER_DELIVERY_DATE' => $tgl,
+                                'catatan' => $catatan
                                 
                                 );
                                 
@@ -543,7 +551,12 @@ class Store extends CI_Controller {
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
+        ->set_js('jquery-1.8.3.min')
+        ->set_js('bootstrap.min')
+        ->set_js('bootstrap-datetimepicker.min')
+        ->set_js('bootstrap-datetimepicker.uk')
         ->set_css('bootstrap')
+        ->set_css('bootstrap-datetimepicker.min')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')

@@ -1,31 +1,3 @@
-<!--<style type="text/css">
-    .box{
-        padding: 20px;
-        display: none;
-        margin-top: 30px;
-	margin-bottom: 30px;
-        border: 1px thin #000;
-    }
-    .cash{ background: #ff0000; }
-    .credit{ background: #00ff00; }
-    .indents{ background: #0000ff; }
-</style>-->
-
-<!--
-<script type="text/javascript">
-function FillBilling(f) {
-  if(f.billingtoo.checked == true) {
-    f.nama_depan_b.value = f.nama_depan.value;
-    f.nama_belakang_b.value = f.nama_belakang.value;
-    f.alamat_b.value = f.alamat.value;
-    f.kota_b.value = f.kota.value;
-    f.kode_pos_b.value = f.kode_pos.value;
-    f.phone_b.value = f.phone.value;
-  }
-}
-</script>
--->
-
 <div class="row">
 <div class="span12">
   <div class="row">
@@ -166,10 +138,13 @@ function FillBilling(f) {
 	    ?>
 	   <table class="table table-bordered">
 		  
-		  <tr>
-		      <td class="hdr">Tanggal Pemesanan</td>
-		      <td><?php echo $item->tanggal_masuk; ?></td>
-		  </tr>
+		<?php
+			$tanggal = explode(' ',$item->tanggal_masuk);
+		?>
+		<tr>
+                    <td class="hdr">Tanggal Pemesanan</td>
+                    <td><?php echo $tanggal[0]; ?></td>
+                </tr>
 		  <tr>
 		      <td class="hdr">No. Order</td>
 		      <td><?php echo $item->ORDER_NO_GTRON; ?></td>
@@ -216,16 +191,34 @@ function FillBilling(f) {
 	    echo form_fieldset('Estimasi Pengiriman', 'class="produk"');
 	    
 	    
-	    if($t > 8 && $t <15){
-	      echo "<span class='btn btn-info'>".date('d-m-Y').' /Besok Pagi'."</span>";
-	    }else{
-	      //echo date('Y-m-d','+ 1 day');  
-	      echo "<span class='btn btn-warning'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Sore'."</span>";
-	    }
+	    foreach ($transaksi as $item):
+	    $tgl_kirim = $item->ORDER_DELIVERY_DATE;
+	    	    
+	    endforeach;
 	    
+	    if($tgl_kirim != NULL){
+	      
+	      echo "<span class='btn btn-success'>".$tgl_kirim."</span>";
+	    }else{
+
+	      if($t > 8 && $t <15){
+		echo "<span class='btn btn-info'>".date('d-m-Y').' /Besok Pagi'."</span>";
+	      }else{
+		//echo date('Y-m-d','+ 1 day');  
+		echo "<span class='btn btn-warning'>".date('d-m-Y', strtotime(' +1 day')).' / Besok Sore'."</span>";
+	      }
+	    }
 	    
     ?>
 
+	<br/><br/>
+	<?php
+	
+	  echo form_fieldset('Catatan Pembeli', 'class="produk"');
+	    
+	    echo $item->catatan;
+	
+	?>
 	
 	
 	<br/><br/>

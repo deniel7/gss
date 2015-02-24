@@ -164,7 +164,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 
 </tbody>
 </table>
-
+<br/><br/>
 <?php 
         echo form_fieldset('Alamat Pengiriman','class="produk"');
 	echo form_hidden('order_no',$order_no);
@@ -192,16 +192,31 @@ echo form_fieldset_close();
   <?php
 	  
 	  echo form_fieldset('Tanggal Pengiriman','class="produk"');
-	  
-	  //echo form_dropdown('biaya',$biaya);
+  ?>
+  
+  
+        <fieldset>
+            
+	    <div class="control-group">
+                <!--<label class="control-label">Tanggal Pengiriman</label>-->
+                <div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input size="16" type="text" value="" readonly>
+                    <span class="add-on"><i class="icon-remove"></i></span>
+					<span class="add-on"><i class="icon-th"></i></span>
+                </div>
+				<input type="hidden" id="dtp_input2" name="tgl" value="" /><br/>
+            </div>
+        </fieldset>
+    
+  
+  
+  <?php	  
 	  
 	  echo form_fieldset_close();
   ?>
   
 </div>
 
-
-<br/><br/>
         <div>
 	
 	<br/>
@@ -225,6 +240,20 @@ echo form_fieldset_close();
 	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text" placeholder="Diatas 26 KM" title="70000" pattern="[0-9]{2,20}"></input>
 	</div>
 
+<br/><br/>
+        <div>
+	
+	<?php
+	  
+	  echo form_fieldset('Catatan Pembeli','class="produk"');
+	?>
+	  
+	  <textarea style="width:400px;height:150px;" placeholder="Catatan Pembeli" id="catatan" rows="20" cols="90" name="catatan"></textarea><br/>
+	
+	<?php  
+	  echo form_fieldset_close();
+	?>
+	</div>
 
 <br/><br/>
 <hr/>
@@ -263,4 +292,36 @@ jQuery(function($) {
 	});
 });
 </script>
-
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        //language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'uk',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>

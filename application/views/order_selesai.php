@@ -50,9 +50,15 @@
             <table class="table table-bordered">
 		<?php $i = 1;$total_belanja = 0; ?>
 		<?php foreach ($pembeli as $item): ?>
+		
+		<?php
+		
+			$tanggal = explode(' ',$item->tanggal_masuk);
+			
+		?>
 		<tr>
                     <td class="hdr">Tanggal Pemesanan</td>
-                    <td><?php echo $item->tanggal_masuk; ?></td>
+                    <td><?php echo $tanggal[0]; ?></td>
                 </tr>
                 <tr>
                     <td class="hdr">No. Order</td>
@@ -74,6 +80,7 @@
                     <td class="hdr">Telepon</td>
                     <td><?php echo $item->phone; ?></td>
                 </tr>
+		
 		<?php endforeach; ?>
             </table>
 	    
@@ -111,7 +118,10 @@
         
         <?php endforeach; ?>
         
-	
+	<tr>
+	    <td>Catatan Pembeli</td>
+	    <td colspan="2"><?php echo $item->catatan; ?></td>
+	</tr>
 	
 	<tr>
 	  <td rowspan="2"><strong>Biaya Kirim</strong></td>
