@@ -114,9 +114,17 @@
 	
 	
 	<tr>
-	  <td><strong>Biaya Kirim</strong></td>
-          <td colspan="3" style="background-color: #FFF0F0;"><strong>Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?></strong></td>
-	  
+	  <td rowspan="2"><strong>Biaya Kirim</strong></td>
+	  <td style="background-color: #FFF0F0;"  colspan="2">
+	    <strong>PLU : 01342635</strong>
+	</tr>
+	<tr>
+
+	  <td style="background-color: #FFF0F0;" colspan="2">
+	    <strong>
+	     Rp. <?php echo $this->cart->format_number($item->biaya_kirim); ?>
+	    </strong>
+	  </td>
 	</tr>
 	
         
