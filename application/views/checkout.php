@@ -191,7 +191,8 @@ echo form_fieldset_close();
   
   <?php
 	  
-	  echo form_fieldset('Tanggal Pengiriman','class="produk"');
+	  echo form_fieldset('Negosiasi Tanggal Pengiriman','class="produk"');
+	  echo "*kosongkan jika dikirimkan Normal : Besok"
   ?>
   
   
@@ -293,35 +294,20 @@ jQuery(function($) {
 });
 </script>
 <script type="text/javascript">
-    $('.form_datetime').datetimepicker({
-        //language:  'uk',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		forceParse: 0,
-        showMeridian: 1
-    });
-	$('.form_date').datetimepicker({
-        //language:  'uk',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 2,
-		minView: 2,
-		forceParse: 0
-    });
-	$('.form_time').datetimepicker({
-        language:  'uk',
-        weekStart: 1,
-        todayBtn:  1,
-		autoclose: 1,
-		todayHighlight: 1,
-		startView: 1,
-		minView: 0,
-		maxView: 1,
-		forceParse: 0
-    });
+  
+var date = new Date();
+date.setDate(date.getDate()+2);
+  
+    $('.form_date').datetimepicker({
+    //language:  'uk',
+	    weekStart: 1,
+	    todayBtn:  1,
+	    autoclose: 1,
+	    todayHighlight: 1,
+	    startView: 2,
+	    minView: 2,
+	    forceParse: 0,
+	    startDate: date
+});
+
 </script>
