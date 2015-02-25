@@ -10,7 +10,7 @@
     </script>
 <?php else: ?>
 
-<div class="col">
+<div class="span6">
 
 <?php foreach($detail as $data): ?>
 <?php $orderno = $data['ORDER_NO_GTRON']; ?>
@@ -26,7 +26,7 @@
 <div class="clear"></div>
 <br />
 
-<div class="col">
+<div class="span10">
 <b>Data Konsumen :</b>
 <table cellspacing="0" cellpadding="3px">
 <tr>
@@ -43,8 +43,23 @@
 </tr>
 </table>
 </div>
+
+<div class="span2">
+    <p><b>Bukti Penerimaan :</b></p>
+    <?php if($data['RECEIVING_DN']): ?>
+    <a data-toggle="modal" href="#long" class="thumbnail">
+	<img src="<?php echo base_url().'uploads/receiving/'.$data['RECEIVING_DN']; ?>" alt="...">
+    </a>
+    <?php else: ?>
+    <p style="font-size: 12px">Belum Ada</p>
+    <?php endif; ?>
+</div>
+
 <div class="clear"></div>
 <br />
+
+
+<div class="span12">
 <b>Detail Pesanan :</b>
 <table cellspacing="0" cellpadding="3px">
     <tr>
@@ -86,6 +101,7 @@
 
 <br/>
 <div>
+</div>
 
 <?php if ($data['FLAG'] == 0 AND $multiuser != 1){ ?>
 <div class="responsive" style="margin-bottom: 50px">
@@ -212,6 +228,28 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<!-- Modal -->
+  <div class="modal fade" id="long" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" class="modal container hide fade">
+    
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">View Receiving DN</h4>
+        </div>
+        <div class="modal-body">
+	    <img src="<?php echo base_url().'uploads/receiving/'.$data['RECEIVING_DN']; ?>">
+	</div>
+        <div class="modal-footer">
+	  
+	  <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+          
+        </div>
+      </div><!-- /.modal-content -->
+    
+  </div><!-- /.modal -->
+
 
 </div>
 

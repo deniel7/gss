@@ -6862,6 +6862,11 @@ button.close {
 										
 									    </tr>
 									    <tr>
+										<td>Nomor Struk</td>
+										<td><?php echo $data['no_struk']; ?></td>
+										
+									    </tr>
+									    <tr>
 										<td>Nama</td>
 										<td><?php echo $data['nama_depan'].' '.$data['nama_belakang']; ?></td>
 										
@@ -6879,6 +6884,10 @@ button.close {
 										<td>Telepon</td>
 										<td><?php echo $data['phone']; ?></td>
 									    </tr>
+									    <tr>
+										<td>Catatan Pembeli</td>
+										<td><?php echo $data['catatan']; ?></td>
+									    </tr>
 									</tbody>
 								    </table>
 								</div>
@@ -6895,7 +6904,7 @@ button.close {
 								    <table class="table table-striped table-bordered table-hover">
 									<thead>
 									    <tr>
-										
+										<th>PLU</th>
 										<th>Barang</th>
 										<th>Jumlah</th>
 										<th>Harga</th>
@@ -6904,17 +6913,18 @@ button.close {
 									<tbody>
 									    <?php foreach($data['detail'] as $detail): ?>
 									    <tr>
+										<td><?php echo $detail['PLU']; ?></td>
 										<td><?php echo $detail['ARTICLE_DESC']; ?></td>
 										<td style="text-align: right"><?php echo $detail['kuantitas']; ?></td>
 										<td style="text-align: right"><?php echo $this->cart->format_number($detail['subtotal']); ?></td>
 									    </tr>
 									    <?php endforeach; ?>
 									    <tr>
-										<td colspan="2" style="text-align: right">Biaya</td>
+										<td colspan="3" style="text-align: right">Biaya</td>
 										<td style="text-align: right"><?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
 									    </tr>
 									    <tr>
-										<td colspan="2" style="text-align: right">Total</td>
+										<td colspan="3" style="text-align: right">Total</td>
 										
 										<td style="text-align: right"><?php echo $this->cart->format_number($data['total_biaya']); ?></td>
 									    </tr>
