@@ -50,7 +50,7 @@
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->SITE_DESC; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
-		    <td><?php echo $item->TOTAL_BIAYA_INPUT; ?></td>
+		    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
 		    <td>
 			
 			<?php

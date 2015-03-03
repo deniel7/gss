@@ -66,7 +66,7 @@
 				  <td>Nomor Transaksi</td>
 				  <td>Cabang</td>
 				  <td>Waktu</td>
-				  <td>Total</td>
+				  <td>Nominal Input</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>
 				  <td>Status</td>
@@ -78,7 +78,7 @@
 						    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 						    <td><?php echo $item->SITE_STORE_CODE; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
-						    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
+						    <td>Rp. <?php echo $item->TOTAL_BIAYA_INPUT; ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>
 						    <td><?php echo $item->no_struk; ?></td>
 						    <td>
