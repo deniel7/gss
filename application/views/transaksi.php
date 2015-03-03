@@ -37,6 +37,7 @@
   <td>SPV</td>
   <td>Cabang</td>
   <td>No. Struk</td>
+  <td>Nominal Input</td>
   <td>Status</td>
 </thead>
 <tbody>
@@ -49,6 +50,7 @@
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->SITE_DESC; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
+		    <td><?php echo $item->TOTAL_BIAYA_INPUT; ?></td>
 		    <td>
 			
 			<?php

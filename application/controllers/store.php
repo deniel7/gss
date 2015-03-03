@@ -992,12 +992,13 @@ class Store extends CI_Controller {
         if ($this->input->post('submit')){
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');
-            
+            $total_biaya_input = $this->input->post('total_biaya_input');
             
             $this->db->set('a.FLAG', '1');
             $this->db->set('a.no_struk',$nostruk);
+            $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
             $this->db->set('b.FLAG', '1');
-            
+           
             $this->db->where('a.ORDER_NO_GTRON', $orderno);
             $this->db->where('b.ORDER_NO_GTRON', $orderno);
             $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');

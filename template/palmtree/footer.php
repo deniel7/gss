@@ -72,6 +72,6 @@
 	initMenu();
     });
     </script>
-
+	
 </body>
 </html>
