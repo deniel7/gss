@@ -452,6 +452,23 @@ class Pesanan_m extends MY_Model {
     
     }
     
+    
+    public function get_pending_transaksi($limit1='',$limit2='',$store_site_code) {
+        
+        $data = array();
+	$sql = "select * from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
+	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE WHERE `STRUK_STATUS` = 2 ORDER BY id_order DESC ";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
+    
     //ADMIN
     public function get_all_transaksi($limit1='',$limit2='',$store_site_code) {
         

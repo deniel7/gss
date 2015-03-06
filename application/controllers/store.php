@@ -1023,5 +1023,105 @@ class Store extends CI_Controller {
         ->render('detail_transaksi',$this->data); 
         
     }
+    
+    public function pending_transaksi() {
+        $this->load->model('pesanan_m');
+        
+
+        $store_site_code = $this->data->store_site_code;
+        
+        $this->data->base_url = base_url().'/store/pending_transaksi';
+		
+	//$this->data->total_rows = $this->db->count_all('order');
+	$this->data->per_page = $this->config->item('hlm');
+	$this->data->uri_segment = 4;
+        $this->pagination->initialize($this->data);
+	
+        if($store_site_code != '')
+        {
+            
+            if($this->data->multiuser == 1){
+                $this->data->pesanan = $this->pesanan_m->get_pending_transaksi();
+            }else{
+                $this->data->pesanan = $this->pesanan_m->get_transaksi($this->data->per_page,$this->uri->segment(4,0), $store_site_code);
+            }
+        
+        }else{
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
+        }
+	
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('prettify')
+        ->set_css('mystyle')
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('pending_transaksi',$this->data); 
+    }
+    
+    public function pending_detail($id = 0) {
+       
+       $this->load->model('pesanan_m');
+       $struk_update_time = date('Y-m-d h:i:s'); 
+        
+        if ($this->input->post('submit2')){
+            $orderno = $this->input->post('orderno');
+            
+            
+            $this->db->set('a.FLAG', '4');
+            $this->db->set('b.FLAG', '4');
+            $this->db->set('a.updated_by', $this->data->user_desc);
+            $this->db->set('a.struk_update_time', $struk_update_time);
+            $this->db->set('a.STRUK_STATUS', 3);
+            
+            $this->db->where('a.ORDER_NO_GTRON', $orderno);
+            $this->db->where('b.ORDER_NO_GTRON', $orderno);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+            
+            
+            redirect (site_url('store/pending_transaksi'));
+	}
+        
+        
+        if ($this->input->post('submit')){
+            $orderno = $this->input->post('orderno');
+            $nostruk = $this->input->post('nomor');
+            $total_biaya_input = $this->input->post('total_biaya_input');
+            
+            $this->db->set('a.FLAG', '5');
+            $this->db->set('a.no_struk',$nostruk);
+            $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
+            $this->db->set('b.FLAG', '5');
+            $this->db->set('a.updated_by', $this->data->user_desc);
+            $this->db->set('a.struk_update_time', $struk_update_time);
+            $this->db->set('a.STRUK_STATUS', 1);
+             
+            $this->db->where('a.ORDER_NO_GTRON', $orderno);
+            $this->db->where('b.ORDER_NO_GTRON', $orderno);
+            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+            
+            redirect (site_url('store/pending_transaksi'));
+	} else {
+            
+	    $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
+        }
+        
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('prettify')
+        ->set_css('mystyle')
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('pending_detail',$this->data); 
+        
+    }
+    
 }
 ?>

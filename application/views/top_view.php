@@ -22,36 +22,41 @@
 	 
 	 <li class=""><?php echo anchor(site_url('store/transaksi'),'<span class="btn btn-large btn-info"><i class="icon-file"></i> Transaksi</span>'); ?></li>
 	 
+	 <?php if ($multiuser == 1): ?>
 	 
+	 <li class=""><?php echo anchor(site_url('store/pending_transaksi'),'<span class="btn btn-large btn-danger"><i class="icon-file"></i>
+ Pending</span>'); ?></li>
 	 
+	 <?php endif; ?>
+    
 	<?php
 		$attributes = array('id' => 'form_pencarian');
 		echo form_open('store/search_prod');
 	?>
 
-			<span>
-				<?php
-					$data_s = array(
-					'name'        => 'search_name',
-					'id'          => 'search_name',
-					'placeholder' => 'Search here..',
-					'class'   => 'srchTxt'
-					//'value'	      => $search_name,
-					);
-					
-                                        
-                                        
-					echo form_input($data_s);
-					echo form_hidden('dc_site_code', $dc_site_code);
-					echo form_hidden('store_site_code', $store_site_code);
-					echo form_submit('submit', 'Go','class = "btn btn-primary"');
-					echo form_close();
-				?>
-				<ul>
-						<div id="result"></div>
-				</ul>
-			</span>
-			</div>
+	<li class="nav pull-right">
+	<?php
+		$data_s = array(
+		'name'        => 'search_name',
+		'id'          => 'search_name',
+		'placeholder' => 'Search here..',
+		'class'   => 'srchTxt'
+		//'value'	      => $search_name,
+		);
+		
+		
+		echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
+		echo form_hidden('dc_site_code', $dc_site_code);
+		echo form_hidden('store_site_code', $store_site_code);
+		echo "<div style='margin-top:10px; margin-left: 5px; float:left'>".form_submit('submit', 'Go','class = "btn btn-primary"')."</div>";
+		echo form_close();
+	?>
+	</li>
+	<ul>
+			<div id="result"></div>
+	</ul>
+	
+</div>
 	
 	
 	
