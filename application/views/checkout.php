@@ -192,7 +192,10 @@ echo form_fieldset_close();
   <?php
 	  
 	  echo form_fieldset('Negosiasi Tanggal Pengiriman','class="produk"');
-	  echo "*kosongkan jika dikirimkan Normal : Besok"
+	  
+	 $d=strtotime("tomorrow");
+	 $today = date("d M Y", $d)
+	  
   ?>
   
   
@@ -201,7 +204,7 @@ echo form_fieldset_close();
 	    <div class="control-group">
                 <!--<label class="control-label">Tanggal Pengiriman</label>-->
                 <div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input size="16" type="text" value="" readonly>
+                    <input size="16" type="text" value="<?php echo $today; ?>" readonly>
                     <span class="add-on"><i class="icon-remove"></i></span>
 					<span class="add-on"><i class="icon-th"></i></span>
                 </div>
@@ -238,7 +241,7 @@ echo form_fieldset_close();
 //                                        'class' => 'form-control input-lg'
 //			)); 
 	?>
-	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text" placeholder="Diatas 26 KM" title="70000" pattern="[0-9]{2,20}"></input>
+	<input id="biaya_nego" name="biaya_nego" class="form-control input-lg" type="text" placeholder="Biaya nego" title="70000" pattern="[0-9]{2,20}"></input>
 	</div>
 
 <br/><br/>
