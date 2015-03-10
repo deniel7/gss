@@ -378,7 +378,7 @@ $('#price').priceFormat({
 
 </table>
 </div>
-
+<?php if($multiuser !=1): ?>
 <div class="responsive span6" style="margin-bottom: 50px">
             
             <div class="text-center">
@@ -386,7 +386,7 @@ $('#price').priceFormat({
 	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel</button>
             </div>
 </div>
-
+<?php endif; ?>
 <div class="clear"></div>
 <br />
 

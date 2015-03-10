@@ -22,12 +22,11 @@
 	 
 	 <li class=""><?php echo anchor(site_url('store/transaksi'),'<span class="btn btn-large btn-info"><i class="icon-file"></i> Transaksi</span>'); ?></li>
 	 
-	 <?php if ($multiuser == 1): ?>
 	 
 	 <li class=""><?php echo anchor(site_url('store/pending_transaksi'),'<span class="btn btn-large btn-danger"><i class="icon-file"></i>
  Pending</span>'); ?></li>
 	 
-	 <?php endif; ?>
+	
     
 	<?php
 		$attributes = array('id' => 'form_pencarian');

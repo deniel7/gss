@@ -1044,9 +1044,9 @@ class Store extends CI_Controller {
             if($this->data->multiuser == 1){
                 $this->data->pesanan = $this->pesanan_m->get_pending_transaksi();
             }else{
-                $this->data->pesanan = $this->pesanan_m->get_transaksi($this->data->per_page,$this->uri->segment(4,0), $store_site_code);
+                $this->data->pesanan = $this->pesanan_m->get_pending_transaksi_cbg($store_site_code);
             }
-        
+            
         }else{
             $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
             redirect('user/login');
