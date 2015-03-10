@@ -117,11 +117,6 @@
         <?php $i++;$total_belanja = $total_belanja + $item->subtotal; ?>
         
         <?php endforeach; ?>
-        
-	<tr>
-	    <td>Catatan Pembeli</td>
-	    <td colspan="2"><?php echo $item->catatan; ?></td>
-	</tr>
 	
 	<tr>
 	  <td rowspan="2"><strong>Biaya Kirim</strong></td>
