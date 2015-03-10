@@ -37,7 +37,8 @@
   <td>SPV</td>
   <td>Cabang</td>
   <td>No. Struk</td>
-  <td>Nominal Input</td>
+  <td>Nominal Struk</td>
+  <td>Konfirmasi File</td>
   <td>Status</td>
 </thead>
 <tbody>
@@ -51,6 +52,10 @@
 		    <td><?php echo $item->SITE_DESC; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
 		    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
+		    <td> <?php if ($item->RECEIVING_DN): ?>
+			<p style="color:green">Received</p>
+			<?php endif; ?>
+	            </td>
 		    <td>
 			
 			<?php

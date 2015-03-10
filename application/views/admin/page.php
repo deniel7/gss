@@ -31,7 +31,7 @@
                                   <td>REC No.</td>
 				  <td>Cabang</td>
 				  <td>Waktu Transaksi</td>
-				  <td>Total</td>
+				  <td>Nominal Struk</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>
                                   <td>Konfirmasi File</td>
@@ -47,7 +47,7 @@
                                                     <td><?php echo $item->REC_NO; ?></td>
                                                     <td><?php echo $item->SITE_STORE_CODE; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
-						    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
+						    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>
 						    <td><?php echo $item->no_struk; ?></td>
                                                     <td>
