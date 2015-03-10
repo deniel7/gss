@@ -30,48 +30,22 @@
 	<!-- Themes switcher section ============================================================================================= -->
 
 <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="<?php echo base_url();?>asset/js/jquery.dcjqaccordion.2.7.js"></script>
     
-    <script>
-    
-    function initMenu() {
-    
-    var checkCookie = $.cookie("nav-item");
-    if (checkCookie != "") {
-	  
-	var checkElement = $('#'+checkCookie).next();
-	    
-        $('#acdnmenu ul:visible').not(checkElement.parentsUntil('#acdnmenu')).hide();
-	
-	$('#'+checkCookie).parentsUntil('#acdnmenu').show();
-        
-    }
-    $('#acdnmenu  li  a').click(
+   
 
-    function() {
-	
-	$.cookie("nav-item", $(this).attr('id'));
-	
-        var checkElement = $(this).next();
-        if ((checkElement.is('ul')) && (checkElement.is(':visible'))) {
-            checkElement.slideUp('normal');
-            return false;
-        }
-        if ((checkElement.is('ul')) && (!checkElement.is(':visible'))) {
-            $('#acdnmenu ul:visible').not(checkElement.parentsUntil('#acdnmenu')).slideUp('normal');
-            checkElement.slideDown('normal');
-            return false;
-        }
-	
-    });
-    
-    $('.current-menu-item').parentsUntil('#nav').slideDown('normal');
-    }
-    
-    $(function() {
-	initMenu();
-    });
-    </script>
-	
+<script>
+/*jQuery time*/
+$(document).ready(function(){
+	$("#accordian h3").click(function(){
+		//slide up all the link lists
+		$("#accordian ul ul").slideUp();
+		//slide down the link list below the h3 clicked - only if its closed
+		if(!$(this).next().is(":visible"))
+		{
+			$(this).next().slideDown();
+		}
+	})
+})
+</script>
 </body>
 </html>

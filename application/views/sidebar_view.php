@@ -19,29 +19,33 @@
 <?php endif; ?>
 </div>
 
+
 <div class="well well-small">
-	<ul id="acdnmenu" class="accordion">
-	    <li class="files" id="one">
-		<?php //echo $kategori; ?>
-		<?php foreach ($kat as $item): ?>
-		<li class="btn-info">
-		    <!--<a href="#" id="a">-->
-					
-			<?php //echo $item->ATTRIB_DESC; ?><!--<span>`</span>-->
-			<?php echo anchor(site_url('/store/kategori/'.$item->ATTRIB_CODE), $item->ATTRIB_DESC.'<span>`</span>','id="'.$item->MS_CHILD.'"'); ?>			
-		    <!--</a>-->
+    
+    <div id="accordian">
+	<ul>
+		<li>
+			<?php foreach ($kat as $item): ?>
+			<h3><?php echo $item->CLASS_DESC; ?></h3>
+		    
+			<ul>
+			    <?php foreach ($subkat as $items): ?>
+			    <li>
+				<?php if($items->CLASS_CODE == $item->CLASS_CODE): ?>
+				<?php echo anchor(site_url('/store/kategori/'.$items->ATTRIB_CODE), $items->ATTRIB_DESC,'id="'.$items->MS_CHILD.'"'); ?>
+				<?php endif; ?>
+				
+				
+			    </li>
+			    <?php endforeach; ?>
+			</ul>
+			<?php endforeach; ?>
 		</li>
-		<?php endforeach; ?>
-	    
-	    </li>
+		
 	</ul>
 </div>
+    
+    
+</div>
 
-<!--<div class="well well-small">
-	<ul id="acdnmenu" class="accordion">
-	    <li class="files" id="one">
-		<?php //echo $kategori; ?>
-	    </li>
-	</ul>
-</div>-->
 <div style="height: 125px"></div>

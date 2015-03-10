@@ -645,7 +645,7 @@ class Produk_m extends MY_Model {
 					    AND b.ATTRIB_CODE = '$kat'
 					    AND a.DC_SITE_CODE = '$dc_site_code'
 					    AND c.STORE_SITE_CODE = '$store_site_code'
-					    AND b.END_DATE >= CURDATE()
+					    AND CURDATE() BETWEEN b.START_DATE AND b.END_DATE
 					    GROUP BY a.ARTICLE_CODE
 			    ";
                 $query          	= $this->db->query($string_query);              

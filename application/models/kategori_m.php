@@ -121,8 +121,21 @@ class Kategori_m extends MY_Model {
     public function kat() {
         
         $data = array();
-	$sql = "select * from ART_ATTRIB
-		GROUP BY ATTRIB_DESC";
+	$sql = "SELECT DISTINCT(`CLASS_CODE`), `CLASS_DESC` FROM `ART_ATTRIB` WHERE CURDATE() BETWEEN `START_DATE`AND `END_DATE`";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
+     public function subkat() {
+        
+        $data = array();
+	$sql = "SELECT DISTINCT(`ATTRIB_CODE`), CLASS_CODE, `ATTRIB_DESC` FROM `ART_ATTRIB` WHERE CURDATE() BETWEEN `START_DATE`AND `END_DATE`";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){

@@ -73,6 +73,7 @@ class Store extends CI_Controller {
         $this->data->kategori = $this->kategori_m->kategori_menu_list;
         //echo $this->db->last_query();
         $this->data->kat = $this->kategori_m->kat();
+        $this->data->subkat = $this->kategori_m->subkat();
         $this->data->cart = $this->cart->contents();
         
         $is_active = $this->autentifikasi->sudah_login();
