@@ -6950,9 +6950,9 @@ button.close {
 						    <thead>
 							<tr>
 							    
-							    <th>Warehouse GT</th>
-							    <th>Supervisor GT</th>
-							    <th>Loading GT</th>
+							    <th>Warehouse YOEL</th>
+							    <th>Supervisor DC</th>
+							    <th>Loading YOEL</th>
 							    <th>Pengirim</th>
 							    <th>Penerima</th>
 							</tr>
