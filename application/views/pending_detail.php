@@ -357,11 +357,15 @@ $('#price').priceFormat({
     </script>
 <?php else: ?>
 
-<div class="span6">
 
 <?php foreach($detail as $data): ?>
 <?php $orderno = $data['ORDER_NO_GTRON']; ?>
 
+
+<?php if($multiuser !=1): ?>
+<div class="responsive span6" style="margin-bottom: 50px">
+	
+<form action="<?php echo site_url(uri_string()); ?>" method="POST">
 <table cellspacing="0" cellpadding="3px">
 	<tr>
 	    <td>Order No</td>
@@ -369,26 +373,43 @@ $('#price').priceFormat({
 	</tr>
 	<tr>
 	    <td>Nomor Struk</td>
-	    <td><?php echo $data['no_struk']; ?></td>
+	    <td>
+		<?php
+	
+			echo form_hidden('orderno',$orderno);
+			
+			echo form_input(array(
+							'id' => 'nomor',
+							'name' => 'nomor',
+							'placeholder' => 'Nomor Struk Pembayaran',
+							'value' =>  $data['no_struk'],
+							'class' => 'form-control input-lg'
+					)); 
+			
+		?>
+	    </td>
 	</tr>
 	<tr>
-		<td>Nominal Input</td>
-		<td><?php echo $data['TOTAL_BIAYA_INPUT']; ?></td>
+		<td>Nominal Struk</td>
+		<td>Rp. <input id="price" type="text" value="<?php echo $data['TOTAL_BIAYA_INPUT']; ?>" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input></td>
+		
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+   
+		<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
+		<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
+		<?php echo form_close(); ?>
+		</td>
+		
 	</tr>
 
 </table>
-</div>
-<?php if($multiuser !=1): ?>
-<div class="responsive span6" style="margin-bottom: 50px">
             
-            <div class="text-center">
-            <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">Edit</button>&nbsp;&nbsp;&nbsp;
-	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel</button>
-            </div>
 </div>
 <?php endif; ?>
-<div class="clear"></div>
-<br />
+
 
 <div class="span10">
 <b>Data Konsumen :</b>
