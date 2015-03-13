@@ -14,9 +14,9 @@ class Dashboard extends MY_Controller {
         $this->data->cabang = $this->session->userdata('kode_cabang');
         //$cb = $this->session->userdata('kode_cabang');
         //$this->load->model('pesanan_m');
-	$this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
-        $this->data->gold_proc = $this->pesanan_m->count_gold_process();
-        $this->data->print_order = $this->pesanan_m->count_print_order();
+//	$this->data->total_pesanan = $this->pesanan_m->count_new_pesanan();
+//        $this->data->gold_proc = $this->pesanan_m->count_gold_process();
+        //$this->data->print_order = $this->pesanan_m->count_print_order();
         
         $this->data->username = $this->session->userdata('username');
 	$this->data->multiuser = $this->session->userdata('multiuser');

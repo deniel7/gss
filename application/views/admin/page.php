@@ -31,7 +31,7 @@
                                   <td>REC No.</td>
 				  <td>Cabang</td>
 				  <td>Waktu Transaksi</td>
-                                  <td>Cost Price Value</td>
+                                  <!--<td>Cost Price Value</td>-->
 				  <td>Nominal Struk</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>

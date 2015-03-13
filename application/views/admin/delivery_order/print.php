@@ -6907,7 +6907,7 @@ button.close {
 										<th>PLU</th>
 										<th>Barang</th>
 										<th>Jumlah</th>
-										<th>Harga</th>
+										
 									    </tr>
 									</thead>
 									<tbody>
@@ -6916,18 +6916,14 @@ button.close {
 										<td><?php echo $detail['PLU']; ?></td>
 										<td><?php echo $detail['ARTICLE_DESC']; ?></td>
 										<td style="text-align: right"><?php echo $detail['kuantitas']; ?></td>
-										<td style="text-align: right"><?php echo $this->cart->format_number($detail['subtotal']); ?></td>
+										
 									    </tr>
 									    <?php endforeach; ?>
 									    <tr>
-										<td colspan="3" style="text-align: right">Biaya</td>
+										<td colspan="2" style="text-align: right">Biaya</td>
 										<td style="text-align: right"><?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
 									    </tr>
-									    <tr>
-										<td colspan="3" style="text-align: right">Total</td>
-										
-										<td style="text-align: right"><?php echo $this->cart->format_number($data['total_biaya']); ?></td>
-									    </tr>
+									    
 									</tbody>
 								    </table>
 								</div>

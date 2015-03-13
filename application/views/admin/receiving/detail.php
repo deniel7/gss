@@ -22,7 +22,7 @@
 		
 		<?php if ($data['RECEIVING_DN'] ==NULL){ ?>
 		<div class="col-lg-2">
-		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DN</a></h1>
+		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DO</a></h1>
 		</div>
 		
 		<?php }else{ ?>
@@ -75,7 +75,7 @@
 						
 						<th>Items</th>
 						<th>Jumlah</th>
-						<th>Harga</th>
+						
 					    </tr>
 					</thead>
 					<tbody>
@@ -83,18 +83,14 @@
 					    <tr>
 						<td><?php echo $detail['ARTICLE_DESC']; ?></td>
 						<td><?php echo $detail['kuantitas']; ?></td>
-						<td>Rp. <?php echo $this->cart->format_number($detail['subtotal']); ?></td>
+						
 					    </tr>
 					    <?php endforeach; ?>
 					    <tr>
-						<td colspan="2" style="text-align: right;">Biaya</td>
+						<td colspan="1" style="text-align: right;">Biaya Kirim</td>
 						<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
 					    </tr>
-					    <tr>
-						<td colspan="2" style="text-align: right">Total</td>
-						
-						<td>Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
-					    </tr>
+					    
 					</tbody>
 				    </table>
 				</div>
