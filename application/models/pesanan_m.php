@@ -457,7 +457,10 @@ class Pesanan_m extends MY_Model {
         
         $data = array();
 	$sql = "select * from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
-	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE WHERE `STRUK_STATUS` = 2 ORDER BY id_order DESC ";
+	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1)
+	OR `STRUK_STATUS` = 2
+	ORDER BY id_order DESC ";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
@@ -473,7 +476,9 @@ class Pesanan_m extends MY_Model {
         $data = array();
 	$sql = "select * from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
-	WHERE `STRUK_STATUS` = 2 AND SUPPLIER_ORDER_HEADER.SITE_CODE = ".$store_site_code." ORDER BY id_order DESC ";
+	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1 AND SUPPLIER_ORDER_HEADER.FLAG != 4)
+	OR `STRUK_STATUS` = 2
+	AND SUPPLIER_ORDER_HEADER.SITE_CODE = ".$store_site_code." ORDER BY id_order DESC ";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
