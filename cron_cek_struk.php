@@ -1,6 +1,6 @@
 <?php
 
-mysql_connect('localhost','root','kudabesi');
+mysql_connect('172.16.9.40','deniel','kudabesi');
 mysql_select_db('griyatron');
 
 
