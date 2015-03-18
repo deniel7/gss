@@ -157,7 +157,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	</tr>
 
 <?php $i++; $total_item = $total_item + $items['qty'];?>
-
+<?php $i++; $cpv = $cpv + $items['stock_cost'];?>
 
 <?php endforeach; ?> 
 
@@ -170,6 +170,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	echo form_hidden('order_no',$order_no);
 	echo form_hidden('total_item',$total_item);
 	echo form_hidden('total',$this->cart->total());
+	echo form_hidden('cpv',$cpv);
 	
 ?>
 

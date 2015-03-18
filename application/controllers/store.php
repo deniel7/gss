@@ -340,6 +340,7 @@ class Store extends CI_Controller {
                         'qty'=>$this->input->post('qty'),
                         'price'=>$price,
                         'PLU'=>$plu,
+                        'stock_cost' =>$this->input->post('STOCK_COST'),
                         'pembayaran' => $this->input->post('colorRadio')
                         );
         
@@ -445,6 +446,7 @@ class Store extends CI_Controller {
                                 );
             
             $total = $this->input->post('total');
+            $cpv = $this->input->post('cpv');
             $biaya = $this->input->post('biaya');
             $biaya_nego = $this->input->post('biaya_nego');
             $tanggal = $this->input->post('tgl');
@@ -482,7 +484,8 @@ class Store extends CI_Controller {
                                 'SITE_CODE'       =>  $this->data->store_site_code,
                                 'DC_CODE'         =>  $this->data->dc_site_code,
                                 'ORDER_DELIVERY_DATE' => $tgl,
-                                'catatan' => $catatan
+                                'catatan' => $catatan,
+                                'COST_PRICE_VALUE' => $cpv
                                 
                                 );
                                 

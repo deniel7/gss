@@ -7,22 +7,22 @@
                 <!-- /.col-lg-12 -->
             </div>
             
-            <div class="row">
-                <div class="col-lg-12">
+            <!--<div class="row">
+                <div class="col-lg-12">-->
                     
                     <!-- /.panel -->
-                    <div class="panel panel-default">
+                    <!--<div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-shopping-cart fa-fw"></i> All Orders
                            
-                        </div>
+                        </div>-->
                         <!-- /.panel-heading -->
                         
-                        <div class="panel-body">
+                        <!--<div class="panel-body">-->
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                                        			<table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
+                        <table id="datatables" class="table table-striped table-bordered table-hover">
 				<thead>
 				<tr>
 				  <td>Nomor Transaksi</td>
@@ -31,7 +31,7 @@
                                   <td>REC No.</td>
 				  <td>Cabang</td>
 				  <td>Waktu Transaksi</td>
-                                  <!--<td>Cost Price Value</td>-->
+                                  <td>Cost Price Value</td>
 				  <td>Nominal Struk</td>
 				  <td>SPV</td>
 				  <td>No. Struk</td>
@@ -48,6 +48,7 @@
                                                     <td><?php echo $item->REC_NO; ?></td>
                                                     <td><?php echo $item->SITE_STORE_CODE; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
+                                                    <td><?php echo $item->COST_PRICE_VALUE; ?></td>
 						    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>
 						    <td><?php echo $item->no_struk; ?></td>
@@ -113,9 +114,9 @@
 				</tbody>
 				
 			</table>
-                                    </div>
+                                    <!--</div>-->
                                     <!-- /.table-responsive -->
-                                </div>
+                                <!--</div>-->
                                 <!-- /.col-lg-4 (nested) -->
                                 <?php } ?>
                                 <!-- /.col-lg-8 (nested) -->
@@ -125,6 +126,6 @@
                         <!-- /.panel-body -->
                     </div>
                     
-                </div>
-                
-                    
+                <!--</div>
+            </div>-->
+</div>    
