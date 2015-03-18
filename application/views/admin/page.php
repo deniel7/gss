@@ -7,22 +7,18 @@
                 <!-- /.col-lg-12 -->
             </div>
             
-            <!--<div class="row">
-                <div class="col-lg-12">-->
+            <div class="row">
+                <div class="col-lg-12">
                     
-                    <!-- /.panel -->
-                    <!--<div class="panel panel-default">
-                        <div class="panel-heading">
-                            <i class="fa fa-shopping-cart fa-fw"></i> All Orders
-                           
-                        </div>-->
+                    
+                        
                         <!-- /.panel-heading -->
                         
-                        <!--<div class="panel-body">-->
+                        
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
-                        <table id="datatables" class="table table-striped table-bordered table-hover">
+                        <table id="datatables" class="table table-striped table-bordered table-hover col-lg-12">
 				<thead>
 				<tr>
 				  <td>Nomor Transaksi</td>
@@ -114,18 +110,17 @@
 				</tbody>
 				
 			</table>
-                                    <!--</div>-->
+                                    </div>
                                     <!-- /.table-responsive -->
-                                <!--</div>-->
+                                </div>
                                 <!-- /.col-lg-4 (nested) -->
                                 <?php } ?>
                                 <!-- /.col-lg-8 (nested) -->
                             </div>
                             <!-- /.row -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
+                       
+                       
                     
-                <!--</div>
-            </div>-->
-</div>    
+                </div>
+                
+                    
