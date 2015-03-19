@@ -31,12 +31,29 @@
             
 	    <div class="row">
                 <div class="col-lg-12">
+		 
+			 
+		   
+		    
+		    
                     <form action="<?php echo site_url().'admin/delivery_order/printed/'; ?>" method="POST">
 				  
 		    <?php //echo site_url().'delivery_order/printed/'; ?>
 		    <center>
 			<!--<input name="button" type="button"  value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg" />-->
-			<input type="submit" name="submit" value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg">
+			
+			
+				
+				<input type="submit" name="submit" value="PRINT" onClick="PrintContent()" class="btn btn-info btn-lg">
+			
+			
+			
+			
+			
+		    
+		    
+		    
+		    
 		    </center>
 		    
 		    

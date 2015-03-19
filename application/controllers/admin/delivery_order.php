@@ -65,10 +65,10 @@ class Delivery_order extends MY_Controller {
 //            $this->db->update('SUPPLIER_ORDER_HEADER');
 //	    redirect (site_url('admin/delivery_order/'));
 
-	$this->data->copied = "RE-PRINT";
-	$this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id_order),true);
-
-	parent::_view('delivery_order/print',$this->data);
+	//$this->data->copied = "RE-PRINT";
+	//$this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id_order),true);
+	$this->data->id_order = $id_order;
+	parent::_view('delivery_order/gagal',$this->data);
 	
 	        
 	}else{
@@ -95,6 +95,33 @@ class Delivery_order extends MY_Controller {
             $this->db->update('SUPPLIER_ORDER_HEADER');
 	    
 	    redirect (site_url('admin/delivery_order/'));
+    }
+    
+    public function spv_pass(){
+        $this->load->model('pesanan_m');
+	
+	$id_order = $this->input->post('id_order');
+	
+	
+	$pass =  $this->input->post('pass');
+        
+        if($pass == 'spv12345'){
+	
+	$this->data->copied = "RE-PRINT";
+	$this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id_order),true);
+	
+	parent::_view('delivery_order/print',$this->data);
+	
+	
+	}else{
+	
+	$this->data->error = "<div class='alert alert-danger'>Maaf, Anda salah memasukan Password</div>";
+	
+	parent::_view('delivery_order/gagal',$this->data);
+	
+	}
+	
+	//parent::_view('admin/delivery_order/gagal',$this->data);
     }
     
     public function gagal(){
