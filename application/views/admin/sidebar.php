@@ -181,7 +181,7 @@
 						<button type="button" class="btn btn-success" style="width: 100%">
 						<div class="col-xs-9 text-left"">
 						    <h4 id="c_receiving"></h4>
-						    <div>Konfirmasi Order</div>
+						    <div>Konfirmasi DO</div>
 						</div>
 						<div class="col-xs-3 text-right">
 						    <div>

@@ -6936,10 +6936,10 @@ button.close {
 										
 									    </tr>
 									    <?php endforeach; ?>
-									    <tr>
+									    <!--<tr>
 										<td colspan="2" style="text-align: right">Biaya</td>
-										<td style="text-align: right"><?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
-									    </tr>
+										<td style="text-align: right"><?php //echo $this->cart->format_number($data['biaya_kirim']); ?></td>
+									    </tr>-->
 									    
 									</tbody>
 								    </table>

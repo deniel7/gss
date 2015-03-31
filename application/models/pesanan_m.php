@@ -512,7 +512,8 @@ class Pesanan_m extends MY_Model {
     public function get_new_orders() {
         
         $data = array();
-	$sql = "select * from SUPPLIER_ORDER_HEADER
+	$sql = "select ORDER_NO_GTRON, MID(SITE_STORE_CODE,4,10) as site_store_code , tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, no_struk, SUPPLIER_ORDER_HEADER.FLAG
+		from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 		WHERE SUPPLIER_ORDER_HEADER.FLAG = 1

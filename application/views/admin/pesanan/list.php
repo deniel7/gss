@@ -67,7 +67,7 @@
 				  <td>Cabang</td>
 				  <td>Waktu</td>
 				  <td>Nominal Input</td>
-				  <td>SPV</td>
+				  <td>Nama SC</td>
 				  <td>No. Struk</td>
 				  <td>Status</td>
 				</thead>
@@ -76,7 +76,7 @@
 					<?php foreach ($pesanan as $item): ?>
 						<tr>
 						    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
-						    <td><?php echo $item->SITE_STORE_CODE; ?></td>
+						    <td><?php echo $item->site_store_code; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
 						    <td>Rp. <?php echo $item->TOTAL_BIAYA_INPUT; ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>

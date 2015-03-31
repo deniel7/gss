@@ -22,7 +22,7 @@
 		
 		<?php if ($data['RECEIVING_DN'] ==NULL){ ?>
 		<div class="col-lg-2">
-		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DN</a></h1>
+		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DO</a></h1>
 		</div>
 		
 		<?php }else{ ?>
