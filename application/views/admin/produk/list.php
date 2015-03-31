@@ -8,33 +8,33 @@
                             
                                 
                                     <div class="table-responsive">
-                        <table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
-				<thead>
-				<tr>
-				  <td>Nomor Transaksi</td>
-				  <td>Cabang</td>
-				  <td>Waktu</td>
-				  <td>Total</td>
-				  <td>SPV</td>
-				  <td>No. Struk</td>
-				  <td>Status</td>
-				</thead>
-				<tbody>
-				
-				
-				</tbody>
-				
-			</table>
+					<table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
+						<thead>
+						<tr>
+						  <td>PLU</td>
+						  <td>Article Code</td>
+						  <td>Article Desc</td>
+						  <td>Images</td>
+						  <td>Action</td>
+						</thead>
+						<tbody>
+						
+						<?php $i=0; foreach ($produk as $val): ?>
+							<tr>
+							    <td><?php echo $val->PLU; ?></td>
+							    <td><?php echo $val->ARTICLE_CODE; ?></td>
+							    <td><?php echo $val->ARTICLE_DESC; ?></td>
+							    <td><?php echo $val->THUMB; ?></td>
+							    <td><?php echo anchor('admin/produk/ubah/'.$val->ARTICLE_CODE,'Ubah','class="ubah"'); ?></td>
+							</tr>
+						<?php $i++; endforeach; ?>
+						
+						
+						</tbody>
+						
+					</table>
                                     </div>
-                                    <!-- /.table-responsive -->
-                                
-                                <!-- /.col-lg-4 (nested) -->
-                                <?php //} ?>
-                                <!-- /.col-lg-8 (nested) -->
-                            
-                            <!-- /.row -->
-                        
-		
+                                    
 		
 <div id="menu" class="box">
 	<ul class="box f-right">
@@ -197,61 +197,4 @@
 			</span>
 			
 </div>
-<br/>
-<?php if ($produk == NULL){
-    echo "<p class='msg warning'>Produk yang dicari tidak ditemukan</p>";
-}else{ ?>
 
-
-
-<?php if($produk!= array()): ?>
-	<table>
-		<tr>
-            <th>PLU</th>
-		    <th>Nama Produk</th>
-		    <th>Deskripsi PLU</th>
-            <th>Kategori</th>
-		    <th>Harga</th>
-            <!--<th>Stok</th>-->
-		    <th>Status</th>
-            <th>Action</th>
-		</tr>
-        <?php $i=0; foreach ($produk as $val): ?>
-		<tr <?php echo $i%2 == 0 ? 'class="bg"' : '';  ?>>
-		    <td><?php echo $val->plu; ?></td>
-		    <td><?php echo $val->nama_produk; ?></td>
-		    <td><?php echo $val->plu_descriptor; ?></td>
-		    <td><?php echo $val->nama_kategori; ?></td>
-		    <td><?php echo $val->harga_jual; ?></td>
-		    <!--<td><?php //echo $val->harga_baru == 0 ? $val->harga_jual : '<div style="color:red">'.$val->harga_baru.'</div>'; ?></td>-->
-		    
-		    <!--<td><?php //echo $val->stok != 0 ? $val->stok : '<div class="no-stock">stok habis</div>'; ?></td>-->
-		    <td><?php echo $val->status_produk == 1 ? anchor('admin/produk/aktifasi/'.$val->id_produk.'/0','Aktif', 'class="active"') : anchor('admin/produk/aktifasi/'.$val->id_produk.'/1','Tidak Aktif', 'class="no-active"'); ?></td>
-		    <td>
-			<?php echo anchor('admin/produk/ubah/'.$val->id_produk,'Ubah','class="ubah"')?>
-			|
-			<?php echo anchor('admin/produk/hapus/'.$val->id_produk,'Hapus',array('onclick'=>"return confirm('Yakin akan menghapus produk ini?')")) ?>
-		    </td>
-		</tr>
-        <?php $i++; endforeach; ?>
-	<tr>
-		<td colspan="6" align="center"><?php  echo $this->pagination->create_links(); ?></td>
-		
-	</tr>
-	</table><br/>
-	
-<?php else: ?>
-    <p class="msg info">Belum ada Produk yang tersedia</p>
-<?php endif; ?>
-		</div>
-	    </div>
-</div>
-<script type="text/javascript">
-jQuery(function($) {
-	$("#add").colorbox({
-		width:"500", height:"500", iframe:true,
-		onClosed:function(){ location.reload(); }
-	});
-});
-</script>
-<?php } ?>
