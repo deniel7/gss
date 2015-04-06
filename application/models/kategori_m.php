@@ -121,7 +121,7 @@ class Kategori_m extends MY_Model {
     public function kat() {
         
         $data = array();
-	$sql = "SELECT DISTINCT(`CLASS_CODE`), `CLASS_DESC` FROM `ART_ATTRIB` WHERE CURDATE() BETWEEN `START_DATE`AND `END_DATE`";
+	$sql = "SELECT DISTINCT(`CLASS_CODE`), MID(`CLASS_DESC`,9,20) as CLASS_DESC FROM `ART_ATTRIB` WHERE CURDATE() BETWEEN `START_DATE`AND `END_DATE`";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){

@@ -184,7 +184,7 @@
 			    //echo form_hidden('PLU',$item->PLU);
 			    echo form_hidden('ARTICLE_DESC',$item->ARTICLE_DESC);
 			    echo form_hidden('url',uri_string());
-			    echo form_input('STOCK_COST',$item->STOCK_COST);
+			    echo form_hidden('STOCK_COST',$item->STOCK_COST);
 			    
 			    if ($stock != 0 || $stock >0)
 			    {

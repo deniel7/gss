@@ -164,7 +164,37 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 
 </tbody>
 </table>
+<br/>
+
+<div class="row">
+  
+  <div class="span5">
+    <table class="table table-bordered">
+    <thead>
+      <tr>
+	<th>SC Information</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <tr>
+	<td>Nama</td>
+	<td><?php echo $user_desc; ?></td>
+      </tr>
+	<tr>
+	<td>ID</td>
+	<td><?php echo $user_id; ?></td>
+      </tr>
+    </tbody>
+    
+    </table>
+  </div>
+  
+  <div class="span7"></div>
+
+</div>
 <br/><br/>
+
 <?php 
         echo form_fieldset('Alamat Pengiriman','class="produk"');
 	echo form_hidden('order_no',$order_no);
