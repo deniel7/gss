@@ -119,9 +119,9 @@
         <?php endforeach; ?>
 	
 	<tr>
-	  <td rowspan="2"><strong>Biaya Kirim</strong></td>
+	  <td rowspan="2"><strong>PLU : 01342635</strong></td>
 	  <td style="background-color: #FFF0F0;"  colspan="2">
-	    <strong>PLU : 01342635</strong>
+	    <strong>Desc : Biaya Kirim</strong>
 	</tr>
 	<tr>
 

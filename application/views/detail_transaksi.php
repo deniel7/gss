@@ -357,6 +357,8 @@ $('#price').priceFormat({
     </script>
 <?php else: ?>
 
+<?php if(@$error_pass){echo @$error_pass;} ?>
+<br/>
 <div class="span6">
 
 <?php foreach($detail as $data): ?>
@@ -413,14 +415,14 @@ $('#price').priceFormat({
         <th>Order No</th>
         <th>Tanggal Belanja</th>
         <th>Jumlah Item</th>
-        <th>Total Belanja</th>
+        
     </tr>
 
     <tr>
         <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
         <td><?php echo $data['tanggal_masuk']; ?></td>
         <td><?php echo $data['total_item']; ?></td>
-        <td> Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
+        
     </tr>
     <tr><td><br/></td></tr>
     <tr>
@@ -434,11 +436,11 @@ $('#price').priceFormat({
         <td></td>
         <td><?php echo $detail['ARTICLE_DESC']; ?></td>
         <td><?php echo $detail['kuantitas']; ?></td>
-        <td>Rp. <?php echo $this->cart->format_number($detail['subtotal']); ?></td>
+        
     </tr>
     <?php endforeach; ?>
     <tr>
-        <td></td>
+        
         <td colspan="2" style="text-align: right"><b>Biaya Kirim</b></td>
 	<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
     </tr>
@@ -447,63 +449,65 @@ $('#price').priceFormat({
 
 
 <br/>
-<div>
-    
-</div>
 
 <?php if ($data['FLAG'] == 0 AND $multiuser != 1){ ?>
-<div class="responsive" style="margin-bottom: 50px">
+
+<div class="responsive span6">
+    <form action="<?php echo site_url(uri_string()); ?>" method="POST">
+    
+    <table cellspacing="0" cellpadding="3px">
+    <h4 class="modal-title">Submit Pesanan</h4>
+    <tr>
+	<td>Nomor Struk</td>
+	<td>
+	<?php
+	    echo form_hidden('orderno',$orderno);	    
+	?>
+	<input id="nomor" type="text" name="nomor" required placeholder="Nomor Struk Pembayaran" pattern="[0-9]{2,20}" class='form-control input-lg'></input>
+	</td>
+    </tr>
+    <tr>
+	<td>Nominal Struk</td>
+	<td>
+	<input id="price" type="text" name="total_biaya_input" required placeholder="Total Nominal Transaksi" class='form-control input-lg'></input>
+	
+	</td>
+    </tr>
+    <tr>
+    <td><button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button></td>
+    <td>
+	<?php
+	echo form_password(array(
+					    'id' => 'password',
+					    'name' => 'password',
+					    'placeholder' => 'SPV Password',
+					    'class' => 'form-control input-lg'
+			    )); 
+	    
+	?>
+	
+	<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
+    </td>
+    </tr>
+    <?php echo form_close(); ?>
+    </table>
+</div>
+
+
+<!--<div class="responsive" style="margin-bottom: 50px">
             
             <div class="text-center">
             <button class="demo btn btn-primary btn-lg" data-toggle="modal" href="#responsive">Submit Pesanan</button>
-	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
+	    
             </div>
 </div>
-
+-->
 <?php
     }
     endforeach;
 ?>
 <div id="responsive" class="modal fade" tabindex="-1" data-width="160" style="display: none">
-    <form action="<?php echo site_url(uri_string()); ?>" method="POST">
     
-    <?php //echo form_open('pesanan/submit_pesanan'); ?>
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-    <h4 class="modal-title">Submit Pesanan</h4>
-    </div>
-    <div class="modal-body">
-    <div class="row">
-    <div class="span4">
-    <!--<h4>Bukti Pembayaran Transaksi</h4>-->
-    <p>
-    <?php
-	
-	echo form_hidden('orderno',$orderno);
-	
-	echo form_input(array(
-					'id' => 'nomor',
-                                        'name' => 'nomor',
-					'placeholder' => 'Nomor Struk Pembayaran',
-                                        'class' => 'form-control input-lg'
-			)); 
-	
-    ?>
-    </p>
-    <p>
-	<input id="price" type="text" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input>
-    </p>
-    
-    </div>
-    
-    </div>
-    </div>
-    <div class="modal-footer">
-    <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-    <!--<button type="button" class="btn btn-primary">Submit</button>-->
-    <?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
-    </div>
-    <?php echo form_close(); ?>
 </div>
 
 
@@ -563,6 +567,13 @@ $('#price').priceFormat({
       
       <?php
 	
+	echo form_password(array(
+					'id' => 'password',
+                                        'name' => 'password',
+					'placeholder' => 'SPV Password',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
 	echo form_hidden('orderno',$orderno); 
 	
       ?>
@@ -571,7 +582,7 @@ $('#price').priceFormat({
       <div class="modal-footer">
 	
 	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-	<?php echo form_submit('submit2', 'Yes','class = "btn btn-success"'); ?>
+	<?php echo form_submit('submit2', 'Submit','class = "btn btn-success"'); ?>
 	
 	<?php echo form_close(); ?>
       </div>

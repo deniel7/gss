@@ -375,13 +375,13 @@ class Pesanan_m extends MY_Model {
     
     
     //GSS NEW
-    public function get_transaksi($limit1='',$limit2='',$store_site_code) {
+    public function get_transaksi($store_site_code) {
         
         $data = array();
 	$sql = "select * from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		WHERE STORE_SITE_CODE = ".$store_site_code."
-		ORDER BY id_order DESC LIMIT ".$limit2;
+		ORDER BY id_order DESC";
 	    if($limit1){
 		$sql .= ",".$limit1;
 	    }
@@ -453,14 +453,17 @@ class Pesanan_m extends MY_Model {
     }
     
     
-    public function get_pending_transaksi($limit1='',$limit2='',$store_site_code) {
+    public function get_pending_transaksi() {
         
         $data = array();
-	$sql = "select * from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
+	$sql = "select ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time 
+	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1)
 	OR `STRUK_STATUS` = 2
-	ORDER BY id_order DESC ";
+	ORDER BY id_order DESC 
+    
+    ";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
@@ -474,7 +477,8 @@ class Pesanan_m extends MY_Model {
     public function get_pending_transaksi_cbg($store_site_code) {
         
         $data = array();
-	$sql = "select * from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
+	$sql = "select ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time
+	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1 AND SUPPLIER_ORDER_HEADER.FLAG != 4)
 	OR `STRUK_STATUS` = 2

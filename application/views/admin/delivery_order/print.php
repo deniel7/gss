@@ -6905,6 +6905,10 @@ button.close {
 										<td>Catatan Pembeli</td>
 										<td><?php echo $data['catatan']; ?></td>
 									    </tr>
+									    <tr>
+										<td>Penerima</td>
+										<td><?php echo $data['penerima']; ?></td>
+									    </tr>
 									</tbody>
 								    </table>
 								</div>

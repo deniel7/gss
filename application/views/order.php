@@ -169,7 +169,10 @@
 		      <td class="hdr">Telepon</td>
 		      <td><?php echo $item->phone; ?></td>
 		  </tr>
-		  
+		  <tr>
+		      <td class="hdr">Penerima</td>
+		      <td><?php echo $item->penerima; ?></td>
+		  </tr>
 	   </table>
 	  <?php endforeach; ?>
 	  

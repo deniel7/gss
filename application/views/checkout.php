@@ -210,6 +210,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 <input id="kota" name="kota" class="form-control input-lg" type="text" required placeholder="Kota" title="Bandung" pattern="^[a-zA-Z]+$"></input><br/>
 <input id="kode_pos" name="kode_pos" class="form-control input-lg" type="text"  required placeholder="Kode Pos" title="40101" pattern="[0-9]{2,20}"></input><br/>
 <input id="phone" name="phone" class="form-control input-lg" type="text" required placeholder="Telepon" title="02212345678 / 0856232323232" pattern="[0-9]{3,15}"></input><br/>
+<input id="penerima" name="penerima" class="form-control input-lg" type="text" required placeholder="Penerima" oninvalid="this.setCustomValidity('Kolom Penerima Harus diisi')"></input><br/>
 
 
 <?php

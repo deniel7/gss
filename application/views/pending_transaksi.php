@@ -33,12 +33,11 @@
 <tr>
   <td>Nomor Transaksi</td>
   <td>Waktu</td>
-  <td>Total</td>
-  <td>SPV</td>
+  <td>Nominal Struk</td>
+  <td>Nama SC</td>
   <td>Cabang</td>
-  <td>No. Struk</td>
-  <td>Nominal Input</td>
-  <td>Updated by</td>
+  <td>No. Struk Input</td>
+  <td>Nama SPV Validator</td>
   <td>Tanggal Update</td>
   
 </thead>
@@ -48,11 +47,10 @@
 		<tr>
 		    <td><?php echo anchor('store/pending_detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
-		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
-		    <td><?php echo $item->USERNAME; ?></td>
-		    <td><?php echo $item->SITE_DESC; ?></td>
-		    <td><?php echo $item->no_struk; ?></td>
 		    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
+		    <td><?php echo $item->USERNAME; ?></td>
+		    <td><?php echo $item->SITE_STORE_CODE; ?></td>
+		    <td><?php echo $item->no_struk; ?></td>
 		    <td><?php echo $item->updated_by; ?></td>
 		    <td><?php echo $item->struk_update_time; ?></td>
 		</tr>
