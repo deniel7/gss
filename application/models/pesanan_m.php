@@ -457,7 +457,7 @@ class Pesanan_m extends MY_Model {
     public function get_pending_transaksi() {
         
         $data = array();
-	$sql = "select ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time 
+	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time 
 	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1)
@@ -478,7 +478,7 @@ class Pesanan_m extends MY_Model {
     public function get_pending_transaksi_cbg($store_site_code) {
         
         $data = array();
-	$sql = "select ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time
+	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time
 	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1 AND SUPPLIER_ORDER_HEADER.FLAG != 4)
@@ -517,7 +517,7 @@ class Pesanan_m extends MY_Model {
     public function get_new_orders() {
         
         $data = array();
-	$sql = "select ORDER_NO_GTRON, MID(SITE_STORE_CODE,4,10) as site_store_code , tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, no_struk, SUPPLIER_ORDER_HEADER.FLAG
+	$sql = "select id_order, ORDER_NO_GTRON, MID(SITE_STORE_CODE,4,10) as site_store_code , tanggal_masuk, TOTAL_BIAYA_INPUT, USERNAME, no_struk, SUPPLIER_ORDER_HEADER.FLAG
 		from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
@@ -560,6 +560,7 @@ class Pesanan_m extends MY_Model {
         $data = parent::get_array();
         foreach ($data as $key=>$val){
             $this->db->where(array('id_order'=>$val['id_order']));
+	    $this->db->where_not_in('SUPPLIER_ORDER_DETAIL.cancel',1);
             $this->db->join('DC_STOCK_MASTER','DC_STOCK_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
             
             $detail = $this->db->get('SUPPLIER_ORDER_DETAIL')->result_array();

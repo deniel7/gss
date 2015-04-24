@@ -451,14 +451,14 @@ $('#price').priceFormat({
         <th>Order No</th>
         <th>Tanggal Belanja</th>
         <th>Jumlah Item</th>
-        <th>Total Belanja</th>
+        <!--<th>Total Belanja</th>-->
     </tr>
 
     <tr>
         <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
         <td><?php echo $data['tanggal_masuk']; ?></td>
         <td><?php echo $data['total_item']; ?></td>
-        <td> Rp. <?php echo $this->cart->format_number($data['total_biaya']); ?></td>
+        <!--<td> Rp. <?php //echo $this->cart->format_number($data['total_biaya']); ?></td>-->
     </tr>
     <tr><td><br/></td></tr>
     <tr>
@@ -472,12 +472,12 @@ $('#price').priceFormat({
         <td></td>
         <td><?php echo $detail['ARTICLE_DESC']; ?></td>
         <td><?php echo $detail['kuantitas']; ?></td>
-        <td>Rp. <?php echo $this->cart->format_number($detail['subtotal']); ?></td>
+        <!--<td>Rp. <?php //echo $this->cart->format_number($detail['subtotal']); ?></td>-->
     </tr>
     <?php endforeach; ?>
     <tr>
         <td></td>
-        <td colspan="2" style="text-align: right"><b>Biaya Kirim</b></td>
+        <td colspan="1" style="text-align: right"><b>Biaya Kirim</b></td>
 	<td>Rp. <?php echo $this->cart->format_number($data['biaya_kirim']); ?></td>
     </tr>
     
