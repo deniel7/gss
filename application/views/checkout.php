@@ -157,7 +157,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
 	</tr>
 
 <?php $i++; $total_item = $total_item + $items['qty'];?>
-<?php $i++; $cpv = $cpv + $items['stock_cost'];?>
+<?php $i++; $cpv = $cpv + ($items['stock_cost'] * $items['qty']);?>
 
 <?php endforeach; ?> 
 

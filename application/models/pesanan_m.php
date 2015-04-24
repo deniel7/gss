@@ -403,7 +403,8 @@ class Pesanan_m extends MY_Model {
         foreach ($data as $key=>$val){
             $this->db->where(array('id_order'=>$val['id_order']));
             $this->db->join('DC_STOCK_MASTER','DC_STOCK_MASTER.ARTICLE_CODE = SUPPLIER_ORDER_DETAIL.ARTICLE_CODE');
-            
+            $this->db->where('SUPPLIER_ORDER_DETAIL.cancel !=', 1);
+	    
             $detail = $this->db->get('SUPPLIER_ORDER_DETAIL')->result_array();
             $data[$key]['detail'] = $detail;
                   

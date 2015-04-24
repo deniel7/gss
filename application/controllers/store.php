@@ -136,7 +136,7 @@ class Store extends CI_Controller {
     
     public function home(){        
         
-        
+        $this->session->unset_userdata('spv_pass');
         
         
         $this->template->set_judul('Centralize Delivery & Inventory')
@@ -151,80 +151,7 @@ class Store extends CI_Controller {
         ->set_parsial('topmenu','top_view',$this->data)
         ->render('home',$data);   
     }
-    
-   
-    
-    public function department($url = null){
-        
-        $data['data'] = $this->produk_m->get_all_produk_dep();
-       
-        $result2 = $this->produk_m->get_link_subdep();
-        
-        $link = "<td>".$url."</td>";
-        
-        $data['link_map'] = $link;   
-        
-        $link2 ="";
-        
-        if ($result2->num_rows() > 0)
-        {
-           foreach ($result2->result_array() as $row)
-           {
-                $link2 .= "<a href='".site_url('store/divisi/'.$row['url'])."' class='button button-red'><span>".$row['url']. "</a>"; 
-            
-           }
-            
-           
-        }
-       $data['link_map2'] = $link2;
-        
-       
-	$this->template->set_judul('Centralize Delivery & Inventory')
-        ->set_css('style')
-        ->set_parsial('sidebar','sidebar_view',$this->data)
-        ->set_parsial('topmenu','top_view',$this->data)
-        ->render('store',$data); 
-    }
-    
-    public function divisi($url = null){
-        
-        $result = $this->produk_m->get_link_div();
-        $result2 = $this->produk_m->get_link_subdiv();
-        
-        $data['data'] = $this->produk_m->get_all_produk_div();
-       
-        if ($result->num_rows() > 0)
-        {
-           $row = $result->row_array(); 
-        
-           $link = "<td><a href='".site_url('store/department/'.$row['p'])."'>".$row['p']. "</a>  >  ".$row['url']."</td>";
-        }
-        
-        $data['link_map'] = $link;
-        
-        $link2 ="";
-        
-        if ($result2->num_rows() > 0)
-        {
-           foreach ($result2->result_array() as $row)
-           {
-                $link2 .= "<a href='".site_url('store/kategori/'.$row['url'])."' class='button button-red'><span>".$row['url']. "</span></a>"; 
-            
-           }
-            
-        
-           
-        }
-       $data['link_map2'] = $link2;
-       
-	$this->template->set_judul('Centralize Delivery & Inventory System')
-        ->set_css('style')
-        ->set_parsial('sidebar','sidebar_view',$this->data)
-        ->set_parsial('topmenu','top_view',$this->data)
-        ->render('store',$data); 
-    }
-    
-    
+     
        
     public function kategori($url = null){
         //if ($this->session->userdata('logged_in') === FALSE)
@@ -939,6 +866,8 @@ class Store extends CI_Controller {
     }
     
     public function transaksi() {
+        $this->session->unset_userdata('spv_pass');
+        
         $this->load->model('pesanan_m');
         
 
@@ -1030,6 +959,32 @@ class Store extends CI_Controller {
 	    $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
         }
         
+        
+        
+        if ($this->input->post('submit_conf')){
+            
+            $id = $this->input->post('id_order');
+            $password = $this->input->post('password');
+            
+            if($password == 'spv12345'){
+                 
+                $spv_pass = array(
+                   //'username'  => 'johndoe',
+                   //'email'     => 'johndoe@some-site.com',
+                   'spv_pass' => TRUE
+                );
+
+                $this->session->set_userdata($spv_pass);
+                 
+                 redirect (site_url('store/cancel_confirm/'.$id));
+            }else{
+                $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password SPV</div>';
+                
+               
+            } 
+        } 
+        
+        
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
         ->set_css('bootstrap')
@@ -1043,7 +998,121 @@ class Store extends CI_Controller {
         
     }
     
+    public function cancel_confirm($id = 0, $order = array()){
+        $this->load->model('pesanan_m');
+        $this->load->model('kategori_m');
+        $this->load->model('order_m');
+        
+        
+        if($this->data->store_site_code == '')
+        {
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
+        
+        }else{
+        
+        
+            if ($this->session->userdata('spv_pass') == FALSE)
+            {
+              //$this->error = (array('status'=>'Status belum aktif'));
+              $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password SPV</div>';
+              redirect (site_url('store/transaksi/'));
+               
+            }
+            
+            //UPDATE JUMLAH ITEM BOOKING
+            if ($this->input->post('update') && $this->data->store_site_code != ''){
+                $id_order_detail =  $this->input->post('id_order_detail');
+                $kuantitas =  $this->input->post('v');
+                $total_item = $this->input->post('total_item');
+                $orderno = $this->input->post('orderno');
+                $total_cpv = $this->input->post('total_cpv');
+                
+                $order = array(     'id_order_detail'         =>  $id_order_detail,
+                                    'kuantitas'            =>  $kuantitas,
+                                    
+                                    );
+                
+                //var_dump($order);
+                $this->order_m->update_booking($order, $total_item, $orderno, $total_cpv);
+                
+                
+            }
+            
+            if ($this->input->post('save') && $this->data->store_site_code != ''){
+                $id_order_detail =  $this->input->post('id_order_detail');
+                $kuantitas =  $this->input->post('v');
+                $total_item = $this->input->post('total_item');
+                $orderno = $this->input->post('orderno');
+                $total_cpv = $this->input->post('total_cpv');
+                
+                $order = array(     'id_order_detail'         =>  $id_order_detail,
+                                    'kuantitas'            =>  $kuantitas,
+                                    
+                                    );
+                
+                //var_dump($order);
+                $this->order_m->update_booking($order, $total_item, $orderno, $total_cpv);
+                redirect (site_url('store/transaksi/'));
+                
+            }
+            
+            $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
+        
+        }
+        
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('prettify')
+        ->set_css('mystyle')
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('cancel_confirm',$this->data); 
+    }
+    
+    public function ex_cancel_confirm(){
+        
+        if ($this->data->store_site_code != ''){
+            
+            $art_code = $this->uri->segment(3);
+            $orderno_gtron = $this->uri->segment(4);
+            $id_order = $this->uri->segment(5);
+            
+            $this->db->set('cancel', '1');
+            $this->db->where('ORDER_NO_GTRON', $orderno_gtron);
+            $this->db->where('ARTICLE_CODE', $art_code);
+            $this->db->update('SUPPLIER_ORDER_DETAIL');
+        
+        redirect (site_url('store/cancel_confirm/'.$id_order));
+        }
+    }
+    
+    public function ex_all_cancel_confirm(){
+        
+        if ($this->data->store_site_code != ''){
+        
+        $orderno = $this->uri->segment(3);
+        
+        $this->db->set('a.FLAG', '4');
+        $this->db->set('b.FLAG', '4');
+        
+        $this->db->where('a.ORDER_NO_GTRON', $orderno);
+        $this->db->where('b.ORDER_NO_GTRON', $orderno);
+        $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+        
+        
+        redirect (site_url('store/transaksi'));
+        }
+    }
+    
+    
+    
     public function pending_transaksi() {
+        $this->session->unset_userdata('spv_pass');
+        
         $this->load->model('pesanan_m');
         
 

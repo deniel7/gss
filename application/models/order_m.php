@@ -470,5 +470,42 @@ class Order_m extends MY_Model {
                
         return $prod;
     }
+    
+    public function update_booking($order = array(), $total_item, $orderno, $total_cpv) {
+        //redirect (site_url('store/transaksi/'));
+        //var_dump($order);
+ 
+        for($i=0; $i < count($order['id_order_detail']); $i++){
+            
+        //$this->db->set('kuantitas', $order['kuantitas'][$i]);
+        //$this->db->where('id_order_detail', $order['id_order_detail'][$i]);
+        //$this->db->update('SUPPLIER_ORDER_DETAIL');
+        //
+        //
+        //$this->db->set('total_item', $total_item);
+        //$this->db->set('COST_PRICE_VALUE', $total_cpv);
+        //$this->db->where('ORDER_NO_GTRON', $orderno);
+        //$this->db->update('SUPPLIER_ORDER_HEADER');
+            
+        
+        
+        $this->db->set('a.kuantitas', $order['kuantitas'][$i]);
+        $this->db->set('a.id_order_detail', $order['id_order_detail'][$i]);
+        $this->db->set('b.total_item', $total_item);
+        $this->db->set('b.COST_PRICE_VALUE', $total_cpv);
+        
+        $this->db->where('a.id_order_detail', $order['id_order_detail'][$i]);
+        $this->db->where('b.ORDER_NO_GTRON', $orderno);
+        $this->db->update('SUPPLIER_ORDER_DETAIL as a, SUPPLIER_ORDER_HEADER as b');
+        
+        
+        
+        
+        }
+           
+        //return false;   
+            
+           
+    }
 }
 ?>

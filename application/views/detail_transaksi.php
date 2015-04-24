@@ -362,7 +362,11 @@ $('#price').priceFormat({
 <div class="span6">
 
 <?php foreach($detail as $data): ?>
-<?php $orderno = $data['ORDER_NO_GTRON']; ?>
+<?php
+	
+    $orderno = $data['ORDER_NO_GTRON'];
+    $id_order = $data['id_order'];
+?>
 
 <table cellspacing="0" cellpadding="3px">
 <tr>
@@ -449,6 +453,18 @@ $('#price').priceFormat({
 
 
 <br/>
+
+<?php if ($data['FLAG'] == 1 AND $multiuser != 1){ ?>
+<div class="responsive" style="margin-bottom: 50px">
+            
+            <div class="text-center">
+	    
+	    <?php //echo anchor('store/cancel_confirm/'.$this->uri->segment(3),'<button class="demo btn btn-warning btn-lg">Cancel Confirm</button>','class="active" id="detail"'); ?>
+            
+	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#cancelConf">Cancel Confirm</button>
+	    </div>
+</div>
+<?php } ?>
 
 <?php if ($data['FLAG'] == 0 AND $multiuser != 1){ ?>
 
@@ -552,7 +568,7 @@ $('#price').priceFormat({
 </div>
 
 
-<!-- Modal -->
+<!-- Modal Cancel Pesanan -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -611,6 +627,44 @@ $('#price').priceFormat({
     
   </div><!-- /.modal -->
 
+
+<!-- Modal Cancel Confirm -->
+<div class="modal fade" id="cancelConf" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h4 class="modal-title">Want to cancel this confirmation?</h4>
+      </div>
+      <div class="modal-body">
+      <div class="row-fluid">
+     
+      <form action="<?php echo site_url(uri_string()); ?>" method="POST">
+      
+      <?php
+	
+	echo form_password(array(
+					'id' => 'password',
+                                        'name' => 'password',
+					'placeholder' => 'SPV Password',
+                                        'class' => 'form-control input-lg'
+			)); 
+	
+	echo form_hidden('id_order',$id_order); 
+	
+      ?>
+      </div>
+      </div>
+      <div class="modal-footer">
+	
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+	<?php echo form_submit('submit_conf', 'Submit','class = "btn btn-success"'); ?>
+	
+	<?php echo form_close(); ?>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 </div>
 
