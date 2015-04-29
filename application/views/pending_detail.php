@@ -356,7 +356,8 @@ $('#price').priceFormat({
     })(jQuery);
     </script>
 <?php else: ?>
-
+<?php if(@$error_pass){echo @$error_pass;} ?>
+<br/>
 
 <?php foreach($detail as $data): ?>
 <?php $orderno = $data['ORDER_NO_GTRON']; ?>
@@ -371,6 +372,7 @@ $('#price').priceFormat({
 	    <td>Order No</td>
 	    <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
 	</tr>
+	
 	<tr>
 	    <td>Nomor Struk</td>
 	    <td>
@@ -395,15 +397,30 @@ $('#price').priceFormat({
 		
 	</tr>
 	<tr>
-		<td></td>
 		<td>
-   
-		<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
-		<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
-		<?php echo form_close(); ?>
+			
+			
+			
 		</td>
+		<td>
+			<?php
+					echo form_password(array(
+							    'id' => 'password',
+							    'name' => 'password',
+							    'placeholder' => 'SPV Password',
+							    'class' => 'form-control input-lg'
+					    )); 
+			    
+			?>
+			<br/>
+			<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
+			<!--<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>-->
+			<?php echo form_submit('submit2', 'Cancel ','class = "demo btn btn-warning btn-lg"'); ?>
 		
+		</td>
+		<?php echo form_close(); ?>
 	</tr>
+	
 
 </table>
             

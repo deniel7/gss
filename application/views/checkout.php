@@ -107,7 +107,7 @@ $order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3).transaks
     <th>PLU</th>
   <th>Nama Barang</th>
   <th>Jumlah</th>
-  <th>SV</th>
+  <th>TC</th>
   <th>Hapus</th>
   
   </tr>
@@ -236,7 +236,7 @@ echo form_fieldset_close();
 	    <div class="control-group">
                 <!--<label class="control-label">Tanggal Pengiriman</label>-->
                 <div class="controls input-append date form_date" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
-                    <input size="16" type="text" value="<?php echo $today; ?>" readonly>
+                    <input size="16" name ="tgl_besok" type="text" value="<?php echo $today; ?>" readonly>
                     <span class="add-on"><i class="icon-remove"></i></span>
 					<span class="add-on"><i class="icon-th"></i></span>
                 </div>

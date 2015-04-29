@@ -69,7 +69,7 @@
 	    <th>PLU</th>
 	    <th>Nama Barang</th>
 	    <th align="center">Jumlah</th>
-	    <th align="center">SV</th>
+	    <th align="center">TC</th>
 	    
 	  </tr>
 	  </thead>
@@ -143,36 +143,34 @@
 		?>
 		<tr>
                     <td class="hdr">Tanggal Pemesanan</td>
-                    <td><?php echo $tanggal[0]; ?></td>
+                    <td>
+		      <input type="text" readonly="readonly" name="tanggal_masuk" value="<?php echo $tanggal[0]; ?>" />
+		    </td>
                 </tr>
-		  <tr>
-		      <td class="hdr">No. Order</td>
-		      <td><?php echo $item->ORDER_NO_GTRON; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Nama Depan</td>
-		      <td><?php echo $item->nama_depan; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Nama Belakang</td>
-		      <td><?php echo $item->nama_belakang; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Alamat</td>
-		      <td><?php echo $item->alamat; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Kode Pos</td>
-		      <td><?php echo $item->kode_pos; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Telepon</td>
-		      <td><?php echo $item->phone; ?></td>
-		  </tr>
-		  <tr>
-		      <td class="hdr">Penerima</td>
-		      <td><?php echo $item->penerima; ?></td>
-		  </tr>
+                <tr>
+                    <td class="hdr">No. Order</td>
+                    <td><input type="text" readonly="readonly" name="orderno" value="<?php echo $item->ORDER_NO_GTRON; ?>" /></td>
+                </tr>
+                <tr>
+                    <td class="hdr">Nama</td>
+                    <td><?php echo form_input('nama_depan', $item->nama_depan)." ".form_input('nama_belakang', $item->nama_belakang); ?></td>
+                </tr>
+                <tr>
+                    <td class="hdr">Alamat</td>
+                    <td><?php echo form_input('alamat', $item->alamat); ?></td>
+                </tr>
+                <tr>
+                    <td class="hdr">Kode Pos</td>
+                    <td><?php echo form_input('kodepos', $item->kode_pos); ?></td>
+                </tr>
+                <tr>
+                    <td class="hdr">Telepon</td>
+                    <td><?php echo form_input('phone', $item->phone); ?></td>
+                </tr>
+		<tr>
+                    <td class="hdr">Penerima</td>
+                    <td><?php echo form_input('penerima', $item->penerima); ?></td>
+                </tr>
 	   </table>
 	  <?php endforeach; ?>
 	  
@@ -189,7 +187,9 @@
 	    $time = time();
 	    $t = date($datestring, $time);
 	    
+	    $besok = date('Y-m-d', strtotime(' + 1 day'));
 	    
+	    //echo $besok;
 	    
 	    echo form_fieldset('Estimasi Pengiriman', 'class="produk"');
 	    
@@ -199,7 +199,7 @@
 	    	    
 	    endforeach;
 	    
-	    if($tgl_kirim != NULL){
+	    if($tgl_kirim != $besok){
 	      
 	      echo "<span class='btn btn-success'>".$tgl_kirim."</span>";
 	    }else{
@@ -219,7 +219,7 @@
 	
 	  echo form_fieldset('Catatan Pembeli', 'class="produk"');
 	    
-	    echo $item->catatan;
+	    echo form_textarea('catatan',$item->catatan);
 	
 	?>
 	

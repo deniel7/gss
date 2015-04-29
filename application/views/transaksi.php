@@ -32,8 +32,9 @@
 <thead>
 <tr>
   <td>Nomor Transaksi</td>
-  <td>Waktu</td>
-  <td>SPV</td>
+  <td>Waktu Booking</td>
+  <td>Waktu Kirim</td>
+  <td>SC</td>
   <td>Cabang</td>
   <td>No. Struk</td>
   <td>Nominal Struk</td>
@@ -46,6 +47,7 @@
 		<tr>
 		    <td><?php echo anchor('store/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
+		    <td><?php echo $item->ORDER_DELIVERY_DATE; ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->SITE_DESC; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>

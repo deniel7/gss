@@ -382,8 +382,11 @@ class Store extends CI_Controller {
             if($tanggal != 0){
                 $tgl = $this->input->post('tgl');    
             }else{
-                $tgl = NULL;
-            }
+                $tgl_besok = $this->input->post('tgl_besok');
+                $tgl = date('Y-m-d', strtotime($tgl_besok));
+                
+                
+            } 
             
             $catatan = $this->input->post('catatan');
 
@@ -429,7 +432,7 @@ class Store extends CI_Controller {
             }else{
                 
                 $insert['user_id'] = $this->session->userdata('user_id');
-                
+                //echo $tgl; 
                 $cek_stok = $this->order_m->cek_stok($this->cart->contents());
                 if($cek_stok == '') {
                     //echo $this->input->post('total_item');
@@ -439,7 +442,7 @@ class Store extends CI_Controller {
                     if($this->profile_m->insert($insert)){
                         $this->order_m->insert($order,$this->cart->contents(),$order_no_gtron);
                         $this->cart->destroy();
-                        
+                       
                         //$this->session->set_flashdata('pesan', '<div class="sukses">Data pesanan telah kami terima, silahkan melakukan proses pembayaran.</div><br/><div class="sukses">Nomor Order Anda : <b>'.$order['ORDER_NO_GTRON'].'</b></div>');
                         redirect(site_url('store/order/'.$order['ORDER_NO_GTRON']));
                     }
@@ -528,10 +531,20 @@ class Store extends CI_Controller {
         
         $store_site_code = $this->data->store_site_code;
         
-        //$get = $this->uri->uri_to_assoc();
-        //$ordernumb = $get['id'];
-        //$this->data->nomor = $ordernumb;
+        $catatan = $this->input->post('catatan');
         
+        $data = array (
+                        'ORDER_NO_GTRON' =>$ordernumb,
+                        'nama_depan'=>$this->input->post('nama_depan'),
+                        'nama_belakang'=>$this->input->post('nama_belakang'),
+                        'alamat'=>$this->input->post('alamat'),
+                        'kode_pos'=>$this->input->post('kodepos'),
+                        'phone'=>$this->input->post('phone'),
+                        'penerima' =>$this->input->post('penerima')
+                        
+                        );
+        
+        $this->pesanan_m->update_user_booking($data, $ordernumb, $catatan);
         
         $this->data->pembeli = $this->pesanan_m->print_pembeli($ordernumb);
         $this->data->transaksi = $this->pesanan_m->print_transaksi($ordernumb, $store_site_code);
@@ -766,7 +779,7 @@ class Store extends CI_Controller {
         if($data['search_name'] != ''){
             $this->db->or_like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
             //$this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
-            //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
             
             //echo"a";
             
@@ -930,9 +943,9 @@ class Store extends CI_Controller {
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');
             $total_biaya_input = $this->input->post('total_biaya_input');
-            $password = $this->input->post('password');
+            //$password = $this->input->post('password');
             
-            if($password == 'spv12345'){
+            //if($password == 'spv12345'){
                 
                 $this->db->set('a.FLAG', '1');
                 $this->db->set('a.no_struk',$nostruk);
@@ -945,10 +958,10 @@ class Store extends CI_Controller {
                 
                 $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Submit Pesanan Berhasil</div>';
             
-            }else{
-                $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password</div>';
-            }
-            //redirect (site_url('store/transaksi'));
+            //}else{
+            //    $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password</div>';
+            //}
+            
 	
         $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
          
@@ -1120,10 +1133,6 @@ class Store extends CI_Controller {
         
         $this->data->base_url = base_url().'/store/pending_transaksi';
 		
-	//$this->data->total_rows = $this->db->count_all('order');
-//	$this->data->per_page = $this->config->item('hlm');
-//	$this->data->uri_segment = 4;
-//        $this->pagination->initialize($this->data);
 	
         if($store_site_code != '')
         {
@@ -1155,48 +1164,106 @@ class Store extends CI_Controller {
     public function pending_detail($id = 0) {
        
        $this->load->model('pesanan_m');
-       $struk_update_time = date('Y-m-d h:i:s'); 
+       $struk_update_time = date('Y-m-d h:i:s');
+       $password = $this->input->post('password');
         
-        if ($this->input->post('submit2')){
-            $orderno = $this->input->post('orderno');
+        $store_site_code = $this->data->store_site_code;
+        
+	
+        if($store_site_code != '')
+        {
             
+            //if ($this->session->userdata('spv_pass') == FALSE)
+            //{
+            //  //$this->error = (array('status'=>'Status belum aktif'));
+            //  $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password SPV</div>';
+            //  redirect (site_url('store/transaksi/'));
+            //   
+            //}
             
-            $this->db->set('a.FLAG', '4');
-            $this->db->set('b.FLAG', '4');
-            $this->db->set('a.updated_by', $this->data->user_desc);
-            $this->db->set('a.struk_update_time', $struk_update_time);
-            $this->db->set('a.STRUK_STATUS', 3);
-            
-            $this->db->where('a.ORDER_NO_GTRON', $orderno);
-            $this->db->where('b.ORDER_NO_GTRON', $orderno);
-            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
-            
-            
-            redirect (site_url('store/pending_transaksi'));
-	}
+            if ($this->input->post('submit2')){
+                if($password == 'spv12345'){
+                
+                $orderno = $this->input->post('orderno');
+                
+                $spv_pass = array(
+                       'spv_pass' => TRUE
+                    );
+                $this->session->set_userdata($spv_pass);
+                
+                
+                $this->db->set('a.FLAG', '4');
+                $this->db->set('b.FLAG', '4');
+                $this->db->set('a.updated_by', $this->data->user_desc);
+                $this->db->set('a.struk_update_time', $struk_update_time);
+                $this->db->set('a.STRUK_STATUS', 3);
+                
+                $this->db->where('a.ORDER_NO_GTRON', $orderno);
+                $this->db->where('b.ORDER_NO_GTRON', $orderno);
+                $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+                
+                $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Cancel Pesanan Berhasil</div>';
+                
+                
+                //redirect (site_url('store/pending_transaksi'));
+                
+                }else{
+                    $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password SPV</div>';
+                    
+                   
+                } 
+                
+            }
         
         
-        if ($this->input->post('submit')){
-            $orderno = $this->input->post('orderno');
-            $nostruk = $this->input->post('nomor');
-            $total_biaya_input = $this->input->post('total_biaya_input');
-            
-            $this->db->set('a.FLAG', '5');
-            $this->db->set('a.no_struk',$nostruk);
-            $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
-            $this->db->set('b.FLAG', '5');
-            $this->db->set('a.updated_by', $this->data->user_desc);
-            $this->db->set('a.struk_update_time', $struk_update_time);
-            $this->db->set('a.STRUK_STATUS', 1);
-             
-            $this->db->where('a.ORDER_NO_GTRON', $orderno);
-            $this->db->where('b.ORDER_NO_GTRON', $orderno);
-            $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
-            
-            redirect (site_url('store/pending_transaksi'));
-	} else {
-            
-	    $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
+            if ($this->input->post('submit')){
+                
+                if($password == 'spv12345'){
+                
+                    $orderno = $this->input->post('orderno');
+                    $nostruk = $this->input->post('nomor');
+                    $total_biaya_input = $this->input->post('total_biaya_input');
+                    
+                    $spv_pass = array(
+                       'spv_pass' => TRUE
+                    );
+                    $this->session->set_userdata($spv_pass);
+                    
+                    $this->db->set('a.FLAG', '5');
+                    $this->db->set('a.no_struk',$nostruk);
+                    $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
+                    $this->db->set('b.FLAG', '5');
+                    $this->db->set('a.updated_by', $this->data->user_desc);
+                    $this->db->set('a.struk_update_time', $struk_update_time);
+                    $this->db->set('a.STRUK_STATUS', 1);
+                     
+                    $this->db->where('a.ORDER_NO_GTRON', $orderno);
+                    $this->db->where('b.ORDER_NO_GTRON', $orderno);
+                    $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
+                    
+                    $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Submit Pesanan Berhasil</div>';
+                
+                    
+                    
+                    //redirect (site_url('store/pending_transaksi'));
+                
+                }else{
+                    $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password SPV</div>';
+                    
+                   
+                }
+                
+                $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
+                
+            } else {
+                
+                $this->data->detail = $this->pesanan_m->get_detail_trans(array('id_order'=>$id),true);
+            }
+        
+        
+        }else{
+            $this->session->set_flashdata('login','<div class="alert-danger"><center>Waktu Anda habis, silahkan login kembali.</center></div>');
+            redirect('user/login');
         }
         
         $this->template->set_judul('Centralize Delivery & Inventory')

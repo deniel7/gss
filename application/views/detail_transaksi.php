@@ -493,12 +493,12 @@ $('#price').priceFormat({
     <td><button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button></td>
     <td>
 	<?php
-	echo form_password(array(
-					    'id' => 'password',
-					    'name' => 'password',
-					    'placeholder' => 'SPV Password',
-					    'class' => 'form-control input-lg'
-			    )); 
+	//echo form_password(array(
+	//				    'id' => 'password',
+	//				    'name' => 'password',
+	//				    'placeholder' => 'SPV Password',
+	//				    'class' => 'form-control input-lg'
+	//		    )); 
 	    
 	?>
 	

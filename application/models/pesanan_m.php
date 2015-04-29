@@ -453,6 +453,27 @@ class Pesanan_m extends MY_Model {
     
     }
     
+    public function update_user_booking($data = array(), $ordernumb, $catatan) {
+        
+        //for($i=0; $i < count($data['ORDER_NO_GTRON']); $i++){
+	
+        $this->db->set('a.nama_depan', $data['nama_depan']);
+        $this->db->set('a.nama_belakang', $data['nama_belakang']);
+	$this->db->set('a.alamat', $data['alamat']);
+	$this->db->set('a.kode_pos', $data['kode_pos']);
+	$this->db->set('a.phone', $data['phone']);
+	$this->db->set('a.penerima', $data['penerima']);
+        $this->db->set('b.catatan', $catatan);
+        
+        $this->db->where('a.ORDER_NO_GTRON', $ordernumb);
+        $this->db->where('b.ORDER_NO_GTRON', $ordernumb);
+        $this->db->update('user_data as a, SUPPLIER_ORDER_HEADER as b');
+        
+	//}
+         //var_dump($data['nama_depan']);
+	 
+    }
+    
     
     public function get_pending_transaksi() {
         
