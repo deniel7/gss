@@ -520,7 +520,8 @@ class Pesanan_m extends MY_Model {
     public function get_all_transaksi($limit1='',$limit2='',$store_site_code) {
         
         $data = array();
-	$sql = "select * from SUPPLIER_ORDER_HEADER
+	$sql = "select id_order, ORDER_NO_GTRON, ORDER_NO_GOLD, DN_NO, REC_NO, MID(SITE_STORE_CODE,4,10) as SITE_STORE_CODE, tanggal_masuk, ORDER_DELIVERY_DATE, COST_PRICE_VALUE, TOTAL_BIAYA_INPUT, USERNAME, no_struk, RECEIVING_DN, SUPPLIER_ORDER_HEADER.FLAG, receiving_dn_time
+		from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 		
@@ -595,7 +596,9 @@ class Pesanan_m extends MY_Model {
     public function get_printing($limit1='',$limit2='') {
         
         $data = array();
-	$sql = "select * from SUPPLIER_ORDER_HEADER
+	$sql = "select 
+		id_order, ORDER_NO_GTRON,PRINT_STATUS, MID(SITE_STORE_CODE,4,10) as SITE_STORE_CODE, tanggal_masuk, ORDER_DELIVERY_DATE, USERNAME, no_struk, STORE_SITE_CODE
+		from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
 		WHERE SUPPLIER_ORDER_HEADER.STRUK_STATUS = 1

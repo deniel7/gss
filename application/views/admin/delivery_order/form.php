@@ -78,8 +78,9 @@
 		      <td>Nomor Transaksi</td>
 		      <td>Cabang</td>
 		      <td>Waktu</td>
+		      <td>Waktu Pengiriman</td>
 		     <!-- <td>Total</td>-->
-		      <td>SPV</td>
+		      <td>Nama SC</td>
 		      <td>No. Struk</td>
 		      <td>Print Status</td>
 		      <td>Action</td>
@@ -109,6 +110,19 @@
 					</td>
 					<td><?php echo $item->SITE_STORE_CODE; ?></td>
 					<td><?php echo $item->tanggal_masuk; ?></td>
+					<td>
+					    <?php
+						    echo $item->ORDER_DELIVERY_DATE;
+						    
+						    if($item->ORDER_DELIVERY_DATE == date('Y-m-d')){
+						    
+						    echo"
+							<p class='btn btn-warning btn-sm' style='font-size:9px; text-align:right'>
+							<i class='fa fa-exclamation-circle fa-fw'></i>Today!
+							</p";
+						    }
+					    ?>
+					</td>
 					<!--<td>Rp. <?php //echo $this->cart->format_number($item->total_biaya); ?></td>-->
 					<td><?php echo $item->USERNAME; ?></td>
 					<td><?php echo $item->no_struk; ?></td>

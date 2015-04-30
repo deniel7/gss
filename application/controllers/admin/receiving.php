@@ -59,7 +59,7 @@ class Receiving extends MY_Controller {
             $config['max_size']	= '500';
             //$config['max_width']  = '9';
             //$config['max_height']  = '7';
-
+	    $receiving_time = date('Y-m-d H:i:s');
             $this->load->library('upload', $config);
 	    
             
@@ -77,7 +77,7 @@ class Receiving extends MY_Controller {
 	    
 	    
 	    
-	    $this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles));
+	    $this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles, 'receiving_dn_time'=>$receiving_time));
 	    
 	    redirect(base_url().'admin/receiving/');
 	    //$this->load->view('admin/add_prod',$data);

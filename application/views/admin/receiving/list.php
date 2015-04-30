@@ -48,7 +48,7 @@
 
 	<div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Orders</h1>
+                    <h1 class="page-header">Konfirmasi DO</h1>
                 </div>
                 <!-- /.col-lg-12 -->
         </div>
@@ -66,10 +66,11 @@
   <td>Nomor Transaksi</td>
   <td>Cabang</td>
   <td>Waktu</td>
-  <td>Total</td>
-  <td>SPV</td>
+  
+  <td>Nama SC</td>
   <td>No. Struk</td>
   <td>Konfirmasi File</td>
+  <td>Upload DO Date</td>
   <td>Status</td>
 </thead>
 <tbody>
@@ -79,7 +80,7 @@
 		    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->SITE_STORE_CODE; ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
-		    <td>Rp. <?php echo $this->cart->format_number($item->total_biaya); ?></td>
+		    
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
 		    <td>
@@ -87,6 +88,7 @@
 			<p style="color:green">Received</p>
 			<?php endif; ?>
 		    </td>
+		    <td><?php echo $item->receiving_dn_time; ?></td>
 		    <td>
 			
 			<?php

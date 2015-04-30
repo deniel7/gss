@@ -27,11 +27,13 @@
                                   <td>REC No.</td>
 				  <td>Cabang</td>
 				  <td>Waktu Transaksi</td>
+                                  <td>Waktu Pengiriman</td>
                                   <td>Cost Price Value</td>
 				  <td>Nominal Struk</td>
-				  <td>SPV</td>
+				  <td>Nama SC</td>
 				  <td>No. Struk</td>
                                   <td>Konfirmasi File</td>
+                                  <td>Upload DO Date</td>
 				  <td>Status</td>
 				</thead>
 				<tbody>
@@ -44,6 +46,7 @@
                                                     <td><?php echo $item->REC_NO; ?></td>
                                                     <td><?php echo $item->SITE_STORE_CODE; ?></td>
 						    <td><?php echo $item->tanggal_masuk; ?></td>
+                                                    <td><?php echo $item->ORDER_DELIVERY_DATE; ?></td>
                                                     <td><?php echo $item->COST_PRICE_VALUE; ?></td>
 						    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
 						    <td><?php echo $item->USERNAME; ?></td>
@@ -52,6 +55,8 @@
                                                             <?php if ($item->RECEIVING_DN): ?>
                                                             <p style="color:green">Received</p>
                                                             <?php endif; ?>
+                                                    </td>
+                                                    <td><?php echo $item->receiving_dn_time; ?></td>
                                                     <td>
 							
 							<?php
