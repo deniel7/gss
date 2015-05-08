@@ -594,7 +594,7 @@ class Produk_m extends MY_Model {
 		$this->db->limit($perPage, $uri);
 		
 		$data = $this->db->get();
-		echo $this->db->last_query();
+		//echo $this->db->last_query();
 		if($data->num_rows() > 0)
 		{
 			return $data->result();
