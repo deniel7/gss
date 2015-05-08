@@ -573,7 +573,7 @@ class Produk_m extends MY_Model {
 		}
 		else if(!empty($search_name))
 		{
-			$this->db->like("DC_STOCK_MASTER.ARTICLE_DESC",$search_name);
+			//$this->db->like("DC_STOCK_MASTER.ARTICLE_DESC",$search_name);
 			$this->db->or_where("DC_STOCK_MASTER.ARTICLE_CODE",$search_name);
 			$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
 		}
