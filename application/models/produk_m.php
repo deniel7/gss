@@ -527,7 +527,7 @@ class Produk_m extends MY_Model {
 	    //$this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
 	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
 	    $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
-	    echo $this->db->last_query();
+	    //echo $this->db->last_query();
 	    
 	}
 	
