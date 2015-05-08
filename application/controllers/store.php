@@ -834,7 +834,7 @@ class Store extends CI_Controller {
         if($data['search_name'] != ''){
             $this->db->or_like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
             //$this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
-            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+            //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
            
         }
         

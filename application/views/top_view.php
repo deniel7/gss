@@ -29,6 +29,10 @@
 	
     
 	<?php
+		if($nosearch){
+			
+		}else{
+			
 		//$attributes = array('id' => 'form_pencarian');
 		echo form_open('store/search_prod');
 	?>
@@ -48,6 +52,7 @@
 		echo form_hidden('dc_site_code', $dc_site_code);
 		echo form_hidden('store_site_code', $store_site_code);
 		echo "<div style='margin-top:10px; margin-left: 5px; float:left'>".form_submit('submit', 'Go','class = "btn btn-primary"')."</div>";
+		}
 		echo form_close();
 	?>
 	</li>
