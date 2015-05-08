@@ -33,6 +33,7 @@
 <tr>
   <td>Nomor Transaksi</td>
   <td>Waktu Booking</td>
+  <td>waktu konfirm</td>
   <td>Waktu Kirim</td>
   <td>SC</td>
   <td>Cabang</td>
@@ -47,6 +48,13 @@
 		<tr>
 		    <td><?php echo anchor('store/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
+		    <td><?php
+				    $a = $item->tanggal_masuk;
+				    date_add($a,date_interval_create_from_date_string("1 days"));
+				    echo date_format($a,"Y-m-d h:i:s");
+				    
+			?>
+	            </td>
 		    <td><?php echo $item->ORDER_DELIVERY_DATE; ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->SITE_DESC; ?></td>

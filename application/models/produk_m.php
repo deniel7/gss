@@ -527,7 +527,7 @@ class Produk_m extends MY_Model {
 	    //$this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
 	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
 	    $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
-	    //echo $this->db->last_query();
+	    echo $this->db->last_query();
 	    
 	}
 	
@@ -553,15 +553,19 @@ class Produk_m extends MY_Model {
         return $result;
     }
     
-    function SearchResult_front($perPage,$uri,$search_name, $filterId=null,$search_dc_site_code, $search_store_site_code)
+    function SearchResult_front($perPage,$uri,$search_name, $dc_site_code, $store_site_code, $search, $filterId=null)
     {
+		// ieu model na
+		
 		$this->db->select('*');
 		$this->db->from('DC_STOCK_MASTER');
-		$this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+		$this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+		$this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
 		$this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-		$this->db->where('DC_SITE_CODE',15199);
-		$this->db->where('STORE_SITE_CODE',15102);
-		
+		$this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+		$this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+		$this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+		//echo $search;
 		
 		if (!empty($filterId))
 		{
@@ -569,8 +573,20 @@ class Produk_m extends MY_Model {
 		}
 		else if(!empty($search_name))
 		{
-			$this->db->like("CONCAT(DC_STOCK_MASTER.PLU)",$search_name);  
-		}		
+			$this->db->like("DC_STOCK_MASTER.ARTICLE_DESC",$search_name);
+			$this->db->or_where("DC_STOCK_MASTER.ARTICLE_CODE",$search_name);
+			$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
+		}
+		//else if(!empty($search_name) && $search == 'artcode')
+		//{
+		//    $this->db->like("DC_STOCK_MASTER.ARTICLE_CODE",$search_name);
+		//    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
+		//}
+		//else if(!empty($search_name) && $search == 'tillcode')
+		//{
+		//    $this->db->where("STORE_SALES_MASTER.SV",$search_name);
+		//    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
+		//}
 
 		//$this->db->order_by('id_produk','asc');
 		//$data = $this->db->get('', $perPage, $uri);

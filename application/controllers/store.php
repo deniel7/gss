@@ -120,6 +120,8 @@ class Store extends CI_Controller {
         //echo $this->data->site_desc;
         }
         
+        $this->data->nosearch = TRUE;
+        
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
@@ -602,55 +604,105 @@ class Store extends CI_Controller {
         ->render('print',$this->data); 
     
     }
-    
+ 
     public function search(){
         
-        $data['link_map'] = ''; 
-        $data['search_name'] ='';
-        $data['search_dc_site_code'] = '';
-        $data['search_store_site_code'] = '';
-        //$data['data'] = $this->produk_m->get_all_produk2();
+        $data['search_name'] =''; 
+        
 	
-        //$dc_site_code = $this->input->post('dc_site_code');
-        //$store_site_code = $this->input->post('store_site_code');
-        
-        
         if(isset($_POST['submit']))
         {
             $data['search_name'] = $this->input->post('search_name');
-            //$data['search_dc_site_code'] = $this->input->post('dc_site_code');
-            //$data['search_store_site_code'] = $this->input->post('store_site_code');
-            
-            
-            //$dc_site_code = 15199;
-            //$store_site_code = 15102;
-            //
-            //echo $store_site_code;
-            //echo "<br/>";
-            //echo $dc_site_code;
+            $dc_site_code = $this->input->post('dc_site_code');
+            $store_site_code = $this->input->post('store_site_code');
             
             //set session user data untuk pencarian, untuk paging pencarian
             $this->session->set_userdata('sess_name', $data['search_name']);
-            $this->session->set_userdata('sess_dc_site_code', $data['search_dc_site_code']);
-            $this->session->set_userdata('sess_store_site_code', $data['search_store_site_code']);
+            $this->session->set_userdata('sess_dc_site_code', $dc_site_code);
+            $this->session->set_userdata('sess_store_site_code', $store_site_code);
+           
             
         } else {
             $data['search_name'] = $this->session->userdata('sess_name');
-            $data['search_dc_site_code'] = $this->session->userdata('sess_dc_site_code');
-            $data['search_store_site_code'] = $this->session->userdata('sess_store_site_code');
+            $dc_site_code = $this->session->userdata('sess_dc_site_code');
+            $store_site_code = $this->session->userdata('sess_store_site_code');
+            $multiuser = $this->session->userdata('multiuser');
         }
-		
+        
+        
         if ($this->config->item('enable_sphinx_search') == '0')
         {
+                $search = $this->input->post('search');
                 
                 $this->db->select('*');
-                $this->db->from('DC_STOCK_MASTER');
-                $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
-                $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                $this->db->where('DC_SITE_CODE',15199);
-                $this->db->where('STORE_SITE_CODE',15102);
-                $this->db->like('DC_STOCK_MASTER.PLU', $data['search_name']);
+                    $this->db->from('DC_STOCK_MASTER');
+                    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+                    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+                    
+                    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+                    $this->db->or_where('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
+                    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
                 
+                //if($search == 'brand'){
+                //
+                //    $this->db->select('*');
+                //    $this->db->from('DC_STOCK_MASTER');
+                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+                //    
+                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+                //
+                //}elseif($search == 'artcode'){
+                //    $this->db->select('*');
+                //    $this->db->from('DC_STOCK_MASTER');
+                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+                //    
+                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
+                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+                //
+                //
+                //}elseif($search == 'tillcode'){
+                //    $this->db->select('*');
+                //    $this->db->from('DC_STOCK_MASTER');
+                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+                //    
+                //    $this->db->where('STORE_SALES_MASTER.SV', strtoupper($data['search_name']));
+                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+                //
+                //}else{
+                //    $this->db->select('*');
+                //    $this->db->from('DC_STOCK_MASTER');
+                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
+                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
+                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
+                //    
+                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
+                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
+                //    
+                //    echo "search :".$search;
+                //} 
         }
         else
         {
@@ -681,41 +733,45 @@ class Store extends CI_Controller {
                 
                 if (count($foundId) > 0)
                 {
-                    
                         
+                    
                         $this->db->select('*');
                         $this->db->from('DC_STOCK_MASTER');
-                        $this->db->join('MS_MASTER', 'DC_STOCK_MASTER.SUBCLASS = MS_MASTER.MS_CHILD');
+                        $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
+                        $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
                         $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                        $this->db->where('DC_SITE_CODE',15199);
-                        $this->db->where('STORE_SITE_CODE',15102);
+                        $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
+                        $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
+                        $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
                         $this->db->where_in('DC_STOCK_MASTER.ARTICLE_CODE', $foundId);
+                    
                 }	
         }
     
         //Pagination init
         $pagination['base_url'] 		= site_url('/store/search/page/');
-        $pagination['total_rows'] 		= $this->db->count_all_results();
-        $pagination['full_tag_open'] 	        = "<div class=\"pagination\">";
-        $pagination['full_tag_close'] 	        = "</div>";
-        $pagination['cur_tag_open'] 	        = "<span class=\"current\">";
-        $pagination['cur_tag_close'] 	        = "</span>";
-        $pagination['num_tag_open'] 	        = "<span class=\"disabled\">";
-        $pagination['num_tag_close'] 	        = "</span>";
-        $pagination['per_page'] 		= 1;
+        $pagination['total_rows'] 		= $this->db->get()->num_rows();
+        $pagination['full_tag_open'] 	        = "";
+        $pagination['full_tag_close'] 	        = "";
+        $pagination['cur_tag_open'] 	        = "<a style='background-color: #E3E3E3'>";
+        $pagination['cur_tag_close'] 	        = "</a>";
+        $pagination['num_tag_open'] 	        = "";
+        $pagination['num_tag_close'] 	        = "";
+        $pagination['per_page'] 		= 9;
         $pagination['uri_segment'] 		= 4;
         $pagination['num_links'] 		= 4;
     
         $this->pagination->initialize($pagination);
     
         if ($this->config->item('enable_sphinx_search') == '0')
-		{
-			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$data['search_dc_site_code'],$data['search_store_site_code']);
-		}
-		else
-		{
-			$data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'], $foundId,$data['search_dc_site_code'], $data['search_store_site_code']);
-		}
+        {
+                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $search);
+                
+        }
+        else
+        {
+                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $search, $foundId);
+        }
 		
         $this->load->vars($data);
         
@@ -730,7 +786,6 @@ class Store extends CI_Controller {
         ->set_parsial('sidebar','sidebar_view',$this->data)
         ->set_parsial('topmenu','top_view',$this->data)
 	->render('store',$data); 
-    
     }
     
     
@@ -780,9 +835,7 @@ class Store extends CI_Controller {
             $this->db->or_like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
             //$this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
             $this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
-            
-            //echo"a";
-            
+           
         }
         
         $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
@@ -821,53 +874,6 @@ class Store extends CI_Controller {
     }
     
     
-    private function _set_captcha()
-    {
-        $this->load->helper('string');
-        $vals = array(
-           'img_path' => './captcha/',
-           'img_url' => base_url().'/captcha/',
-           'img_width' => '120',
-           'img_height' => 30,
-           'expiration' => 3600,
-           'word'   =>random_string('numeric', 6)
-        );
-      
-        $cap = create_captcha($vals);
-      
-        $data = array(
-           'captcha_time' => $cap['time'],
-           'ip_address' => $this->input->ip_address(),
-           'word' => $cap['word']
-        );
-      
-        $query = $this->db->insert_string('captcha', $data);
-        $this->db->query($query);
-        return $cap;
-    }
-    
-    function valid_captcha($str)
-    {
-       // First, delete old captchas
-       $expiration = time()-3600; // Two hour limit
-       $this->db->query("DELETE FROM captcha WHERE captcha_time < ".$expiration);
-     
-       // Then see if a captcha exists:
-       $sql = "SELECT COUNT(*) AS count FROM captcha WHERE word = ? AND ip_address = ? AND captcha_time > ?";
-       $binds = array($str, $this->input->ip_address(), $expiration);
-       $query = $this->db->query($sql, $binds);
-       $row = $query->row();
-     
-       if ($row->count == 0)
-       {
-          $this->form_validation->set_message('valid_captcha', 'Kolom kode Captcha tidak valid');
-          return FALSE;
-       }
-       else
-       {
-          return TRUE;
-       }
-    }
     
     public function test()
     {
@@ -937,7 +943,7 @@ class Store extends CI_Controller {
             }
             //redirect (site_url('store/transaksi'));
             
-	}
+	} 
         
         if ($this->input->post('submit')){
             $orderno = $this->input->post('orderno');
