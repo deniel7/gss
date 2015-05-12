@@ -26,8 +26,8 @@
                                   <td>DN No.</td>
                                   <td>REC No.</td>
 				  <td>Cabang</td>
-				  <td>Waktu Transaksi</td>
-                                  <td>Waktu Pengiriman</td>
+				  <td>Waktu Booking</td>
+                                  <td>Waktu Kirim</td>
                                   <td>Cost Price Value</td>
 				  <td>Nominal Struk</td>
 				  <td>Nama SC</td>

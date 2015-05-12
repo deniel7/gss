@@ -924,6 +924,8 @@ class Store extends CI_Controller {
     public function detail($id = 0) {
        $this->load->model('pesanan_m');
         
+        $waktu_confirm = date('Y-m-d H:i:s'); 
+        
         if ($this->input->post('submit2')){
             $orderno = $this->input->post('orderno');
             $password = $this->input->post('password');
@@ -956,6 +958,7 @@ class Store extends CI_Controller {
                 $this->db->set('a.FLAG', '1');
                 $this->db->set('a.no_struk',$nostruk);
                 $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
+                $this->db->set('a.waktu_confirm', $waktu_confirm);
                 $this->db->set('b.FLAG', '1');
                
                 $this->db->where('a.ORDER_NO_GTRON', $orderno);

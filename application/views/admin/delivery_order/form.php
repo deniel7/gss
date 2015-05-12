@@ -77,8 +77,8 @@
 		    <tr>
 		      <td>Nomor Transaksi</td>
 		      <td>Cabang</td>
-		      <td>Waktu</td>
-		      <td>Waktu Pengiriman</td>
+		      <td>Waktu Booking</td>
+		      <td>Waktu Kirim</td>
 		     <!-- <td>Total</td>-->
 		      <td>Nama SC</td>
 		      <td>No. Struk</td>

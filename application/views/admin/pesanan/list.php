@@ -65,7 +65,7 @@
 				<tr>
 				  <td>Nomor Transaksi</td>
 				  <td>Cabang</td>
-				  <td>Waktu</td>
+				  <td>Waktu Booking</td>
 				  <td>Nominal Input</td>
 				  <td>Nama SC</td>
 				  <td>No. Struk</td>

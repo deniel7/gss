@@ -33,7 +33,7 @@
 <tr>
   <td>Nomor Transaksi</td>
   <td>Waktu Booking</td>
-  <td>waktu konfirm</td>
+  <td>Waktu Confirm</td>
   <td>Waktu Kirim</td>
   <td>SC</td>
   <td>Cabang</td>
@@ -52,7 +52,7 @@
 				    $a = $item->tanggal_masuk;
 				    date_add($a,date_interval_create_from_date_string("1 days"));
 				    echo date_format($a,"Y-m-d h:i:s");
-				    
+				    echo $item->waktu_confirm;
 			?>
 	            </td>
 		    <td><?php echo $item->ORDER_DELIVERY_DATE; ?></td>

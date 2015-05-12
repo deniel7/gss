@@ -32,7 +32,8 @@
 <thead>
 <tr>
   <td>Nomor Transaksi</td>
-  <td>Waktu</td>
+  <td>Waktu Booking</td>
+  <td>Waktu Confirm</td>
   <td>Nominal Struk</td>
   <td>Nama SC</td>
   <td>Cabang</td>
@@ -47,6 +48,7 @@
 		<tr>
 		    <td><?php echo anchor('store/pending_detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
+		    <td><?php echo $item->waktu_confirm; ?></td>
 		    <td><?php if($item->TOTAL_BIAYA_INPUT){ echo "Rp. ".$item->TOTAL_BIAYA_INPUT; } ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->SITE_STORE_CODE; ?></td>

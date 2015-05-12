@@ -65,8 +65,8 @@
 <tr>
   <td>Nomor Transaksi</td>
   <td>Cabang</td>
-  <td>Waktu</td>
-  
+  <td>Waktu Booking</td>
+  <td>Waktu Kirim</td>
   <td>Nama SC</td>
   <td>No. Struk</td>
   <td>Konfirmasi File</td>
@@ -80,7 +80,7 @@
 		    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ORDER_NO_GTRON, 'class="active" id="detail"'); ?></td>
 		    <td><?php echo $item->SITE_STORE_CODE; ?></td>
 		    <td><?php echo $item->tanggal_masuk; ?></td>
-		    
+		    <td><?php echo $item->ORDER_DELIVERY_DATE; ?></td>
 		    <td><?php echo $item->USERNAME; ?></td>
 		    <td><?php echo $item->no_struk; ?></td>
 		    <td>
