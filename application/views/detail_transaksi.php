@@ -345,6 +345,8 @@ $('#price').priceFormat({
 
 
 
+
+
 <?php if(@$sukses):?>
     <?php echo '<p class="msg done">'.@$sukses.'</p>';?>
     <script type="text/javascript">
@@ -421,7 +423,7 @@ $('#price').priceFormat({
         <th>Jumlah Item</th>
         
     </tr>
-
+    <?php $waktu_masuk = $data['tanggal_masuk']; ?>
     <tr>
         <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
         <td><?php echo $data['tanggal_masuk']; ?></td>
@@ -466,13 +468,45 @@ $('#price').priceFormat({
 </div>
 <?php } ?>
 
-<?php if ($data['FLAG'] == 0 AND $multiuser != 1){ ?>
+<?php
+	//echo $waktu_masuk;
+	//$hour = $waktu_masuk;
+	$hours = date($waktu_masuk);
+	$times = new DateTime($hours);
+	
+	$times->add(new DateInterval('PT1H')); 
+	
+	$timestamps = $times->format('M d Y H:i:s');
+	
+	
+	//echo $timestamps;
+	echo "<br/>";
+	$time_now = date('M d Y H:i:s');
+	//echo $time_now;
+	
+	
+	
+	if ($data['FLAG'] == 0 AND $multiuser != 1 AND $timestamps > $time_now){
+
+?>
 
 <div class="responsive span6">
     <form action="<?php echo site_url(uri_string()); ?>" method="POST">
     
     <table cellspacing="0" cellpadding="3px">
     <h4 class="modal-title">Submit Pesanan</h4>
+    
+	<div id="countdown" style="text-align: right">Batas waktu input : 
+	<!--<p class="days">00</p>
+	<p class="timeRefDays">days</p>
+	<p class="hours">00</p>
+	<p class="timeRefHours">jam</p>-->
+	<p class="minutes">00</p>
+	<p class="timeRefMinutes">menit</p>
+	<p class="seconds">00</p>
+	<p class="timeRefSeconds">detik</p>
+	</div>
+    
     <tr>
 	<td>Nomor Struk</td>
 	<td>
@@ -490,17 +524,9 @@ $('#price').priceFormat({
 	</td>
     </tr>
     <tr>
+	
     <td><button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button></td>
     <td>
-	<?php
-	//echo form_password(array(
-	//				    'id' => 'password',
-	//				    'name' => 'password',
-	//				    'placeholder' => 'SPV Password',
-	//				    'class' => 'form-control input-lg'
-	//		    )); 
-	    
-	?>
 	
 	<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
     </td>
@@ -518,6 +544,11 @@ $('#price').priceFormat({
             </div>
 </div>
 -->
+
+
+<?php }else{ ?>
+	
+	<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
 <?php
     }
     endforeach;
@@ -674,6 +705,108 @@ th { text-align: center; background-color: black; color: white;}
 td { border: solid 1px silver; padding: 5px;}
 .col {width: 50%; float: left;}
 .clear {clear: both;}
+
+#countdown p {
+  display: inline-block;
+  padding: 5px;
+  color: #FFF;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.25);
+    background-color: #006DCC;
+    background-image: linear-gradient(to bottom, #08C, #04C);
+    background-repeat: repeat-x;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  margin: 0 0 20px;
+}
+
+
 </style>
 
 <?php endif; ?>
+
+<script>
+/*
+* Basic Count Down to Date and Time
+* Author: @mrwigster / trulycode.com
+*/
+(function (e) {
+  e.fn.countdown = function (t, n) {
+  function i() {
+    eventDate = Date.parse(r.date) / 1e3;
+    currentDate = Math.floor(e.now() / 1e3);
+    if (eventDate <= currentDate) {
+      n.call(this);
+      clearInterval(interval)
+    }
+    seconds = eventDate - currentDate;
+    days = Math.floor(seconds / 86400);
+    seconds -= days * 60 * 60 * 24;
+    hours = Math.floor(seconds / 3600);
+    seconds -= hours * 60 * 60;
+    minutes = Math.floor(seconds / 60);
+    seconds -= minutes * 60;
+    days == 1 ? thisEl.find(".timeRefDays").text("day") : thisEl.find(".timeRefDays").text("days");
+    hours == 1 ? thisEl.find(".timeRefHours").text("hour") : thisEl.find(".timeRefHours").text("hours");
+    minutes == 1 ? thisEl.find(".timeRefMinutes").text("minute") : thisEl.find(".timeRefMinutes").text("minutes");
+    seconds == 1 ? thisEl.find(".timeRefSeconds").text("second") : thisEl.find(".timeRefSeconds").text("seconds");
+    if (r["format"] == "on") {
+      days = String(days).length >= 2 ? days : "0" + days;
+      hours = String(hours).length >= 2 ? hours : "0" + hours;
+      minutes = String(minutes).length >= 2 ? minutes : "0" + minutes;
+      seconds = String(seconds).length >= 2 ? seconds : "0" + seconds
+    }
+    if (!isNaN(eventDate)) {
+      thisEl.find(".days").text(days);
+      thisEl.find(".hours").text(hours);
+      thisEl.find(".minutes").text(minutes);
+      thisEl.find(".seconds").text(seconds)
+    } else {
+      alert("Invalid date. Example: 30 Tuesday 2013 15:50:00");
+      clearInterval(interval)
+    }
+  }
+  var thisEl = e(this);
+  var r = {
+    date: null,
+    format: null
+  };
+  t && e.extend(r, t);
+  i();
+  interval = setInterval(i, 1e3)
+  }
+  })(jQuery);
+  $(document).ready(function () {
+  function e() {
+    var e = new Date;
+    e.setDate(e.getDate() + 60);
+    dd = e.getDate();
+    mm = e.getMonth() + 1;
+    y = e.getFullYear();
+    futureFormattedDate = mm + "/" + dd + "/" + y;
+    return futureFormattedDate
+  }
+  $("#countdown").countdown({
+    date: "<?php
+		  
+		  $jam = $waktu_masuk;
+		  $jams = date($jam);
+		  $time = new DateTime($jams);
+		  
+		  $time->add(new DateInterval('PT1H')); 
+		  
+		  $timestamp = $time->format('M d Y H:i:s');
+		  
+		  
+		  echo $timestamp;
+
+		  
+		  
+		  
+	    ?>", // Change this to your desired date to countdown to
+    format: "on"
+  });
+});
+
+// Prints something like: Monday 8th of August 2015 03:12:46 PM
+
+
+</script>

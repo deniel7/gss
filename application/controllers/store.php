@@ -1006,6 +1006,9 @@ class Store extends CI_Controller {
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
+        ->set_js('jquery.min')
+        ->set_js('jquery.countdown.min')
+        ->set_js('jquery.plugin.min')
         ->set_css('bootstrap')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
