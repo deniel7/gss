@@ -59,7 +59,7 @@
 		<input type=text size='5' id='<?php echo 'v'.$i; ?>' name='v[]' value='<?php echo $detail['kuantitas']; ?>' readonly style='margin-top:10px'>
 		<input type="reset" value="Reset">
 		<input type="hidden" size='5' value="<?php echo $detail['id_order_detail']; ?>" name="id_order_detail[]" id="id_order_detail" />
-		<input type="text" size='5' value="<?php echo $detail['STOCK_COST']; ?>" name="test" id="id_order_detail" />
+		<input type="hidden" size='5' value="<?php echo $detail['STOCK_COST']; ?>" name="test" id="id_order_detail" />
 		
 	</td>
         <td><?php echo $detail['ARTICLE_DESC']; ?></td>
@@ -74,8 +74,8 @@
     <?php $i++; $total_cpv = $total_cpv + ($detail['STOCK_COST'] * $detail['kuantitas']);?>
     
     <?php $i++; endforeach; ?>
-    <input type="text" size='5' value="<?php echo $total_cpv; ?>" name="total_cpv" id="total_cpv" />
-    <input type="text" size='5' value="<?php echo $total_item; ?>" name="total_item" id="total_item" />
+    <input type="hidden" size='5' value="<?php echo $total_cpv; ?>" name="total_cpv" id="total_cpv" />
+    <input type="hidden" size='5' value="<?php echo $total_item; ?>" name="total_item" id="total_item" />
     <input type="hidden" size='5' value="<?php echo $orderno; ?>" name="orderno" id="order_no" />
     <tr>
 	<td>
