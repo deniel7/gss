@@ -71,27 +71,27 @@
 		
 		$options = array(
                   
-                  'artcode'    => 'Article Code',
-                  'brand'   => 'Brand',
-		  'tillcode'   => 'Tilcode',
+                  '1'    => 'TC 1',
+                  '2'   => 'TC 2',
+		  '3'   => 'TC 3',
                   
                 );
 		
-		echo "<div style='margin-top:10px; float:left'>" .form_dropdown('search', $options, 'artcode')."</div>";
+		echo "<div style='margin-top:10px; float:left'>Search by : " .form_dropdown('search_name', $options, 'artcode')."</div>";
 		
 		
 	
 		$data_s = array(
 		'name'        => 'search_name',
 		'id'          => 'search_name',
-		'placeholder' => 'Cari Produk..',
+		'placeholder' => 'Cari Produk Berdasarkan TC..',
 		'font-color'   => 'red'
 		//'value'	      => $search_name,
 		);
 		
 		
 		
-		echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
+		//echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
 		echo form_hidden('dc_site_code', $dc_site_code);
 		echo form_hidden('store_site_code', $store_site_code);
 		
