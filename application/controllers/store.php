@@ -643,66 +643,10 @@ class Store extends CI_Controller {
                     $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
                     $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
                     
-                    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
-                    $this->db->or_where('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
+                    $this->db->like('STORE_SALES_MASTER.SV', strtoupper($data['search_name']));
+                    //$this->db->or_where('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
                     $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
                 
-                //if($search == 'brand'){
-                //
-                //    $this->db->select('*');
-                //    $this->db->from('DC_STOCK_MASTER');
-                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
-                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
-                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
-                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
-                //    
-                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
-                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-                //
-                //}elseif($search == 'artcode'){
-                //    $this->db->select('*');
-                //    $this->db->from('DC_STOCK_MASTER');
-                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
-                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
-                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
-                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
-                //    
-                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
-                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-                //
-                //
-                //}elseif($search == 'tillcode'){
-                //    $this->db->select('*');
-                //    $this->db->from('DC_STOCK_MASTER');
-                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
-                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
-                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
-                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
-                //    
-                //    $this->db->where('STORE_SALES_MASTER.SV', strtoupper($data['search_name']));
-                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-                //
-                //}else{
-                //    $this->db->select('*');
-                //    $this->db->from('DC_STOCK_MASTER');
-                //    $this->db->join('ART_ATTRIB', 'DC_STOCK_MASTER.ARTICLE_CODE = ART_ATTRIB.ART_CODE');
-                //    $this->db->join('DELIVARABLE_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = DELIVARABLE_MASTER.ARTICLE_CODE');
-                //    $this->db->join('STORE_SALES_MASTER', 'DC_STOCK_MASTER.ARTICLE_CODE = STORE_SALES_MASTER.ARTICLE_CODE');
-                //    $this->db->where('DC_STOCK_MASTER.DC_SITE_CODE',$dc_site_code);
-                //    $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
-                //    $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
-                //    
-                //    $this->db->like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
-                //    $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-                //    
-                //    echo "search :".$search;
-                //} 
         }
         else
         {
@@ -765,12 +709,12 @@ class Store extends CI_Controller {
     
         if ($this->config->item('enable_sphinx_search') == '0')
         {
-                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $search);
+                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code);
                 
         }
         else
         {
-                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $search, $foundId);
+                $data['data'] = $this->produk_m->SearchResult_front($pagination['per_page'],$this->uri->segment(4,0),$data['search_name'],$dc_site_code,$store_site_code, $foundId);
         }
 		
         $this->load->vars($data);
@@ -832,14 +776,14 @@ class Store extends CI_Controller {
         }
         
         if($data['search_name'] != ''){
-            $this->db->or_like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
+            $this->db->where('STORE_SALES_MASTER.SV', strtoupper($data['search_name']));
             //$this->db->or_like('DC_STOCK_MASTER.PLU', $data['search_name']);
             //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($data['search_name']));
            
         }
         
         $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
-        
+        //echo $this->db->last_query();
         //Pagination init
         $pagination['base_url'] 		= site_url('/store/search_prod/page/');
         $pagination['total_rows'] 		= $this->db->get()->num_rows();
@@ -849,7 +793,7 @@ class Store extends CI_Controller {
         $pagination['cur_tag_close'] 	        = "</a>";
         $pagination['num_tag_open'] 	        = "";
         $pagination['num_tag_close'] 	        = "";
-        $pagination['per_page'] 		= 9;
+        $pagination['per_page'] 		= 3;
         $pagination['uri_segment'] 		= 4;
         $pagination['num_links'] 		= 4;
     

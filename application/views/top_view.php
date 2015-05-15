@@ -29,75 +29,75 @@
 	
     
 	<?php
+		//if($nosearch){
+		//	
+		//}else{
+		//	
+		////$attributes = array('id' => 'form_pencarian');
+		//echo form_open('store/search_prod');
+	?>
+
+	<!--<li class="nav pull-right">
+	<?php
+		//$data_s = array(
+		//'name'        => 'search_name',
+		//'id'          => 'search_name',
+		//'placeholder' => 'Search here..',
+		//'class'   => 'srchTxt'
+		////'value'	      => $search_name,
+		//);
+		//
+		//
+		//echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
+		//echo form_hidden('dc_site_code', $dc_site_code);
+		//echo form_hidden('store_site_code', $store_site_code);
+		//echo "<div style='margin-top:10px; margin-left: 5px; float:left'>".form_submit('submit', 'Go','class = "btn btn-primary"')."</div>";
+		//}
+		//echo form_close();
+	?>
+	</li>-->
+	
+	
+	<ul>
+	<li class="nav pull-right">
+	<div id="search_container">
+	<?php
 		if($nosearch){
 			
 		}else{
 			
-		//$attributes = array('id' => 'form_pencarian');
-		echo form_open('store/search_prod');
-	?>
-
-	<li class="nav pull-right">
-	<?php
+		$attributes = array('id' => 'form_pencarian');
+		echo form_open('store/search');
+		
+		$options = array(
+                  
+                  'artcode'    => 'Article Code',
+                  'brand'   => 'Brand',
+		  'tillcode'   => 'Tilcode',
+                  
+                );
+		
+		echo "<div style='margin-top:10px; float:left'>" .form_dropdown('search', $options, 'artcode')."</div>";
+		
+		
+	
 		$data_s = array(
 		'name'        => 'search_name',
 		'id'          => 'search_name',
-		'placeholder' => 'Search here..',
-		'class'   => 'srchTxt'
+		'placeholder' => 'Cari Produk..',
+		'font-color'   => 'red'
 		//'value'	      => $search_name,
 		);
+		
 		
 		
 		echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
 		echo form_hidden('dc_site_code', $dc_site_code);
 		echo form_hidden('store_site_code', $store_site_code);
+		
 		echo "<div style='margin-top:10px; margin-left: 5px; float:left'>".form_submit('submit', 'Go','class = "btn btn-primary"')."</div>";
 		}
 		echo form_close();
-	?>
-	</li>
-	
-	
-	<ul>
-	<li class="nav pull-right">
-	<!--<div id="search_container">-->
-	<?php
-//		if($nosearch){
-//			
-//		}else{
-//			
-//		$attributes = array('id' => 'form_pencarian');
-//		echo form_open('store/search');
-//		
-//		$options = array(
-//                  
-//                  'artcode'    => 'Article Code',
-//                  'brand'   => 'Brand',
-//		  'tillcode'   => 'Tilcode',
-//                  
-//                );
-//		
-//		echo "<div style='margin-top:10px; float:left'>" .form_dropdown('search', $options, 'artcode')."</div>";
-//		
-//		
-//	
-//		$data_s = array(
-//		'name'        => 'search_name',
-//		'id'          => 'search_name',
-//		'placeholder' => 'Cari Produk..',
-//		'font-color'   => 'red'
-//		//'value'	      => $search_name,
-//		);
-//		
-//		
-//		
-//		echo "<div style='margin-top:10px; float:left'>".form_input($data_s)."</div>";
-//		echo form_hidden('dc_site_code', $dc_site_code);
-//		echo form_hidden('store_site_code', $store_site_code);
-//		
-//		echo "<div style='margin-top:10px; margin-left: 5px; float:left'>".form_submit('submit', 'Go','class = "btn btn-primary"')."</div>";
-//		}
-//		echo form_close();
 	?>
 	
 	</li>

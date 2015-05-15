@@ -523,7 +523,7 @@ class Produk_m extends MY_Model {
 	
         if($search_name !='')
 	{
-	    $this->db->like('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($search_name));
+	    $this->db->where('STORE_SALES_MASTER.SV', strtoupper($search_name));
 	    //$this->db->or_like('DC_STOCK_MASTER.PLU',$search_name);
 	    //$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
 	    //$this->db->or_like('DC_STOCK_MASTER.ARTICLE_DESC', strtoupper($search_name));
@@ -555,7 +555,7 @@ class Produk_m extends MY_Model {
     
     function SearchResult_front($perPage,$uri,$search_name, $dc_site_code, $store_site_code, $search, $filterId=null)
     {
-		// ieu model na
+		
 		
 		$this->db->select('*');
 		$this->db->from('DC_STOCK_MASTER');
@@ -574,7 +574,7 @@ class Produk_m extends MY_Model {
 		else if(!empty($search_name))
 		{
 			//$this->db->like("DC_STOCK_MASTER.ARTICLE_DESC",$search_name);
-			$this->db->or_where("DC_STOCK_MASTER.ARTICLE_CODE",$search_name);
+			$this->db->like("STORE_SALES_MASTER.SV",$search_name);
 			$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
 		}
 		//else if(!empty($search_name) && $search == 'artcode')
@@ -594,7 +594,7 @@ class Produk_m extends MY_Model {
 		$this->db->limit($perPage, $uri);
 		
 		$data = $this->db->get();
-		//echo $this->db->last_query();
+		
 		if($data->num_rows() > 0)
 		{
 			return $data->result();
