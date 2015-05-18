@@ -574,7 +574,7 @@ class Produk_m extends MY_Model {
 		else if(!empty($search_name))
 		{
 			//$this->db->like("DC_STOCK_MASTER.ARTICLE_DESC",$search_name);
-			$this->db->like("STORE_SALES_MASTER.SV",$search_name);
+			$this->db->where("STORE_SALES_MASTER.PLU",$search_name);
 			$this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE'); 
 		}
 		//else if(!empty($search_name) && $search == 'artcode')

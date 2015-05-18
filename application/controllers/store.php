@@ -643,7 +643,7 @@ class Store extends CI_Controller {
                     $this->db->where('STORE_SALES_MASTER.STORE_SITE_CODE',$store_site_code);
                     $this->db->where('CURDATE() BETWEEN ART_ATTRIB.START_DATE AND ART_ATTRIB.END_DATE');
                     
-                    $this->db->like('STORE_SALES_MASTER.SV', strtoupper($data['search_name']));
+                    $this->db->where('STORE_SALES_MASTER.PLU', $data['search_name']);
                     //$this->db->or_where('DC_STOCK_MASTER.ARTICLE_CODE', strtoupper($data['search_name']));
                     $this->db->group_by('DC_STOCK_MASTER.ARTICLE_CODE');
                 
