@@ -125,11 +125,14 @@ class Store extends CI_Controller {
         
         $this->template->set_judul('Centralize Delivery & Inventory')
         ->set_js('jquery')
+        ->set_js('modernizr.custom.86080')
         ->set_css('bootstrap')
         ->set_css('base')
         ->set_css('bootstrap-responsive')
         ->set_css('font-awesome')
         ->set_css('mystyle')
+        ->set_css('demo')
+        ->set_css('style1')
         
         ->set_parsial('slidebanner','slide_banner',$this->data)
         ->set_parsial('topmenu','top_view',$this->data)
