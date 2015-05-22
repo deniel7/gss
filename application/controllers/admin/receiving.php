@@ -106,5 +106,33 @@ class Receiving extends MY_Controller {
 	    echo $data['nomor'];
 	}
     }
+    
+    public function photo(){
+	
+	$this->data->orderno_gtron = $this->uri->segment(4);
+	
+	parent::_view('receiving/photo',$this->data);
+    }
+    
+    public function photo_save($orderno){
+	//$orderno = $_POST['orderno'];
+	$receiving_time = date('Y-m-d H:i:s');
+	$rawData = $_POST['imgBase64'];
+	$filteredData = explode(',', $rawData);
+	
+	$unencoded = base64_decode($filteredData[1]);
+	$randomName = rand(0, 99999);
+	//Create the image 
+	$fp = fopen('uploads/receiving/'.$randomName.'.png', 'w');
+	fwrite($fp, $unencoded);
+	fclose($fp);
+	
+	$uploadedFiles = $randomName.'.png';
+	
+	$this->pesanan_m->update_by(array('ORDER_NO_GTRON'=>$orderno),array('RECEIVING_DN'=>$uploadedFiles, 'receiving_dn_time'=>$receiving_time));
+	//echo $orderno;
+	redirect(base_url().'admin/receiving/');
+	//parent::_view('receiving/photo',$this->data);
+    }
 
 }

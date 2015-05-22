@@ -17,12 +17,13 @@
 <div class="row">
 	    <div class="col-lg-10">
 		<h1 class="page-header">Detail Order</h1>
+		
 	    </div>
 	    <?php if($cek_dn): ?>
 		
 		<?php if ($data['RECEIVING_DN'] ==NULL){ ?>
 		<div class="col-lg-2">
-		    <h1><a data-toggle="modal" href="#myUpload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Receiving DO</a></h1>
+		    <h1><a data-toggle="modal" href="<?php echo base_url()."admin/receiving/photo/".$orderno; ?>" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Take Receiving DO</a></h1>
 		</div>
 		
 		<?php }else{ ?>
