@@ -1,32 +1,35 @@
+<style>
+	.btn-xlarge {
+    padding: 18px 28px;
+    font-size: 22px; //change this to your desired size
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+
+</style>
 <div id="page-wrapper">
 
 <div class="col-lg-10">
-<h1>Photo</h1>
-
-
-<div class="blk">
-    <div class="hdr">Nomor Transaksi : <?php echo $orderno_gtron; ?></div>
+	<h1>Konfirmasi Delivery Order</h1>
+	<div class="hdr">Nomor Transaksi : <?php echo $orderno_gtron; ?></div>
 </div>
-<div class="content">
-<button id="upload">Upload</button>
-<div class="row">
+
+<div class="content" class ="col-lg-2">
+	<button id="upload" class="btn btn-large btn-info"><i class="fa fa-upload"></i> Upload</button>
+</div>
 	<div class="col-lg-12">
-		<div class="col-lg-3">
-	
-			<video id="video" autoplay></video>
-		</div>
-		<div class="col-lg-3">
-			
-			<button id="snap" style="text-align: left">Capture</button>
-			<button id="new" style="text-align: right">New</button><br/>
-
 		
-		</div>
-		<div class="col-lg-3">
-								<canvas id="canvas" width="640" height="480"></canvas>
-		</div>
+			    <video id="video" autoplay></video>
+			    <button id="snap" class="btn btn-xlarge btn-success" style="margin-bottom: 890px;"><i class="fa fa-camera"></i> Capture</button>
+			    <canvas id="canvas" width="640" height="480"></canvas>
+			    <button id="new" class="btn btn-xlarge btn-warning" style="margin-bottom: 890px;"><i class="fa fa-image"></i> New</button><br/>
+			    
+		       
+		 
 	</div>
-</div>
 
 <script>
 		// Put event listeners into place
@@ -87,10 +90,11 @@
 				  data: { 
 					 imgBase64: dataUrl
 				  }
-				}).done(function(msg) {alert(msg);
+				}).done(function(msg) {
 				  console.log('saved');
 				 // Do Any thing you want
-				 //alert('berhasil');
+					alert('Proses Konfirmasi DO Berhasil');
+					window.location.href='<?php echo base_url()."admin/receiving/"; ?>';
 				});
 			});
 		}, false);
@@ -98,7 +102,5 @@
 	</script>
 
 
-
-</div>
 
 </div>
