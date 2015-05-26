@@ -416,7 +416,7 @@ class Store extends CI_Controller {
                                 'biaya_kirim'     =>  $biaya_kirim,
                                 'total_item'      =>  $this->input->post('total_item'),
                                 'ORDER_NO_GTRON'  =>  $order_no_gtron,
-                                'ORDER_NO_GOLD'   =>  '0',
+                                'ORDER_NO_GOLD'   =>  $order_no_gtron,
                                 'SITE_CODE'       =>  $this->data->store_site_code,
                                 'DC_CODE'         =>  $this->data->dc_site_code,
                                 'ORDER_DELIVERY_DATE' => $tgl,
