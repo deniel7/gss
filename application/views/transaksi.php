@@ -71,11 +71,11 @@
 				switch($item->FLAG) {
 				
 				case '0':
-				$item->FLAG = '<div style="color:red;">Booked</div>';
+				$item->FLAG = '<div style="color:red;">Waiting for Payment</div>';
 				continue;
 				
 				case '1':
-				$item->FLAG = '<div style="color:orange;">Confirmed</div>';
+				$item->FLAG = '<div style="color:orange;">Payment Confirmed</div>';
 				continue;
 				
 				case '2':
@@ -87,7 +87,7 @@
 				continue;
 				
 				case '4':
-				$item->FLAG = '<div style="color:brown;">Cancel</div>';
+				$item->FLAG = '<div style="color:brown;">Expired</div>';
 				continue;
 			      
 				case '5':
@@ -100,6 +100,14 @@
 			      
 				case '7':
 				$item->FLAG = '<div style="color:magenta;">Transaction Completed</div>';
+				continue;
+			
+			        case '10':
+				$item->FLAG = '<div style="color:#C2C2D6;">Order Canceled</div>';
+				continue;
+			
+			        case '11':
+				$item->FLAG = '<div style="color:#CCCCFF;">Transaction Canceled</div>';
 				continue;
 		    
 				}          
@@ -124,7 +132,7 @@
 <br/><hr/>
 <div class="row">
 <div>
-	    <div class="span2" style="color: red">Booked</div>
+	    <div class="span2" style="color: red">Waiting for Payment</div>
 	    <div class="span10">Transaksi sudah dalam proses pemesanan oleh konsumen</div>
 </div>
 </div>
@@ -166,8 +174,24 @@
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: brown">Cancel</div>
-	    <div class="span10">Transaksi dalam kondisi pembatalan</div>
+	    <div class="span2" style="color: brown">Expired</div>
+	    <div class="span10">Batas waktu Booking habis</div>
 </div>
 </div>
+
+<div class="row">
+<div>
+<div class="span2" style="color:#C2C2D6;">Order Canceled</div>
+<div class="span10">Proses order dibatalkan dan konsumen belum melakukan pembayaran</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+<div class="span2" style="color:#CCCCFF;">Transaction Canceled</div>
+<div class="span10">Transaksi dibatalkan dan konsumen sudah melakukan konfirmasi pembayaran</div>
+</div>
+</div>
+
+
 <br/><hr/>

@@ -42,7 +42,7 @@
     <tr>
         <td><?php echo $data['ORDER_NO_GTRON']; ?></td>
         <td><?php echo $data['tanggal_masuk']; ?></td>
-        <td><?php echo anchor('store/ex_all_cancel_confirm/'.$data['ORDER_NO_GTRON'],'<div class="demo btn btn-warning btn-lg">Cancel All</div>',array('onclick'=>"return confirm('Cancel Transaksi ini?')")); ?></td>
+        <td><?php echo anchor('store/ex_all_cancel_confirm/'.$data['ORDER_NO_GTRON'],'<div class="demo btn btn-warning btn-lg">Transaction Canceled</div>',array('onclick'=>"return confirm('Cancel Transaksi ini?')")); ?></td>
         
     </tr>
     <tr><td><br/></td></tr>

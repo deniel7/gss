@@ -64,11 +64,11 @@
 								switch($item->FLAG) {
 								
 								case '0':
-								$item->FLAG = '<div style="color:red;">Booked</div>';
+								$item->FLAG = '<div style="color:red;">Waiting for Payment</div>';
 								continue;
 								
 								case '1':
-								$item->FLAG = '<div style="color:orange;">Confirmed</div>';
+								$item->FLAG = '<div style="color:orange;">Payment Confirmed</div>';
 								continue;
 								
 								case '2':
@@ -80,7 +80,7 @@
 								continue;
 								
 								case '4':
-								$item->FLAG = '<div style="color:silver;">Cancel</div>';
+								$item->FLAG = '<div style="color:silver;">Expired</div>';
 								continue;
 							
 								case '5':
@@ -98,6 +98,14 @@
 								case '8':
 								$item->FLAG = '<div style="color:black;">Gold Error!</div>';
 								continue;
+                                                            
+                                                                case '10':
+                                                                $item->FLAG = '<div style="color:#C2C2D6;">Order Canceled</div>';
+                                                                continue;
+                                                    
+                                                                case '11':
+                                                                $item->FLAG = '<div style="color:#CCCCFF;">Transaction Canceled</div>';
+                                                                continue;
 						    
 								}          
 							echo $item->FLAG;

@@ -1068,8 +1068,8 @@ class Store extends CI_Controller {
         
         $orderno = $this->uri->segment(3);
         
-        $this->db->set('a.FLAG', '4');
-        $this->db->set('b.FLAG', '4');
+        $this->db->set('a.FLAG', '11');
+        $this->db->set('b.FLAG', '11');
         
         $this->db->where('a.ORDER_NO_GTRON', $orderno);
         $this->db->where('b.ORDER_NO_GTRON', $orderno);

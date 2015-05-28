@@ -463,7 +463,7 @@ $('#price').priceFormat({
 	    
 	    <?php //echo anchor('store/cancel_confirm/'.$this->uri->segment(3),'<button class="demo btn btn-warning btn-lg">Cancel Confirm</button>','class="active" id="detail"'); ?>
             
-	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#cancelConf">Cancel Confirm</button>
+	    <button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#cancelConf">Edit / Transaction Canceled</button>
 	    </div>
 </div>
 <?php } ?>
@@ -548,7 +548,7 @@ $('#price').priceFormat({
 
 <?php }else{ ?>
 	
-	<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>
+	<button class="demo btn btn-danger btn-lg" data-toggle="modal" href="#myModal">Order Canceled</button>
 <?php
     }
     endforeach;
@@ -665,7 +665,7 @@ $('#price').priceFormat({
     <div class="modal-content">
       <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h4 class="modal-title">Want to cancel this confirmation?</h4>
+	<h4 class="modal-title">Want to update these item confirmation?</h4>
       </div>
       <div class="modal-body">
       <div class="row-fluid">
