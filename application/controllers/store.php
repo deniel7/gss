@@ -879,14 +879,14 @@ class Store extends CI_Controller {
             
             if($password == 'spv12345'){
                 
-                $this->db->set('a.FLAG', '4');
-                $this->db->set('b.FLAG', '4');
+                $this->db->set('a.FLAG', '10');
+                $this->db->set('b.FLAG', '10');
                 
                 $this->db->where('a.ORDER_NO_GTRON', $orderno);
                 $this->db->where('b.ORDER_NO_GTRON', $orderno);
                 $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
             
-                $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Cancel Pesanan Berhasil</div>';
+                $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Cancel Order Berhasil</div>';
             }else{
                 $this->data->error_pass = '<div class="alert-error" style="text-align:center">Anda Salah menginput Password</div>';
             }
@@ -1066,7 +1066,7 @@ class Store extends CI_Controller {
         
         if ($this->data->store_site_code != ''){
         
-        $orderno = $this->uri->segment(3);
+        $orderno = $this->input->post('orderno');
         
         $this->db->set('a.FLAG', '11');
         $this->db->set('b.FLAG', '11');
