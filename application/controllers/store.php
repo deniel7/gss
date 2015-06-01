@@ -1076,8 +1076,26 @@ class Store extends CI_Controller {
         $this->db->update('SUPPLIER_ORDER_HEADER as a, SUPPLIER_ORDER_DETAIL as b');
         
         
-        redirect (site_url('store/transaksi'));
+        //redirect (site_url('store/transaksi'));
+        
+        
+        
         }
+        $this->data->error_pass = '<div class="alert-danger" style="text-align:center">Berhasil melakukan Cancel Transaction, Harap melakukan proses Retur Manual.</div>';
+        
+        $this->template->set_judul('Centralize Delivery & Inventory')
+        ->set_js('jquery')
+        ->set_js('jquery.min')
+        ->set_js('jquery.countdown.min')
+        ->set_js('jquery.plugin.min')
+        ->set_css('bootstrap')
+        ->set_css('base')
+        ->set_css('bootstrap-responsive')
+        ->set_css('font-awesome')
+        ->set_css('prettify')
+        ->set_css('mystyle')
+        ->set_parsial('topmenu','top_view',$this->data)
+        ->render('detail_transaksi',$this->data); 
     }
     
     

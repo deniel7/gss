@@ -206,12 +206,10 @@
 		
 		<hr class="soft clr"/>
 		<p>
-		14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
-		Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ?81.4x73.4mm. 
-		Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
+		
 		
 		</p>
-		<a class="btn btn-small pull-right" href="#detail">More Details</a>
+		<a class="btn btn-small pull-right" href="#detail">Detail Product</a>
 		<br class="clr"/>
 	<a href="#" name="detail"></a>
 	<hr class="soft"/>
