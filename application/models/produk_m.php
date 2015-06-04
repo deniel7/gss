@@ -766,7 +766,23 @@ class Produk_m extends MY_Model {
 	    return $data;
     }
     
-    
+    public function virturiil($store_site_code){
+	
+	$string_query           = "select * from DC_STOCK_MASTER a,ART_ATTRIB b, STORE_SALES_MASTER c, DELIVARABLE_MASTER d
+		
+				    Where a.ARTICLE_CODE = b.ART_CODE
+				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
+				    AND a.ARTICLE_CODE = d.ARTICLE_CODE
+				    AND a.DC_SITE_CODE = 15199
+				    AND c.STORE_SITE_CODE = '$store_site_code'
+				    AND CURDATE() BETWEEN b.START_DATE AND b.END_DATE
+				    GROUP BY a.ARTICLE_CODE
+			    ";
+        $data          	= $this->db->query($string_query);
+		
+	return $data->result();
+	
+    }
     
     
     

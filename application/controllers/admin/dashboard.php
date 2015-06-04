@@ -6,6 +6,8 @@ class Dashboard extends MY_Controller {
         parent::default_meta();
         $this->data->judul = $this->template->get_judul();
         $this->data->metadata = $this->template->get_metadata();
+	
+	
     }
     
     public function index() {
@@ -21,6 +23,26 @@ class Dashboard extends MY_Controller {
         $this->data->username = $this->session->userdata('username');
 	$this->data->multiuser = $this->session->userdata('multiuser');
         parent::_view('page',$this->data);
+    }
+    
+    public function comp_stok(){
+	$this->load->model('user_m');
+	$this->data->multiuser = $this->session->userdata('multiuser');
+	$this->data->site_master = $this->user_m->site_master();
+	parent::_view('pilihcabang',$this->data);
+    }
+    
+    public function virturiil(){
+        $this->load->model('produk_m');
+	$this->load->model('user_m');
+	$this->data->multiuser = $this->session->userdata('multiuser');
+	$this->data->site_master = $this->user_m->site_master();
+	
+	$store_site_code = $this->input->post('store_site_code');
+        $this->data->stok = $this->produk_m->virturiil($store_site_code);
+	$this->data->cabang = $this->user_m->get_cabang_desc($store_site_code);
+	
+        parent::_view('virturiil',$this->data);
     }
     
     public function logout() {

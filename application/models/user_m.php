@@ -213,6 +213,22 @@ class User_m extends MY_Model {
 			
     }
     
+    public function get_cabang_desc($store_site_code){
+			
+			$sql = "SELECT *
+				FROM SITE_MASTER 
+				WHERE
+				SITE_CODE = $store_site_code
+				";
+			
+			$query = $this->db->query($sql);    
+			$data = $query->row();
+			
+			
+			return $data->SITE_DESC;
+			
+			
+    }
     
 }
 ?>
