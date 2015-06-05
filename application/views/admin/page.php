@@ -21,20 +21,20 @@
                         <table id="datatables" class="table table-striped table-bordered table-hover col-lg-12">
 				<thead>
 				<tr>
-				  <td>Nomor Transaksi</td>
-                                  <td>No PO</td>
-                                  <td>DN No.</td>
-                                  <td>REC No.</td>
-				  <td>Cabang</td>
-				  <td>Waktu Booking</td>
-                                  <td>Waktu Kirim</td>
-                                  <td>Cost Price Value</td>
-				  <td>Nominal Struk</td>
-				  <td>Nama SC</td>
-				  <td>No. Struk</td>
-                                  <td>Konfirmasi File</td>
-                                  <td>Upload DO Date</td>
-				  <td>Status</td>
+				  <td>Nomor Transaksi</th>
+                                  <th>No PO</th>
+                                  <th>DN No.</th>
+                                  <th>REC No.</th>
+				  <th>Cabang</th>
+				  <th>Waktu Booking</th>
+                                  <th>Waktu Kirim</th>
+                                  <th>Cost Price Value</th>
+				  <th>Nominal Struk</th>
+				  <th>Nama SC</th>
+				  <th>No. Struk</th>
+                                  <th>Konfirmasi File</th>
+                                  <th>Upload DO Date</th>
+				  <th>Status</th>
 				</thead>
 				<tbody>
 				<?php if($pesanan!= array()): ?>

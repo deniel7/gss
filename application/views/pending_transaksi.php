@@ -2,21 +2,36 @@
 <script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>template/palmtree/datatables/media/js/jquery.dataTables.js" type="text/javascript"></script>
 
-<style type="text/css">
-            @import "<?php echo base_url();?>template/palmtree/datatables/media/css/demo_table_jui.css";
-            @import "<?php echo base_url();?>template/palmtree/datatables/media/themes/smoothness/jquery-ui-1.8.4.custom.css";
-</style>
+<link rel="stylesheet" type="text/css" href='<?php echo base_url();?>template/palmtree/datatables/media/css/jquery.dataTables.css'>
 
 <script type="text/javascript" charset="utf-8">
-            $(document).ready(function(){
-                $('#datatables').dataTable({
-                    "sPaginationType":"full_numbers",
-                    "aaSorting":[[0, "desc"]],
-                    "bJQueryUI":true
+            
+	    $(document).ready(function(){
+                $('#datatables').DataTable({
+		    
+		    dom: 'T<"clear">lfrtip',
+                        tableTools: {
+                        "sSwfPath": "<?php echo base_url();?>template/palmtree/datatables/media/swf/copy_csv_xls.swf",
+                    
+			"aButtons": [
+			    
+			    {
+				"sExtends": "xls",
+				"sButtonText": "Save to Excel"
+			    },
+			    
+			]
+		    
+		    }
+		    
                 });
             })
             
 </script>
+
+<!--DataTable tools-->
+<script type="text/javascript" charset="utf8" src='<?php echo base_url();?>template/palmtree/datatables/media/js/dataTables.tableTools.js'></script>
+<link rel="stylesheet" type="text/css" href='<?php echo base_url();?>template/palmtree/datatables/media/css/dataTables.tableTools.css'>
 
 </head>
 
