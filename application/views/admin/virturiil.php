@@ -15,7 +15,7 @@
 			
 			
 			
-                    <h1 class="page-header"><?php echo $cabang; echo anchor(site_url('admin/dashboard/comp_stok'),'<span class="btn btn-large btn-info pull-right"><i class="fa fa-arrow-circle-left fa-fw"></i> Back</span>') ?></h1>
+                    <h1 class="page-header"><?php echo "DC PUSAT"; echo anchor(site_url('admin/dashboard/comp_stok'),'<span class="btn btn-large btn-info pull-right"><i class="fa fa-arrow-circle-left fa-fw"></i> Back</span>') ?></h1>
 		    
                 </div>
                 <!-- /.col-lg-12 -->

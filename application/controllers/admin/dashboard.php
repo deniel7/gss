@@ -38,9 +38,9 @@ class Dashboard extends MY_Controller {
 	$this->data->multiuser = $this->session->userdata('multiuser');
 	$this->data->site_master = $this->user_m->site_master();
 	
-	$store_site_code = $this->input->post('store_site_code');
-        $this->data->stok = $this->produk_m->virturiil($store_site_code);
-	$this->data->cabang = $this->user_m->get_cabang_desc($store_site_code);
+	$dc_site_code = $this->input->post('dc_site_code');
+        $this->data->stok = $this->produk_m->virturiil($dc_site_code);
+	//$this->data->cabang = $this->user_m->get_cabang_desc($store_site_code);
 	
         parent::_view('virturiil',$this->data);
     }
