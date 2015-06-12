@@ -165,6 +165,18 @@ class User_m extends MY_Model {
 	
     }
     
+    public function dc_site_code(){
+	$data = array();
+        $array_keys_values = $this->db->query("select * from SITE_MASTER WHERE SITE_TYPE = 0");
+        
+	$data[15100] = 'USER HO';
+	foreach($array_keys_values ->result() as $row){
+            $data[$row->SITE_CODE] = $row->SITE_STORE_CODE;
+        }
+        return $data;		
+	
+    }
+    
     public function get_by_userId($user_id){
 			
 			$sql = "SELECT *
@@ -182,13 +194,32 @@ class User_m extends MY_Model {
 			
     }
     
-    public function get_adminId($user_id){
+    public function get_HoId($user_id){
 			
 			$sql = "SELECT *
 				FROM USER_MASTER 
 				WHERE
 				USER_ID = $user_id
-				AND STORE_SITE_CODE = 77777";
+				AND STORE_SITE_CODE = 15100";
+			
+			
+			$query = $this->db->query($sql);    
+			$data = $query->row();
+			//echo $this->db->last_query();
+			return $data;
+			
+			
+    }
+    
+    public function get_adminId($user_id){
+			
+			
+			$sql = "SELECT *
+				FROM USER_MASTER a
+				JOIN SITE_MASTER b ON a.STORE_SITE_CODE = b.SITE_CODE				
+				WHERE
+				b.SITE_TYPE = 0 AND 
+				a.USER_ID = $user_id";
 			
 			$query = $this->db->query($sql);    
 			$data = $query->row();
@@ -197,6 +228,25 @@ class User_m extends MY_Model {
 			
 			
     }
+    
+    public function get_ho($user_id){
+			
+			$sql = "SELECT STORE_SITE_CODE
+				FROM USER_MASTER
+				WHERE
+				USER_ID = $user_id";
+			
+			$query = $this->db->query($sql);    
+			$data = $query->row();
+			//echo $user_id;
+			
+			//echo $this->db->last_query();
+			
+			return $data->STORE_SITE_CODE;
+			
+			
+    }
+    
     
     public function get_site_desc($ssc){
 			

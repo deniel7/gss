@@ -52,9 +52,6 @@ Class Autentifikasi {
     }
     
     public function admin_login($user_id,$password) {
-	//echo $username;
-	//echo "<br/>";
-	//echo $kode_cabang;
 	$status =1;
 	$level = 'admin';
 	
@@ -67,11 +64,33 @@ Class Autentifikasi {
 								'username'	=> $user->USERNAME,
 								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
 								'level'		=> $level,
-								'multiuser'	=> $user->MULTIUSER
+								'dc_site_code'	=> $user->STORE_SITE_CODE
+								
 					));
-                    
-                    
-                    
+                }
+                $this->error = array('password'=>'Password Keliru');
+            }
+            $this->error = array('login'=>'Login Tidak Benar');
+        }
+        return FALSE;
+    }
+    
+    public function ho_login($user_id,$password) {
+	$status =1;
+	$level = 'admin';
+	
+        if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
+            if ($user = $this->ci->user_m->get_HoId($user_id)) {
+                if ($user->PASSWORD == md5($password)) {
+                    //$this->session->sess_expiration = '7200';
+		    $this->ci->session->set_userdata(array(
+								'user_id'	=> $user->USER_ID,
+								'username'	=> $user->USERNAME,
+								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
+								'level'		=> $level,
+								'dc_site_code'	=> $user->STORE_SITE_CODE
+								
+					));
                 }
                 $this->error = array('password'=>'Password Keliru');
             }

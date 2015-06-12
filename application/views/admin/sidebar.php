@@ -13,7 +13,7 @@
 			<li>
 				<?php //echo anchor(site_url('admin/delivery_order'),'<i class="fa fa-print fa-fw"></i>Print Orders'); ?>
 			</li>-->
-			<?php if($multiuser == 1){ ?>
+			<?php if($dc_site_code == 15100){ ?>
 			<li>
 			
 			<div class="col-xs-12">
@@ -41,12 +41,64 @@
 					</a>
 				</div>
 				
+				<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php echo base_url(); ?>admin/produk">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-warning" style="width: 100%;">
+						<div class="col-xs-9 text-left">
+							<div style="font-size: 17px">Sales Report</div>
+							
+							
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-signal fa-fw"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+				<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php echo base_url(); ?>admin/produk">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-success" style="width: 100%;">
+						<div class="col-xs-9 text-left">
+							<div style="font-size: 17px">Riwayat Pembeli</div>
+							
+							
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-users fa-fw"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
+			
+			<div class="col-xs-12">
+				
+				
+				
 			</div>
 			
 			</li>
-			<?php } ?>
 			
-			<?php if($multiuser == 0){ ?>
+			
+			<?php }else if($dc_site_code != 15100){ ?>
 			
 			<li>
 			

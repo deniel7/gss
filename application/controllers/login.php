@@ -19,27 +19,40 @@ class Login extends CI_Controller {
         parent::__construct();
         
         $this->load->model('option_m');
+         $this->load->model('user_m');
         
         $this->template->use_asset()->set_judul('Form Login')->set_css('login');
         $this->template->use_asset()->set_css(array('bootstrap.min','metisMenu.min','sb-admin-2'));
         $this->data->metadata = $this->template->get_metadata();
         $this->data->judul = $this->template->get_judul();
+        $this->data->dc_site_code = $this->user_m->dc_site_code();
     }
     
     public function index() {
-        $user_id = $this->input->post('user_id');
-        $password = $this->input->post('password');
-        
-        //check cabang mana yg login
-        
-        //echo $username .'-'. $kode_cabang;
         $this->load->library('form_validation'); 
         $this->form_validation->set_rules($this->rule);
+        
+        $user_id = $this->input->post('user_id');
+        $password = $this->input->post('password');
+        //$dc_site_code = $this->input->post('dc_site_code');
+        
         if ($this->form_validation->run()) {
-            $this->autentifikasi->admin_login($user_id,$password);
-            $this->session->set_flashdata('pesan', $user_id);
+            //echo $user_id;
+            $k = $this->user_m->get_ho($user_id);
             
-            redirect(site_url('admin'));
+            if($k == 15100){
+                //echo "Ini HO";
+                
+                $this->autentifikasi->ho_login($user_id,$password);
+                //$this->session->set_flashdata('pesan', $user_id);
+                redirect(site_url('admin'));
+                
+            }else{
+                //echo "Ini bukan HO";
+                $this->autentifikasi->admin_login($user_id,$password);
+                //$this->session->set_flashdata('pesan', $user_id);
+                redirect(site_url('admin'));
+            }
             
         }
             

@@ -1,5 +1,6 @@
-
-
+<?php if($this->session->flashdata('pesan')): ?>
+    <?php echo $this->session->flashdata('pesan'); ?>
+<?php else:?>
 <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
@@ -14,6 +15,8 @@
 				<?php 
 					
 					echo form_open('login');
+					
+					//echo form_dropdown('dc_site_code',$dc_site_code);
 					
 					echo form_input(array(
 						'id' => 'user_id',
@@ -57,3 +60,4 @@
             </div>
         </div>
     </div>
+<?php endif; ?>
