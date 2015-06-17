@@ -1,6 +1,8 @@
+
 <?php if($this->session->flashdata('pesan')): ?>
     <?php echo $this->session->flashdata('pesan'); ?>
 <?php else:?>
+<?php if(@$error){echo @$error;} ?>
 <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">

@@ -80,7 +80,10 @@ Class Autentifikasi {
 	$level = 'admin';
 	
         if ((strlen($user_id) > 0) AND (strlen($password) > 0)) {
+	    
+	    
             if ($user = $this->ci->user_m->get_HoId($user_id)) {
+		
                 if ($user->PASSWORD == md5($password)) {
                     //$this->session->sess_expiration = '7200';
 		    $this->ci->session->set_userdata(array(

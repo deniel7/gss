@@ -1,5 +1,5 @@
 <?php if($this->session->flashdata('pesan')): ?>
-    <?php //echo $this->session->flashdata('pesan'); ?>
+    <?php echo $this->session->flashdata('pesan'); ?>
 <?php else:?>
  
     <div class="row">
