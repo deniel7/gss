@@ -42,13 +42,9 @@ class Login extends CI_Controller {
             
             if($k == 15100){
                 //echo "Ini HO";
+                $this->autentifikasi->ho_login($user_id,$password);
+                redirect(site_url('admin'));
                 
-                if(!$this->autentifikasi->ho_login($user_id,$password)){
-                $this->session->set_flashdata('pesan', 'gagal login');
-                redirect(site_url('login'));
-                }else{
-                    redirect(site_url('admin'));
-                }
                 
             }else{
                 //echo "Ini bukan HO";
