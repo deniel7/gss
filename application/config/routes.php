@@ -42,10 +42,11 @@ $route['default_controller'] = "store";
 $route['404_override'] = '';
 
 $route['admin'] = 'admin/dashboard';
+$route['ho'] = 'admin/ho';
 $route['admin/logout'] = 'admin/dashboard/logout';
 
 $route['admin/(:any)'] = 'admin/$1';
-
+//$route['ho/(:any)'] = 'ho/$1';
 
 $route['produk/(:any)/(:any)'] = 'store/produk/$2';
 //$route['produk/(:any)'] = 'store/kategori/$1';

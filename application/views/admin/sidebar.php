@@ -19,11 +19,42 @@
 			<div class="col-xs-12">
 				
 				<div class="panel panel-active" style="margin-top: 30px">
-					<a href="<?php echo base_url(); ?>admin/produk">
+					<a href="<?php echo base_url(); ?>admin/ho/dashboard">
 					<div class="panel-heading">
 					    <div class="row">
 						
 						<button type="button" class="btn btn-default" style="width: 100%;">
+						<div class="col-xs-9 text-left">
+							<div style="font-size: 17px">Dashboard</div>
+							
+							
+						</div>
+						<div class="col-xs-3 text-right">
+						    <div>
+							<i class="fa fa-dashboard fa-2x"></i>
+						    </div>
+						</div>
+						</button>
+						
+					    </div>
+					</div>
+					</a>
+				</div>
+				
+			</div>
+			
+			</li>
+			
+			<li>
+			
+			<div class="col-xs-12">
+				
+				<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php echo base_url(); ?>admin/produk">
+					<div class="panel-heading">
+					    <div class="row">
+						
+						<button type="button" class="btn btn-info" style="width: 100%;">
 						<div class="col-xs-9 text-left">
 							<div style="font-size: 17px">Master Product</div>
 							
@@ -41,8 +72,8 @@
 					</a>
 				</div>
 				
-				<div class="panel panel-active" style="margin-top: 30px">
-					<a href="<?php echo base_url(); ?>admin/produk">
+				<!--<div class="panel panel-active" style="margin-top: 30px">
+					<a href="<?php //echo base_url(); ?>admin/sales_report">
 					<div class="panel-heading">
 					    <div class="row">
 						
@@ -62,10 +93,10 @@
 					    </div>
 					</div>
 					</a>
-				</div>
+				</div>-->
 				
 				<div class="panel panel-active" style="margin-top: 30px">
-					<a href="<?php echo base_url(); ?>admin/produk">
+					<a href="<?php echo base_url(); ?>admin/ho/riwayat_pembeli">
 					<div class="panel-heading">
 					    <div class="row">
 						

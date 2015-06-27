@@ -752,17 +752,19 @@ class Produk_m extends MY_Model {
     
     public function get_master_produk() {
         
-        $data = array();
-	$sql = "select * from DC_STOCK_MASTER
-		
+        $data = null;
+	$sql = "select * from DC_STOCK_MASTER a,ART_ATTRIB b
+		Where a.ARTICLE_CODE = b.ART_CODE
+		AND CURDATE() BETWEEN b.START_DATE AND b.END_DATE
+		GROUP BY a.ARTICLE_CODE
 		";
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
-		$data = $hasil->result();
+		$data = $hasil;
 	    }
 	    
-	    $hasil->free_result();
+	   // $hasil->free_result();
 	    return $data;
     }
     

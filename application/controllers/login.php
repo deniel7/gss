@@ -43,7 +43,7 @@ class Login extends CI_Controller {
             if($k == 15100){
                 //echo "Ini HO";
                 $this->autentifikasi->ho_login($user_id,$password);
-                redirect(site_url('admin'));
+                redirect(site_url('ho'));
                 
                 
             }else{

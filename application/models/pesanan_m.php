@@ -649,6 +649,25 @@ class Pesanan_m extends MY_Model {
 	    return $data;
     }
     
+    public function get_riwayat_pembeli() {
+        
+        $data = array();
+	$sql = "select id_order, user_data.ORDER_NO_GTRON, nama_depan, nama_belakang, alamat, phone, MID(SITE_STORE_CODE,4,10) as SITE_STORE_CODE, tanggal_masuk, ORDER_DELIVERY_DATE,  TOTAL_BIAYA_INPUT
+		from SUPPLIER_ORDER_HEADER
+		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
+		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+		JOIN user_data ON user_data.ORDER_NO_GTRON = SUPPLIER_ORDER_HEADER.ORDER_NO_GTRON
+		ORDER BY id_order DESC";
+	    
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		$data = $hasil->result();
+	    }
+	    
+	    $hasil->free_result();
+	    return $data;
+    }
+    
 }
 
 ?>

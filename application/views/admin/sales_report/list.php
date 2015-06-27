@@ -1,24 +1,28 @@
-<script type="text/javascript">
+<!--<script type="text/javascript">
     $("document").ready(function() {
 	
         $("#test").dataTable({
-            "ajax": "<?php echo base_url(); ?>admin/produk/get_produk_json"
+            "ajax": "<?php //echo base_url(); ?>admin/produk/get_produk_json"
         });
 
-//        $(".dataTables_empty").html("Enter PLU in Search Field to select Article(s)");
 
     });
-</script>
+</script>-->
 
 <div id="page-wrapper">
             <table id="test" class="table table-striped table-bordered table-hover" width="100%">
 				<thead>
 				<tr>
 				  <td>ARTICLE CODE</td>
-				  <td>ARTICLE DESC</td>				  
-				  <td>CLASS DESC</td>
-				  <td>ATTRIB DESC</td>
-				  <td>IMAGES</td>
+				  <td>TILL CODE</td>				  
+				  <td>SV</td>
+				  <td>ARTICLE DESC</td>
+				  <td>QTY</td>
+				  <td>SALES PRICE</td>
+				  <td>CABANG</td>
+				  <td>MS</td>
+				  <td>CATEGORY</td>
+				  <td>ATTRIBUTE CLASS</td>
 				</tr>
 				</thead>
 				<tbody></tbody>

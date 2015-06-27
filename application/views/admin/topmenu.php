@@ -209,10 +209,19 @@
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> <?php echo $username; ?></a>
+                        
+                        <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> <?php echo $username; ?></a>
                         </li>
-                        <li><a href="<?php echo base_url().'admin/dashboard/comp_stok'; ?>"><i class="fa fa-cubes fa-fw"></i> Stok Real Vs Virtual</a>
+                        <?php if($dc_site_code == 15100){ ?>
+                        <li>
+                            <a href="<?php echo base_url().'admin/ho/comp_stok'; ?>"><i class="fa fa-cubes fa-fw"></i> Stok Real Vs Virtual</a>
                         </li>
+                        <?php }else{ ?>
+                        <li>
+                            <a href="<?php echo base_url().'admin/dashboard/comp_stok'; ?>"><i class="fa fa-cubes fa-fw"></i> Stok Real Vs Virtual</a>
+                        </li>
+                        <?php } ?>
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url().'admin/dashboard/logout'; ?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
