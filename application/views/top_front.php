@@ -57,7 +57,7 @@
 	
 	
 	
-	<?php if ($logged_in AND $multiuser == 1): ?>
+	<?php if ($logged_in AND $dc_site_code == 15100): ?>
 	<div class="navbar-inner">
 		
 		<div><p><b>Halo Multi-User... Anda ingin menuju cabang?</b></p></div>

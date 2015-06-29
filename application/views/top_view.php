@@ -112,7 +112,7 @@
 	<?php if ($logged_in AND $multiuser == 1): ?>
 	<div class="navbar-inner">
 		
-		<div><p><b>Halo Multi-User... Anda ingin menuju cabang?</b></p></div>
+		<div><p><b>Halo User HO... Anda ingin menuju cabang?</b></p></div>
 			<?php echo form_open('store/'); ?>
 			<div class="span3">
 				<?php echo form_dropdown('store_site_code',$site_master); ?>

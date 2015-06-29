@@ -134,6 +134,9 @@ class User extends CI_Controller {
     public function login() {
         $this->form_validation->set_rules($this->login_rules);
         if($this->form_validation->run()) {
+            
+            
+            
             $user_id = $this->input->post('user_id');
             $password = $this->input->post('password');
             //$store_site_code = $this->input->post('store_site_code');
@@ -151,7 +154,9 @@ class User extends CI_Controller {
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect(site_url('store/'));
                 //echo"berhasil";
-            }
+            }    
+        
+        
         }
         
         //$this->session->set_flashdata('message', $this->ion_auth->messages());

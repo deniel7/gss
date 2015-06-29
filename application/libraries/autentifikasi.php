@@ -44,12 +44,38 @@ Class Autentifikasi {
                     }
                 }
                 $this->error = array('password'=>'Password Keliru');
-            }
+            }else if($user = $this->ci->user_m->get_HoId($user_id)){
+		if ($user->PASSWORD == md5($password)) {
+                    $status = 1;
+		    $level ='user';
+		    
+		    $this->ci->session->set_userdata(array(
+								'user_id'	=> $user->USER_ID,
+								'user_desc'	=> $user->USERNAME,
+								'store_site_code'	=> $user->STORE_SITE_CODE,
+								'site_desc'	=> $user->SITE_DESC,
+								'dc_site_code' => $user->DC_SITE_CODE,
+								'dc_supp_code' => $user->DC_SUPP_CODE,
+								'multiuser' => $status,
+								'level'	=> $level,
+								'logged_in' => TRUE,
+								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
+					));
+                    
+                    if($status == 0){
+                        $this->error = (array('status'=>'Status belum aktif'));
+                    } else {
+                        return true;
+                    }
+                }
+                $this->error = array('password'=>'Password Keliru');
+	    }
             
 	    $this->error = array('login'=>'Login Tidak Benar');
         }
         return FALSE;
     }
+    
     
     public function admin_login($user_id,$password) {
 	$status =1;
@@ -91,7 +117,10 @@ Class Autentifikasi {
 								'username'	=> $user->USERNAME,
 								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
 								'level'		=> $level,
-								'dc_site_code'	=> $user->STORE_SITE_CODE
+								'dc_site_code'	=> $user->STORE_SITE_CODE,
+								'multiuser' => $user->MULTIUSER,
+								'logged_in' => TRUE,
+								'status'	=> ($status == 1) ? STATUS_ACTIVATED : STATUS_NOT_ACTIVATED,
 								
 					));
                 }
