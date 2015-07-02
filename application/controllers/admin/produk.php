@@ -59,7 +59,7 @@ class Produk extends MY_Controller {
 		$gbr = "<div class= 'btn btn-danger'><i class='fa fa-times-circle-o fa-fw'>,</i></div>";
 	    }
 	    
-	    $hasil .= "[\"" . $row->ARTICLE_CODE . "\",\"" . str_replace('"',"",$row->ARTICLE_DESC) . "\",\"" . str_replace('"','',$row->CLASS_DESC) . "\",\"".str_replace('"',"",$row->ATTRIB_DESC). "\",\"".$gbr. "\"]";
+	    $hasil .= "[\"<a href=".base_url().'admin/produk/detail/'.$row->ARTICLE_CODE.">" . $row->ARTICLE_CODE . "</a>\",\"" . str_replace('"',"",$row->ARTICLE_DESC) . "\",\"" . str_replace('"','',$row->CLASS_DESC) . "\",\"".str_replace('"',"",$row->ATTRIB_DESC). "\",\"".$gbr. "\"]";
             //$hasil .= "[\"" . $row->PLU . "\",\"" . $row->ART_CODE . "\",\"" . $row->L_DESC . "\",\"".$row->ART_ATTR."\",\"" . $row->SUBCLASS . "\",\"" . $row->SV . "\",\"<input type='checkbox' id='check-art-" . $row->PLU . "' /><input type='hidden' id='art-desc-" . $row->PLU . "' value='" . $row->L_DESC . "' />\" ]";
 
             if ($i < $res->num_rows() - 1) {
@@ -69,6 +69,57 @@ class Produk extends MY_Controller {
         }
         $hasil .= "]}";
         echo $hasil;
+    }
+    
+    public function detail($id = 0) {
+        
+	$this->load->library('form_validation');
+        
+	$this->form_validation->set_rules('userfile','userfile','required'|'xss_clean');
+	
+        
+        if($this->input->post('go_upload')){
+	     
+	    $config['upload_path'] = 'uploads/receiving/';
+            $config['allowed_types'] = 'gif|jpeg|png';
+            $config['max_size']	= '500';
+            //$config['max_width']  = '9';
+            //$config['max_height']  = '7';
+
+            $this->load->library('upload', $config);
+	    
+            
+	    if (!$this->upload->do_upload())
+            {
+                   $this->data->error = $this->upload->display_errors();
+		   $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id),true);
+            }
+            else{
+ 
+            
+	    //$data=$this->upload->do_upload('gambar');
+	    $file=$this->upload->data();
+	    $uploadedFiles = $file['file_name']; 
+	    
+	    
+	    
+	    $this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles));
+	    
+	    redirect(base_url().'admin/pesanan/');
+	    //$this->load->view('admin/add_prod',$data);
+	    }
+       
+        
+	} else {
+	    //CEK STATUS KONFIRMASI sudah / blom
+	    //$this->data->cek_dn = $this->pesanan_m->cek_DN($id);
+            
+	    //$this->data->detail = $this->pesanan_m->get_record(array('id_order'=>$id),true);
+	    $this->data->detail = $this->produk_m->produk_detail($id);
+	    echo $this->db->last_query();
+        }
+        parent::_view('produk/detail',$this->data);
+        //parent::_modal('pesanan/detail',$this->data);
     }
     
     public function list_empty_name(){

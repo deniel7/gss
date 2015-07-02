@@ -785,6 +785,20 @@ class Produk_m extends MY_Model {
 	
     }
     
+    public function produk_detail($id){
+	
+	$string_query           = "
+				    select * from DC_STOCK_MASTER a,ART_ATTRIB b
+				    Where a.ARTICLE_CODE = b.ART_CODE
+				    AND CURDATE() BETWEEN b.START_DATE AND b.END_DATE
+				    AND a.ARTICLE_CODE = $id
+				    
+			    ";
+        $data          	= $this->db->query($string_query);
+		
+	return $data->result();
+	
+    }
     
     
     
