@@ -240,7 +240,7 @@ class Pesanan_m extends MY_Model {
 		OR SUPPLIER_ORDER_HEADER.FLAG = 5)
 		";
 	
-	$hasil = $this->db->query($sql);
+	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
 		foreach ($hasil->result_array() as $row)
 		{
@@ -276,25 +276,49 @@ class Pesanan_m extends MY_Model {
     }
     
     function count_receiving()
-    {	
-		$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
-		$this->db->from('SUPPLIER_ORDER_HEADER');
-		$this->db->where_in('FLAG', '7');
-		$this->db->where('RECEIVING_DN', NULL);
-		$this->db->where('PRINT_STATUS', '1');
+    {
+	
+	$sql = "select COALESCE(COUNT(id_order),0) order_count
+		from SUPPLIER_ORDER_HEADER
+		WHERE
 		
-		$query = $this->db->get();
+		SUPPLIER_ORDER_HEADER.RECEIVING_DN IS NULL
+		AND SUPPLIER_ORDER_HEADER.PRINT_STATUS > 0
+		AND (SUPPLIER_ORDER_HEADER.FLAG = 7
+		OR SUPPLIER_ORDER_HEADER.FLAG = 5)
 		
-		
-		if ($query->num_rows() > 0)
+		";
+	
+	    $hasil = $this->db->query($sql);
+	    if($hasil->num_rows() > 0){
+		foreach ($hasil->result_array() as $row)
 		{
-			foreach ($query->result_array() as $row)
-			{
-				return $row['order_count'];
-			}
+			return $row['order_count'];
 		}
-		
-		return 0;
+	    }
+	    
+	    return 0;
+	
+	
+	
+		//$this->db->select('COALESCE(COUNT(id_order),0) order_count', FALSE);
+		//$this->db->from('SUPPLIER_ORDER_HEADER');
+		//$this->db->where_in('FLAG', '7');
+		//$this->db->where('RECEIVING_DN', NULL);
+		//$this->db->where('PRINT_STATUS', '1');
+		//
+		//$query = $this->db->get();
+		//
+		//
+		//if ($query->num_rows() > 0)
+		//{
+		//	foreach ($query->result_array() as $row)
+		//	{
+		//		return $row['order_count'];
+		//	}
+		//}
+		//
+		//return 0;
     }
     
     public function tambah_fav($data = array()) {
@@ -561,9 +585,12 @@ class Pesanan_m extends MY_Model {
 	$sql = "select * from SUPPLIER_ORDER_HEADER
 		JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id
 		JOIN SITE_MASTER ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
-		WHERE SUPPLIER_ORDER_HEADER.FLAG = 7
-		AND SUPPLIER_ORDER_HEADER.RECEIVING_DN IS NULL
-		AND SUPPLIER_ORDER_HEADER.PRINT_STATUS != 0
+		WHERE
+		
+		SUPPLIER_ORDER_HEADER.RECEIVING_DN IS NULL
+		AND SUPPLIER_ORDER_HEADER.PRINT_STATUS > 0
+		AND (SUPPLIER_ORDER_HEADER.FLAG = 7
+		OR SUPPLIER_ORDER_HEADER.FLAG = 5)
 		ORDER BY id_order DESC";
 	    
 	    $hasil = $this->db->query($sql);
