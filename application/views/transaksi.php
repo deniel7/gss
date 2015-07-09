@@ -81,53 +81,68 @@
 			<?php endif; ?>
 	            </td>
 		    <td>
+			<?php
+				    if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:blue'>on Progress Shipment</div>";
+				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS > 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:green;'>on Delivery</div>";
+				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS > 0 AND $item->RECEIVING_DN != NULL){
+						echo "<div style='color:magenta'>Transaction Completed</div>";
+				    }else{
+			
+			?>
+			
 			
 			<?php
 			
-				switch($item->FLAG) {
-				
-				case '0':
-				$item->FLAG = '<div style="color:red;">Waiting for Payment</div>';
-				continue;
-				
-				case '1':
-				$item->FLAG = '<div style="color:orange;">Payment Confirmed</div>';
-				continue;
-				
-				case '2':
-				$item->FLAG = '<div style="color:blue;">on Progress</div>';
-				continue;
-				
-				case '3':
-				$item->FLAG = '<div style="color:blue;">on Progress Gold</div>';
-				continue;
-				
-				case '4':
-				$item->FLAG = '<div style="color:brown;">Expired</div>';
-				continue;
-			      
-				case '5':
-				$item->FLAG = '<div style="color:blue;">on Progress Shipment</div>';
-				continue;
-			      
-				case '6':
-				$item->FLAG = '<div style="color:green;">on Delivery</div>';
-				continue;
-			      
-				case '7':
-				$item->FLAG = '<div style="color:magenta;">Transaction Completed</div>';
-				continue;
+				    switch($item->FLAG) {
+				    
+				    case '0':
+				    $item->FLAG = '<div style="color:red;">Waiting for Payment</div>';
+				    continue;
+				    
+				    case '1':
+				    $item->FLAG = '<div style="color:orange;">Payment Confirmed</div>';
+				    continue;
+				    
+				    case '2':
+				    $item->FLAG = '<div style="color:blue;">on Progress</div>';
+				    continue;
+				    
+				    case '3':
+				    $item->FLAG = '<div style="color:blue;">on Progress Gold</div>';
+				    continue;
+				    
+				    case '4':
+				    $item->FLAG = '<div style="color:brown;">Expired</div>';
+				    continue;
+				  
+				    //case '5':
+				    //$item->FLAG = '<div style="color:blue;">on Progress Shipment</div>';
+				    //continue;
+				  
+				    //case '6':
+				    //$item->FLAG = '<div style="color:green;">on Delivery</div>';
+				    //continue;
+				  
+				    //case '7':
+				    //$item->FLAG = '<div style="color:magenta;">Transaction Completed</div>';
+				    //continue;
+			    
+				    case '10':
+				    $item->FLAG = '<div style="color:#C2C2D6;">Order Canceled</div>';
+				    continue;
+			    
+				    case '11':
+				    $item->FLAG = '<div style="color:#CCCCFF;">Transaction Canceled</div>';
+				    continue;
+			       
+				    }          
+				    echo $item->FLAG;
 			
-			        case '10':
-				$item->FLAG = '<div style="color:#C2C2D6;">Order Canceled</div>';
-				continue;
-			
-			        case '11':
-				$item->FLAG = '<div style="color:#CCCCFF;">Transaction Canceled</div>';
-				continue;
-		    
-				}          
-			echo $item->FLAG;
+				    }
 			?>
 		    
 		    </td>
@@ -155,7 +170,7 @@
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: orange">Confirmed</div>
+	    <div class="span2" style="color: orange">Payment Confirmed</div>
 	    <div class="span10">Transaksi dalam kondisi konsumen sudah melakukan pembayaran di kassa dan sudah dilakukan konfirmasi ke dalam aplikasi</div>
 </div>
 </div>
