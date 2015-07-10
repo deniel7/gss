@@ -85,6 +85,9 @@
 				    if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
 						echo "<div style='color:blue'>on Progress Shipment</div>";
 				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 0 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:light blue'>Validating Struk Progress</div>";
+				    
 				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS > 0 AND $item->RECEIVING_DN == NULL){
 						echo "<div style='color:green;'>on Delivery</div>";
 				    
@@ -186,6 +189,13 @@
 <div>
 	    <div class="span2" style="color: blue">on Progress Shipment</div>
 	    <div class="span10">Transaksi dalam kondisi pemrosesan persiapan pengiriman</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span2" style="color: light blue">Validating Struk Progress</div>
+	    <div class="span10">Transaksi dalam kondisi sedang pengecekan validitas struk oleh sistem</div>
 </div>
 </div>
 
