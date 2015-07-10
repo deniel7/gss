@@ -78,9 +78,9 @@ class Produk extends MY_Controller {
 	$this->form_validation->set_rules('userfile','userfile','required'|'xss_clean');
 	
         
-        if($this->input->post('go_upload')){
+        if($this->input->post('do_upload')){
 	     
-	    $config['upload_path'] = 'uploads/receiving/';
+	    $config['upload_path'] = 'asset/themes/images/products/';
             $config['allowed_types'] = 'gif|jpeg|png';
             $config['max_size']	= '500';
             //$config['max_width']  = '9';
@@ -116,9 +116,11 @@ class Produk extends MY_Controller {
             
 	    //$this->data->detail = $this->pesanan_m->get_record(array('id_order'=>$id),true);
 	    $this->data->detail = $this->produk_m->produk_detail($id);
-	    echo $this->db->last_query();
+	    //echo $this->db->last_query();
+	    
+	    parent::_view('produk/detail',$this->data);
         }
-        parent::_view('produk/detail',$this->data);
+        
         //parent::_modal('pesanan/detail',$this->data);
     }
     
