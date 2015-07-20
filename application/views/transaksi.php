@@ -89,7 +89,16 @@
 						echo "<div style='color:light blue'>Validating Struk Progress</div>";
 				    
 				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS > 0 AND $item->RECEIVING_DN == NULL){
-						echo "<div style='color:green;'>on Delivery</div>";
+						echo "<div style='color:green'>on Delivery</div>";
+				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 2 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:#B30000'>Incorect Struk Number</div>";
+				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 3 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:#B30000'>Incorect Nominal Struk</div>";
+				    
+				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 4 AND $item->PRINT_STATUS == 0 AND $item->RECEIVING_DN == NULL){
+						echo "<div style='color:#B30000'>Incorect Nominal & Struk Number</div>";
 				    
 				    }else if($item->FLAG == 5 || $item->FLAG == 7 AND $item->STRUK_STATUS == 1 AND $item->PRINT_STATUS > 0 AND $item->RECEIVING_DN != NULL){
 						echo "<div style='color:magenta'>Transaction Completed</div>";
@@ -166,71 +175,92 @@
 <br/><hr/>
 <div class="row">
 <div>
-	    <div class="span2" style="color: red">Waiting for Payment</div>
-	    <div class="span10">Transaksi sudah dalam proses pemesanan oleh konsumen</div>
+	    <div class="span4" style="color: red">Waiting for Payment</div>
+	    <div class="span8">Transaksi sudah dalam proses pemesanan oleh konsumen</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: orange">Payment Confirmed</div>
-	    <div class="span10">Transaksi dalam kondisi konsumen sudah melakukan pembayaran di kassa dan sudah dilakukan konfirmasi ke dalam aplikasi</div>
+	    <div class="span4" style="color: orange">Payment Confirmed</div>
+	    <div class="span8">Transaksi dalam kondisi konsumen sudah melakukan pembayaran di kassa dan sudah dilakukan konfirmasi ke dalam aplikasi</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: blue">on Progress</div>
-	    <div class="span10">Transaksi dalam kondisi pemrosesan oleh GOLD</div>
+	    <div class="span4" style="color: blue">on Progress</div>
+	    <div class="span8">Transaksi dalam kondisi pemrosesan oleh GOLD</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: blue">on Progress Shipment</div>
-	    <div class="span10">Transaksi dalam kondisi pemrosesan persiapan pengiriman</div>
+	    <div class="span4" style="color: blue">on Progress Shipment</div>
+	    <div class="span8">Transaksi dalam kondisi pemrosesan persiapan pengiriman</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: light blue">Validating Struk Progress</div>
-	    <div class="span10">Transaksi dalam kondisi sedang pengecekan validitas struk oleh sistem</div>
+	    <div class="span4" style="color: light blue">Validating Struk Progress</div>
+	    <div class="span8">Transaksi dalam kondisi sedang pengecekan validitas struk oleh sistem</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: green">on Delivery</div>
-	    <div class="span10">Transaksi dalam kondisi sedang dalam pengiriman kepada konsumen</div>
+	    <div class="span4" style="color:#B30000">Incorect Struk Number</div>
+	    <div class="span8">Terdapat kesalahan penginputan Nomor Struk</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: magenta">Transaction Completed</div>
-	    <div class="span10">Transaksi selesai</div>
+	    <div class="span4" style="color:#B30000">Incorect Nominal Struk</div>
+	    <div class="span8">Terdapat kesalahan penginputan Nominal Struk</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-	    <div class="span2" style="color: brown">Expired</div>
-	    <div class="span10">Batas waktu Booking habis</div>
+	    <div class="span4" style="color:#B30000">Incorect Nominal & Struk Number</div>
+	    <div class="span8">Terdapat kesalahan penginputan Nominal Struk dan juga Nomor Struk</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-<div class="span2" style="color:#C2C2D6;">Order Canceled</div>
-<div class="span10">Proses order dibatalkan dan konsumen belum melakukan pembayaran</div>
+	    <div class="span4" style="color: green">on Delivery</div>
+	    <div class="span8">Transaksi dalam kondisi sedang dalam pengiriman kepada konsumen</div>
 </div>
 </div>
 
 <div class="row">
 <div>
-<div class="span2" style="color:#CCCCFF;">Transaction Canceled</div>
-<div class="span10">Transaksi dibatalkan dan konsumen sudah melakukan konfirmasi pembayaran</div>
+	    <div class="span4" style="color: magenta">Transaction Completed</div>
+	    <div class="span8">Transaksi selesai</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+	    <div class="span4" style="color: brown">Expired</div>
+	    <div class="span8">Batas waktu Booking habis</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+<div class="span4" style="color:#C2C2D6;">Order Canceled</div>
+<div class="span8">Proses order dibatalkan dan konsumen belum melakukan pembayaran</div>
+</div>
+</div>
+
+<div class="row">
+<div>
+<div class="span4" style="color:#CCCCFF;">Transaction Canceled</div>
+<div class="span8">Transaksi dibatalkan dan konsumen sudah melakukan konfirmasi pembayaran</div>
 </div>
 </div>
 

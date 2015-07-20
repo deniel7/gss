@@ -2,6 +2,9 @@
 
 class Produk extends MY_Controller {
     private $judul = 'Daftar Produk';
+    var $original_path;
+    var $resized_path;
+    var $thumbs_path;
     
     public function __construct() {
         parent::__construct();
@@ -14,8 +17,14 @@ class Produk extends MY_Controller {
         $this->data->nik = $this->session->userdata('user_id');
 	$this->data->dc_site_code = $this->session->userdata('dc_site_code');
 	$this->load->helper(array('form', 'url'));
-	
+        $this->load->library('upload');
+        $this->load->library('image_lib');
 	$this->load->model('produk_m');
+	
+	$this->original_path = 'asset/themes/images/products/large/';
+	$this->resized_path = 'asset/themes/images/products/';
+	//$this->thumbs_path = realpath(APPPATH.'../uploads/thumbs');
+	
     }
     
     public function index(){
@@ -77,38 +86,131 @@ class Produk extends MY_Controller {
         
 	$this->form_validation->set_rules('userfile','userfile','required'|'xss_clean');
 	
+	$art_code = $this->input->post('art_code');
         
-        if($this->input->post('do_upload')){
+        if($this->input->post('go_upload')){
 	     
-	    $config['upload_path'] = 'asset/themes/images/products/';
-            $config['allowed_types'] = 'gif|jpeg|png';
-            $config['max_size']	= '500';
-            //$config['max_width']  = '9';
-            //$config['max_height']  = '7';
-
-            $this->load->library('upload', $config);
-	    
-            
-	    if (!$this->upload->do_upload())
+//	    $config['upload_path'] = 'asset/themes/images/products/';
+//            $config['allowed_types'] = 'gif|jpeg|png';
+//            $config['max_size']	= '500';
+//           
+//            $this->load->library('upload', $config);
+//	    
+//            
+//	    if (!$this->upload->do_upload())
+//            {
+//                   $this->data->error = $this->upload->display_errors();
+//		   $this->data->detail = $this->produk_m->produk_detail($id);
+//            }
+//            else{
+// 
+//            
+//	    //$data=$this->upload->do_upload('gambar');
+//	    $file=$this->upload->data();
+//	    $uploadedFiles = $file['file_name']; 
+//	    
+//	    
+//	    
+//	    //$this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles));
+//	    
+//	    redirect(base_url().'admin/produk/');
+//	    //$this->load->view('admin/add_prod',$data);
+//	    }
+        
+	$upload_conf = array(
+            'upload_path'   => 'asset/themes/images/products/large/',
+            'allowed_types' => 'gif|jpg|png',
+            'max_size'      => '20000',
+            );
+    
+        $this->upload->initialize( $upload_conf );
+    
+        // Change $_FILES to new vars and loop them
+        foreach($_FILES['userfile'] as $key=>$val)
+        {
+            $i = 1;
+            foreach($val as $v)
             {
-                   $this->data->error = $this->upload->display_errors();
-		   $this->data->detail = $this->pesanan_m->get_all_detail_trans(array('id_order'=>$id),true);
+                $field_name = "file_".$i;
+                $_FILES[$field_name][$key] = $v;
+                $i++;   
             }
-            else{
- 
-            
-	    //$data=$this->upload->do_upload('gambar');
-	    $file=$this->upload->data();
-	    $uploadedFiles = $file['file_name']; 
-	    
-	    
-	    
-	    $this->pesanan_m->update_by(array('id_order'=>$id),array('RECEIVING_DN'=>$uploadedFiles));
-	    
-	    redirect(base_url().'admin/pesanan/');
-	    //$this->load->view('admin/add_prod',$data);
-	    }
-       
+        }
+        // Unset the useless one ;)
+        unset($_FILES['userfile']);
+    
+        // Put each errors and upload data to an array
+        $error = array();
+        $success = array();
+        
+        // main action to upload each file
+        foreach($_FILES as $field_name => $file)
+        {
+            if ( ! $this->upload->do_upload($field_name))
+            {
+                // if upload fail, grab error 
+                //$error['upload'][] = $this->upload->display_errors();
+		
+		$this->data->error = $this->upload->display_errors();
+		
+            }
+            else
+            {
+                // otherwise, put the upload datas here.
+                // if you want to use database, put insert query in this loop
+                $upload_data = $this->upload->data();
+		
+		
+		$uploadedFiles = $upload_data['file_name']; 
+		
+		
+                $this->produk_m->update_by(array('ARTICLE_CODE'=>$id),array('THUMB'=>$uploadedFiles, 'IMG1'=>$uploadedFiles));
+                // set the resize config
+                $resize_conf = array(
+                    // it's something like "/full/path/to/the/image.jpg" maybe
+                    'source_image'  => $upload_data['full_path'], 
+                    // and it's "/full/path/to/the/" + "thumb_" + "image.jpg
+                    // or you can use 'create_thumbs' => true option instead
+                    'new_image'     => 'asset/themes/images/products/'.$upload_data['file_name'],
+                    'width'         => 160,
+                    'height'        => 160
+                    );
+
+                // initializing
+                $this->image_lib->initialize($resize_conf);
+
+                // do it!
+                if ( ! $this->image_lib->resize())
+                {
+                    // if got fail.
+                    //$error['resize'][] = $this->image_lib->display_errors();
+		    $this->data->error = $this->image_lib->display_errors();
+                }
+                else
+                {
+                    // otherwise, put each upload data to an array.
+                    $success[] = $upload_data;
+                }
+            }
+        }
+
+        // see what we get
+        if(count($error > 0))
+        {
+            $this->data->detail = $this->produk_m->produk_detail($id);
+	    $data['error'] = $error;
+	    //parent::_view('produk/detail',$error);
+	    //$this->load->view('admin/produk/detail',$this->data);
+        }
+        else
+        {
+            $data['success'] = $upload_data;
+	    redirect(base_url().'admin/produk/');
+	}
+	 
+	//redirect(base_url().'admin/produk/');
+	    //}
+	//parent::_view('produk/detail',$error);
         
 	} else {
 	    //CEK STATUS KONFIRMASI sudah / blom
@@ -118,9 +220,9 @@ class Produk extends MY_Controller {
 	    $this->data->detail = $this->produk_m->produk_detail($id);
 	    //echo $this->db->last_query();
 	    
-	    parent::_view('produk/detail',$this->data);
+	    //parent::_view('produk/detail',$this->data);
         }
-        
+        parent::_view('produk/detail',$this->data);
         //parent::_modal('pesanan/detail',$this->data);
     }
     
