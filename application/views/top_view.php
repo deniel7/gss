@@ -78,7 +78,7 @@
 		$data_s = array(
 		'name'        => 'search_name',
 		'id'          => 'search_name',
-		'placeholder' => 'Search PLU TC...',
+		'placeholder' => 'Search PLU...',
 		'font-color'   => 'red'
 		//'value'	      => $search_name,
 		);

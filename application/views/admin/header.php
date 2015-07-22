@@ -106,7 +106,9 @@
 			  //setTimeout(loaded2,2000);
 			},
 			error:function(res){
-			    alert(JSON.stringify(res));
+			    //alert(JSON.stringify(res));
+			    alert('session timeout, silahkan login kembali');
+			    window.location='<?php echo site_url('login'); ?>';
 			    //setTimeout(loaded2,5000);
 			    
 			}

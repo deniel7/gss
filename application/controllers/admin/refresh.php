@@ -14,6 +14,8 @@ class Refresh extends CI_Controller {
         $this->load->_ci_view_path = $this->default_view.'admin/';
         
         $this->template->use_asset();
+	
+	$this->data->dc_site_code = $this->session->userdata('dc_site_code');
     }
     
     public function index(){
@@ -28,6 +30,7 @@ class Refresh extends CI_Controller {
         $data['result2'] = '<p style=color:white>'.$this->data->total_gold_proses.'</p>';
         $data['result3'] = '<a href='.site_url('admin/delivery_order').'><p style=color:white>'.$this->data->total_print_do.'</p></a>';
 	$data['result4'] = '<a href='.site_url('admin/receiving').'><p style=color:white>'.$this->data->total_receiving.'</p></a>';
+	
         echo json_encode($data);
     }
     
