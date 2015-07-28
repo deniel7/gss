@@ -1,5 +1,6 @@
 
 <div id="page-wrapper">
+	<?php echo"<br/><div class='bg-danger'>".$error.'</div>';?>
 
 <div class="col-lg-10">
 	<?php foreach ($detail as $item): ?>
@@ -36,6 +37,7 @@
 			</tbody>
 		    </table>
 		</div>
+		
 		<!-- /.table-responsive -->
 	</div>
 </div>
@@ -64,31 +66,17 @@
         </div>
         <div class="modal-body">
         
-	<?php
-                    //$komplemen = array('id'=>'addForm', 'name'=>'addForm');
-		    echo form_open_multipart(site_url(uri_string()));
-		    
-		    
-	       ?>
-		
-		    
-		    <div class="row">
-		    
-                    <div class="col-lg-6"><input type="file" name="userfile" id="userfile" size="20" /></div>
-		    </div>
-
-               
-	       
+	      <?php echo form_open_multipart(site_url(uri_string())); ?>
+	      <?php echo form_upload( array( 'name'=>'userfile[]', 'multiple'=>true ) ); ?>
+	      <?php //echo form_submit($submit); ?>
+	      <?php //echo form_close(); ?>
 	
-	<!--<form action="<?php //echo site_url(uri_string()); ?>" method="POST">-->
-	<?php
-	   echo form_input('ARTICLE_CODE', $item->ARTICLE_CODE);
-	?>
 	</div>
         <div class="modal-footer">
-	  <?php //echo form_submit('submit', 'Yes','class = "btn btn-primary"'); ?>
-	  <input type="submit" value="upload" name="do_upload" class="btn btn-primary" />
-	  <button type="button" class="btn btn-success" data-dismiss="modal">Cancel</button>
+	  <input id = "art_code" type="hidden" value="<?php echo $item->ARTICLE_CODE; ?>" name="art_code" />
+	  
+	  <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+	  <input id = "submit" type="submit" value="Upload" name="go_upload" class="btn btn-success" />
           <?php echo form_close(); ?>
         </div>
       </div><!-- /.modal-content -->

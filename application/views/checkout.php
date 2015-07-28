@@ -1,17 +1,27 @@
 <?php
 
+$get_order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3);
+
+//set global variabel
+$GLOBALS['order_no'] = 'GT'.substr($this->session->userdata('store_site_code'),-3);
+
+
 function transaksi_id() {
-        $dataMax = mysql_fetch_assoc(mysql_query("SELECT SUBSTR(MAX(`ORDER_NO_GTRON`),-6) AS ID  FROM SUPPLIER_ORDER_HEADER")); // ambil data maximal dari id transaksi
-        
+        //$get_order_no = 'GT'.substr($this->session->userdata('store_site_code'),-3);
+	$dataMax = mysql_fetch_assoc(mysql_query("SELECT SUBSTR(MAX(`ORDER_NO_GTRON`),-6) AS ID FROM SUPPLIER_ORDER_HEADER WHERE ORDER_NO_GTRON LIKE '".$GLOBALS['order_no']."%'")); // ambil data maximal dari id transaksi
+	
         if($dataMax['ID']=='') { // bila data kosong
             $ID = "000001";
         }else {
             $MaksID = $dataMax['ID'];
+	    //echo $MaksID. ' ';
             $MaksID++;
+	    //echo $MaksID;
             if($MaksID < 10) $ID = $param."00000".$MaksID; // nilai kurang dari 10
             else if($MaksID < 100) $ID = $param."0000".$MaksID; // nilai kurang dari 100
             else if($MaksID < 1000) $ID = $param."000".$MaksID; // nilai kurang dari 1000
             else if($MaksID < 10000) $ID = $param."00".$MaksID; // nilai kurang dari 10000
+	    else if($MaksID < 100000) $ID = $param."0".$MaksID; // nilai kurang dari 10000
             else $ID = $MaksID; // lebih dari 10000
         }
 
