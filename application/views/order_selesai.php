@@ -1,19 +1,21 @@
-
     <body>
         <?php //$num=1; ?>
         <div class="row" style="padding: 50px 100px 150px 100px">
 	  <div class="span10">
 	    <center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
-        <div id="print">
+	    <div id="print">
             <div class="print_area">
 	      <head>
 	      <style type="text/css">
 	      
 		*{
-		    font-size:12px;
+		    /*font-size:12px;*/
+		    
 		}
 		.print_area{
-		    width:210px;
+		    /*width:210px;*/
+		    /*width:3000px;
+		    font-size:120px;*/
 		}
 		table,td{
 		  
@@ -40,12 +42,12 @@
 		  
 		    font-weight:bold;
 		}
-		
+	      
 	      
 	      </style>
 	      </head>
 	      
-	      <p><img src="<?php echo base_url().'asset/themes/images/logo.png';?>" /></a></p>
+	      <p><img src="<?php echo base_url().'asset/themes/images/logo.png';?>" style="width: 500px" /></a></p>
 
             <table class="table table-bordered">
 		<?php $i = 1;$total_belanja = 0; ?>
@@ -85,7 +87,7 @@
             </table>
 	    
 	    
-	    <table class="table table-bordered" style="margin-top: 20px;">
+	    <table class="table table-bordered" style="margin-top: 20px !important;">
 	<thead>
         <tr>
           <th>PLU</th>
@@ -136,7 +138,7 @@
         <?php //endforeach; ?>
         </table>
 	  
-	  <p>Transaksi Anda akan <b>batal</b> jika melebihi 30 menit belum melakukan transaksi di kassa.</p>
+	  <p style="font-size: larger"><b>Transaksi Anda akan batal jika melebihi 30 menit belum melakukan transaksi di kassa.</b></p>
 	  </div>
 	</div>
 	<center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
