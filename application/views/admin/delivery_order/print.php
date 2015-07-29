@@ -73,7 +73,7 @@
 	}
 
 html {
-    font-family: Consolas,monaco,monospace;
+    font-family: Georgia, "Times New Roman", Times, serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
@@ -175,7 +175,7 @@ pre {
 }
 
 code, kbd, pre, samp {
-    font-family: Consolas,monaco,monospace;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 1em
 }
 
@@ -360,7 +360,7 @@ html {
 }
 
 body {
-    font-family: Consolas,monaco,monospace;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -786,7 +786,7 @@ address {
 }
 
 code, kbd, pre, samp {
-    font-family: Consolas,monaco,monospace;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 code {
@@ -5621,7 +5621,7 @@ button.close {
     width: 20px;
     height: 20px;
     margin-top: -10px;
-    font-family: Consolas,monaco,monospace;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .carousel-control .icon-prev:before {
