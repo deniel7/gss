@@ -69,11 +69,11 @@
  */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 *{
-	    font-size:8px;
+	    font-size:12px;
 	}
 
 html {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Georgia, "Times New Roman", Times, serif, fantasy !important;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
