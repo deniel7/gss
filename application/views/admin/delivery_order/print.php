@@ -69,11 +69,11 @@
  */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 *{
-	    font-size:12px;
+	    font-size:15px;
 	}
 
 html {
-    font-family: Georgia, "Times New Roman", Times, serif, fantasy !important;
+    font-family: Verdana,Geneva,sans-serif;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
 }
@@ -175,7 +175,7 @@ pre {
 }
 
 code, kbd, pre, samp {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Verdana,Geneva,sans-serif;
     font-size: 1em
 }
 
@@ -360,7 +360,7 @@ html {
 }
 
 body {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Verdana,Geneva,sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333;
@@ -786,7 +786,7 @@ address {
 }
 
 code, kbd, pre, samp {
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Verdana,Geneva,sans-serif;
 }
 
 code {
@@ -5621,7 +5621,7 @@ button.close {
     width: 20px;
     height: 20px;
     margin-top: -10px;
-    font-family: Georgia, "Times New Roman", Times, serif;
+    font-family: Verdana,Geneva,sans-serif;
 }
 
 .carousel-control .icon-prev:before {
