@@ -6,10 +6,10 @@
 	    <div id="print">
             <div class="print_area">
 	      <head>
-	      <style type="text/css">
+	      <style type="text/css" media="print">
 	      
 		*{
-		    font-size:14px;
+		    /*font-size:16px;*/
 		    
 		}
 		.print_area{
@@ -42,12 +42,54 @@
 		  
 		    font-weight:bold;
 		}
+		
+		/*SET PAPER to A4*/
+		.page {
+		    width: 80mm;
+		    min-height: 297mm;
+		    
+		    margin: 10mm auto;
+		    border: 1px #D3D3D3 solid;
+		    border-radius: 5px;
+		    background: white;
+		    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+		
+		@page {
+		    size: 3.1in 11.6in;
+		    margin: 0;
+		}
+		@media print {
+		    *{
+			font-family: Verdana,Geneva,sans-serif;
+			font-size: 16px;
+			line-height: 1.42857143;
+			color: #333;
+			background-color: #fff
+		    }
+		    html, body {
+			width: 80mm;
+			height: 297mm;
+			
+		    }
+		    .page {
+			margin: 0;
+			border: initial;
+			border-radius: initial;
+			width: initial;
+			min-height: initial;
+			box-shadow: initial;
+			background: initial;
+			page-break-after: always;
+		    }
+		}
+	    /*END SET PAPER to A4*/
 	      
 	      
 	      </style>
 	      </head>
-	      
-	      <p><img src="<?php echo base_url().'asset/themes/images/logo.png';?>" style="width: 500px" /></a></p>
+	      <div class="page">
+	      <p><img src="<?php echo base_url().'asset/themes/images/logo.png';?>" /></a></p>
 
             <table class="table table-bordered">
 		<?php $i = 1;$total_belanja = 0; ?>
@@ -139,7 +181,8 @@
         </table>
 	  
 	  <p style="font-size: larger"><b>Transaksi Anda akan batal jika melebihi 30 menit belum melakukan transaksi di kassa.</b></p>
-	  </div>
+	    </div>
+	    </div>
 	</div>
 	<center><input name="button" type="button" class="btn btn-small btn-success"  value="PRINT" onClick="PrintContent()" /></center>
 	
