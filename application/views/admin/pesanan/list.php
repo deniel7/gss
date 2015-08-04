@@ -31,8 +31,9 @@
 			  //setTimeout(loaded2,2000);
 			},
 			error:function(res){
-			    alert(JSON.stringify(res));
-			    //setTimeout(loaded2,5000);
+			    
+			    alert('session timeout, silahkan login kembali');
+			    window.location='<?php echo site_url('login'); ?>';
 			}
 		    });
 		}
