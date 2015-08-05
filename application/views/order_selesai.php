@@ -62,7 +62,7 @@
 		@media print {
 		    *{
 			font-family: Verdana,Geneva,sans-serif;
-			font-size: 16px;
+			font-size: 14px;
 			line-height: 1.42857143;
 			color: #333;
 			background-color: #fff
@@ -201,6 +201,6 @@
 		WindowObject.focus();
 		WindowObject.print();
 		WindowObject.close();
-		location="";
+		location="<?php echo base_url(); ?>";
 		}
     </script>
