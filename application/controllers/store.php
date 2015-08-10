@@ -897,9 +897,10 @@ class Store extends CI_Controller {
         if ($this->input->post('submit')){
             $orderno = $this->input->post('orderno');
             $nostruk = $this->input->post('nomor');
-            $total_biaya_input = $this->input->post('total_biaya_input');
+            $total_biaya_inputs = $this->input->post('total_biaya_input');
             //$password = $this->input->post('password');
-            
+            $total_biaya_input = str_replace(".","",$total_biaya_inputs);
+                                             
             //if($password == 'spv12345'){
                 
                 $this->db->set('a.FLAG', '1');
@@ -1199,7 +1200,9 @@ class Store extends CI_Controller {
                 
                     $orderno = $this->input->post('orderno');
                     $nostruk = $this->input->post('nomor');
-                    $total_biaya_input = $this->input->post('total_biaya_input');
+                    $total_biaya_inputs = $this->input->post('total_biaya_input');
+                    
+                    $total_biaya_input = str_replace(".","",$total_biaya_inputs);
                     
                     $spv_pass = array(
                        'spv_pass' => TRUE
