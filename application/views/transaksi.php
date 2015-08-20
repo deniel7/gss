@@ -222,12 +222,6 @@
 </div>
 </div>
 
-<div class="row">
-<div>
-	    <div class="span4" style="color:#B30000">Incorect Nominal & Struk Number</div>
-	    <div class="span8">Terdapat kesalahan penginputan Nominal Struk dan juga Nomor Struk</div>
-</div>
-</div>
 
 <div class="row">
 <div>
