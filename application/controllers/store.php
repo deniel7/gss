@@ -266,9 +266,11 @@ class Store extends CI_Controller {
         
         if($this->form_validation->run()) {
         
+        $names = $this->input->post('ARTICLE_DESC');
+        $name = htmlspecialchars($names, ENT_NOQUOTES);
         
         $data = array ( 'id'=>$this->input->post('ARTICLE_CODE'),
-                        'name'=>$this->input->post('ARTICLE_DESC'),
+                        'name'=>$name,
                         'qty'=>$this->input->post('qty'),
                         'price'=>$price,
                         'PLU'=>$plu,
