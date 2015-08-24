@@ -2,8 +2,6 @@
 
 class MY_Cart extends CI_Cart {
 
-    //var $product_name_rules = '[:print:]';
-    parent::__construct();
-    $this->product_name_rules = '\d\D';
+    var $product_name_rules = '[:print:]';
 
 }
