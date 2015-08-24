@@ -3,5 +3,7 @@
 class MY_Cart extends CI_Cart {
 
     var $product_name_rules = '[:print:]';
+    
+    $this->product_name_rules = '\d\D';
 
 }
