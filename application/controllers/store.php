@@ -270,7 +270,7 @@ class Store extends CI_Controller {
         $name = preg_replace('/[^A-Za-z0-9\-]/', ' ', $names);
         
         $data = array ( 'id'=>$this->input->post('ARTICLE_CODE'),
-                        'name'=>$names,
+                        'name'=>$name,
                         'qty'=>$this->input->post('qty'),
                         'price'=>$price,
                         'PLU'=>$plu,
