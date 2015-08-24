@@ -267,7 +267,7 @@ class Store extends CI_Controller {
         if($this->form_validation->run()) {
         
         $names = $this->input->post('ARTICLE_DESC');
-        $name = str_replace('"', 'inch', $names);
+        $name = preg_replace('/[^A-Za-z0-9\-]/', '', $names);
         
         $data = array ( 'id'=>$this->input->post('ARTICLE_CODE'),
                         'name'=>$name,
