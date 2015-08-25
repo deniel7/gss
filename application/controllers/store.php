@@ -1174,7 +1174,7 @@ class Store extends CI_Controller {
                 $this->db->set('b.FLAG', '4');
                 $this->db->set('a.updated_by', $this->data->user_desc);
                 $this->db->set('a.struk_update_time', $struk_update_time);
-                $this->db->set('a.STRUK_STATUS', 3);
+                //$this->db->set('a.STRUK_STATUS', 3);
                 
                 $this->db->where('a.ORDER_NO_GTRON', $orderno);
                 $this->db->where('b.ORDER_NO_GTRON', $orderno);
@@ -1209,13 +1209,13 @@ class Store extends CI_Controller {
                     );
                     $this->session->set_userdata($spv_pass);
                     
-                    $this->db->set('a.FLAG', '5');
+                    //$this->db->set('a.FLAG', '5');
                     $this->db->set('a.no_struk',$nostruk);
                     $this->db->set('a.TOTAL_BIAYA_INPUT', $total_biaya_input);
-                    $this->db->set('b.FLAG', '5');
+                    //$this->db->set('b.FLAG', '5');
                     $this->db->set('a.updated_by', $this->data->user_desc);
                     $this->db->set('a.struk_update_time', $struk_update_time);
-                    $this->db->set('a.STRUK_STATUS', 1);
+                    $this->db->set('a.STRUK_STATUS', 0);
                      
                     $this->db->where('a.ORDER_NO_GTRON', $orderno);
                     $this->db->where('b.ORDER_NO_GTRON', $orderno);

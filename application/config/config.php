@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://yoel.yogya.com';
+$config['base_url']	= 'http://localhost/gss/';
 
 /*
 |--------------------------------------------------------------------------
