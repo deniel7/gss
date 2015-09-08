@@ -760,12 +760,13 @@ class Produk_m extends MY_Model {
 		";
 	    
 	    $hasil = $this->db->query($sql);
-	    if($hasil->num_rows() > 0){
-		$data = $hasil;
-	    }
+	//    if($hasil->num_rows() > 0){
+	//	$data = $hasil;
+	//    }
 	    
 	   // $hasil->free_result();
-	    return $data;
+	    //return $data;
+	return $hasil->result();
     }
     
     public function virturiil($dc_site_code){

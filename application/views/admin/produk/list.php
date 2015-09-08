@@ -11,7 +11,7 @@
 </script>
 
 <div id="page-wrapper">
-            <table id="test" class="table table-striped table-bordered table-hover" width="100%">
+            <table id="datatables" class="table table-striped table-bordered table-hover" width="100%">
 				<thead>
 				<tr>
 				  <td>ARTICLE CODE</td>
@@ -21,24 +21,24 @@
 				  <td>IMAGES</td>
 				</tr>
 				</thead>
-				<tbody></tbody>
-				<!--<tbody>
-					<?php //foreach ($produk as $item): ?>
+				
+				<tbody>
+					<?php foreach ($produk as $item): ?>
 						<tr>
-						    <td><?php //echo anchor(uri_string().'/detail/'.$item->id_order, $item->ARTICLE_CODE, 'class="active" id="detail"'); ?></td>
-						    <td><?php //echo $item->ARTICLE_DESC; ?></td>
+						    <td><?php echo anchor(uri_string().'/detail/'.$item->id_order, $item->ARTICLE_CODE, 'class="active" id="detail"'); ?></td>
+						    <td><?php echo $item->ARTICLE_DESC; ?></td>
 						    
-						    <td><?php //echo $item->CLASS_DESC; ?></td>
-						    <td><?php //echo $item->ATTRIB_DESC; ?></td>
+						    <td><?php echo $item->CLASS_DESC; ?></td>
+						    <td><?php echo $item->ATTRIB_DESC; ?></td>
 						    
 						    
 						    <td>
 						    <?php
-							//if($item->IMG1){
-							//	echo "<div class= 'btn btn-success'><i class='fa fa-check-square-o fa-fw'>.</i></div>";
-							//}else{
-							//	echo "<div class= 'btn btn-danger'><i class='fa fa-times-circle-o fa-fw'>,</i></div>";
-							//}
+							if($item->IMG1){
+								echo "<div class= 'btn btn-success'><i class='fa fa-check-square-o fa-fw'>.</i></div>";
+							}else{
+								echo "<div class= 'btn btn-danger'><i class='fa fa-times-circle-o fa-fw'>,</i></div>";
+							}
 							
 						    ?>
 						    </td>
@@ -46,9 +46,9 @@
 						    
 						   
 						</tr>
-					<?php //endforeach; ?>
+					<?php endforeach; ?>
 						
-				</tbody>-->
+				</tbody>
 	    </table>
 			
 </div>

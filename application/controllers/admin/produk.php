@@ -33,7 +33,7 @@ class Produk extends MY_Controller {
         
                 //$this->load->library('pagination');
 		
-		//$this->data->produk = $this->produk_m->get_master_produk();
+		$this->data->produk = $this->produk_m->get_master_produk();
 		//$this->data->base_url = base_url().'/admin/produk/index';
 		
 		//$this->data->total_rows = $this->db->count_all('produk');
