@@ -502,15 +502,20 @@ class Pesanan_m extends MY_Model {
     public function get_pending_transaksi() {
         
         $data = array();
-	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time 
+//	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time 
+//	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
+//	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+//	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1)
+//	OR `STRUK_STATUS` = 2 OR `STRUK_STATUS` = 3 OR `STRUK_STATUS` = 4
+//	ORDER BY id_order DESC  
+//        ";
+	
+	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time, SUPPLIER_ORDER_HEADER.FLAG, SUPPLIER_ORDER_HEADER.STRUK_STATUS, SUPPLIER_ORDER_HEADER.SITE_CODE
 	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
-	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1)
-	OR `STRUK_STATUS` = 2 OR `STRUK_STATUS` = 3 OR `STRUK_STATUS` = 4
-	ORDER BY id_order DESC 
-    
-    ";
-	    
+	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NULL AND SUPPLIER_ORDER_HEADER.STRUK_STATUS != 0 AND SUPPLIER_ORDER_HEADER.STRUK_STATUS != 1 AND SUPPLIER_ORDER_HEADER.FLAG !=4)
+	ORDER BY id_order DESC";
+	
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
 		$data = $hasil->result();
@@ -523,12 +528,20 @@ class Pesanan_m extends MY_Model {
     public function get_pending_transaksi_cbg($store_site_code) {
         
         $data = array();
-	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time
+	//$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time
+	//from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
+	//ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
+	//WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1 AND SUPPLIER_ORDER_HEADER.FLAG != 4)
+	//OR `STRUK_STATUS` = 2 OR `STRUK_STATUS` = 3 OR `STRUK_STATUS` = 4
+	//AND SUPPLIER_ORDER_HEADER.SITE_CODE = ".$store_site_code." ORDER BY id_order DESC ";
+	
+	$sql = "select id_order, ORDER_NO_GTRON, tanggal_masuk, waktu_confirm, TOTAL_BIAYA_INPUT, USERNAME, MID(`SITE_STORE_CODE`,4,20) as SITE_STORE_CODE , no_struk, updated_by, struk_update_time, SUPPLIER_ORDER_HEADER.FLAG, SUPPLIER_ORDER_HEADER.STRUK_STATUS, SUPPLIER_ORDER_HEADER.SITE_CODE
 	from SUPPLIER_ORDER_HEADER JOIN USER_MASTER ON USER_MASTER.USER_ID = SUPPLIER_ORDER_HEADER.user_id JOIN SITE_MASTER
 	ON SITE_MASTER.SITE_CODE = SUPPLIER_ORDER_HEADER.SITE_CODE
-	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NOT NULL AND `STRUK_STATUS` = 1 AND SUPPLIER_ORDER_HEADER.FLAG != 4)
-	OR `STRUK_STATUS` = 2 OR `STRUK_STATUS` = 3 OR `STRUK_STATUS` = 4
-	AND SUPPLIER_ORDER_HEADER.SITE_CODE = ".$store_site_code." ORDER BY id_order DESC ";
+	WHERE (SUPPLIER_ORDER_HEADER.updated_by IS NULL AND SUPPLIER_ORDER_HEADER.STRUK_STATUS != 0 AND SUPPLIER_ORDER_HEADER.STRUK_STATUS != 1 AND SUPPLIER_ORDER_HEADER.FLAG !=4)
+	AND SUPPLIER_ORDER_HEADER.SITE_CODE = ".$store_site_code." ORDER BY id_order DESC";
+	
+	
 	    
 	    $hasil = $this->db->query($sql);
 	    if($hasil->num_rows() > 0){
@@ -695,6 +708,44 @@ class Pesanan_m extends MY_Model {
 	    
 	    $hasil->free_result();
 	    return $data;
+    }
+    
+    public function check_nominal_exist($total_biaya_input, $nomor)
+    {
+	//$this->db->where("TRANS_NO",$nomor);
+	$sql ="SELECT *
+		FROM `GTRON_POSTRA_TOTAL`
+		WHERE `GTRON_POSTRA_TOTAL`.`AMOUNT`= $total_biaya_input AND `TRANS_NO` = $nomor
+		AND `GTRON_POSTRA_TOTAL`.`TRANS_DATE` = DATE_ADD(CURDATE(), INTERVAL -1 DAY)
+		";
+		
+	
+	$r = $this->db->query($sql);
+	
+        if($r->num_rows()>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    public function check_nomor_exist($nomor)
+    {
+		
+        //$this->db->where("AMOUNT",$price);
+	$this->db->where("TRANS_NO",$nomor);
+        $query=$this->db->get("GTRON_POSTRA_TOTAL");
+        if($query->num_rows()>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     
 }

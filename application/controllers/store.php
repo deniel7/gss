@@ -1197,6 +1197,24 @@ class Store extends CI_Controller {
             if ($this->input->post('submit')){
                 
                 if($password == 'spv12345'){
+                    
+                    $this->load->library('form_validation');
+                    // field name, error message, validation rules
+                    $this->form_validation->set_rules('nomor', 'nomor', 'trim|required|min_length[4]|xss_clean|callback_check_nominal_ci');
+                    $this->form_validation->set_rules('total_biaya_input', 'total_biaya_input', 'trim|required|min_length[4]|xss_clean|callback_check_nominal_ci');
+                    
+                    if($this->form_validation->run() == FALSE)
+                    {
+                            //$this->index();
+                            //return false;
+                             $this->data->error_pass = '<div class="alert-error" style="text-align:center">Proses Submit Gagal! Nominal dan Nomor Struk Salah</div>';
+                    }
+                    else
+                    {
+                    
+                    
+                    
+                    
                 
                     $orderno = $this->input->post('orderno');
                     $nostruk = $this->input->post('nomor');
@@ -1215,7 +1233,7 @@ class Store extends CI_Controller {
                     //$this->db->set('b.FLAG', '5');
                     $this->db->set('a.updated_by', $this->data->user_desc);
                     $this->db->set('a.struk_update_time', $struk_update_time);
-                    $this->db->set('a.STRUK_STATUS', 0);
+                    $this->db->set('a.STRUK_STATUS', 1);
                      
                     $this->db->where('a.ORDER_NO_GTRON', $orderno);
                     $this->db->where('b.ORDER_NO_GTRON', $orderno);
@@ -1223,7 +1241,7 @@ class Store extends CI_Controller {
                     
                     $this->data->error_pass = '<div class="alert-success" style="text-align:center">Proses Submit Pesanan Berhasil</div>';
                 
-                    
+                    }
                     
                     //redirect (site_url('store/pending_transaksi'));
                 
@@ -1258,6 +1276,50 @@ class Store extends CI_Controller {
         ->render('pending_detail',$this->data); 
         
     }
+    public function check_nominal()
+    {
+	
+        $this->load->model('pesanan_m');
+        $total_biaya_input=$this->input->post('total_biaya_input');
+        $nomor=$this->input->post('nomor');
+        $result=$this->pesanan_m->check_nominal_exist($total_biaya_input,$nomor);
+        
+        //echo  $this->db->last_query();
+        
+        
+        if($result)
+        {
+			//echo $this->db->last_query();
+                        echo "true";
+			
+        }
+        else{
+			
+			echo "false";
+                       // /$this->db->last_query();
+        }
+    }
     
+    public function check_nominal_ci()
+    {
+	$this->load->model('pesanan_m');
+        $total_biaya_input=$this->input->post('total_biaya_input');
+        $nomor=$this->input->post('nomor');
+        $result=$this->pesanan_m->check_nominal_exist($total_biaya_input,$nomor);
+        
+        //$usr=$this->input->post('user_name');
+        //$result=$this->user_model->check_user_exist($usr);
+        if($result)
+		{
+			return true;
+		}
+		else
+		{
+                        $this->data->error_pass = $this->form_validation->set_message('check_u', 'User Name already exit.');
+			return false;
+			
+		}
+    }
+   
 }
 ?>

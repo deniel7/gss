@@ -1,350 +1,3 @@
-<script type="text/javascript">
-
-/*
-
-* Price Format jQuery Plugin
-* Created By Eduardo Cuducos
-* Currently maintained by Flavio Silveira flavio [at] gmail [dot] com
-* Version: 2.0
-* Release: 2014-01-26
-
-*/
-
-(function($) {
-
-	/****************
-	* Main Function *
-	*****************/
-	$.fn.priceFormat = function(options)
-	{
-
-		var defaults =
-		{
-			prefix: 'Rp. ',
-            suffix: '',
-			centsSeparator: '.',
-			thousandsSeparator: '.',
-			limit: false,
-			centsLimit: 0,
-			clearPrefix: false,
-            clearSufix: false,
-			allowNegative: false,
-			insertPlusSign: false,
-			clearOnEmpty:false
-		};
-
-		var options = $.extend(defaults, options);
-
-		return this.each(function()
-		{
-			// pre defined options
-			var obj = $(this);
-			var value = '';
-			var is_number = /[0-9]/;
-
-			// Check if is an input
-			if(obj.is('input'))
-				value = obj.val();
-			else
-				value = obj.html();
-
-			// load the pluggings settings
-			var prefix = options.prefix;
-            var suffix = options.suffix;
-			var centsSeparator = options.centsSeparator;
-			var thousandsSeparator = options.thousandsSeparator;
-			var limit = options.limit;
-			var centsLimit = options.centsLimit;
-			var clearPrefix = options.clearPrefix;
-            var clearSuffix = options.clearSuffix;
-			var allowNegative = options.allowNegative;
-			var insertPlusSign = options.insertPlusSign;
-			var clearOnEmpty = options.clearOnEmpty;
-			
-			// If insertPlusSign is on, it automatic turns on allowNegative, to work with Signs
-			if (insertPlusSign) allowNegative = true;
-
-			function set(nvalue)
-			{
-				if(obj.is('input'))
-					obj.val(nvalue);
-				else
-					obj.html(nvalue);
-			}
-			
-			function get()
-			{
-				if(obj.is('input'))
-					value = obj.val();
-				else
-					value = obj.html();
-					
-				return value;
-			}
-
-			// skip everything that isn't a number
-			// and also skip the left zeroes
-			function to_numbers (str)
-			{
-				var formatted = '';
-				for (var i=0;i<(str.length);i++)
-				{
-					char_ = str.charAt(i);
-					if (formatted.length==0 && char_==0) char_ = false;
-
-					if (char_ && char_.match(is_number))
-					{
-						if (limit)
-						{
-							if (formatted.length < limit) formatted = formatted+char_;
-						}
-						else
-						{
-							formatted = formatted+char_;
-						}
-					}
-				}
-
-				return formatted;
-			}
-
-			// format to fill with zeros to complete cents chars
-			function fill_with_zeroes (str)
-			{
-				while (str.length<(centsLimit+1)) str = '0'+str;
-				return str;
-			}
-
-			// format as price
-			function price_format (str, ignore)
-			{
-				if(!ignore && (str === '' || str == price_format('0', true)) && clearOnEmpty)
-					return '';
-
-				// formatting settings
-				var formatted = fill_with_zeroes(to_numbers(str));
-				var thousandsFormatted = '';
-				var thousandsCount = 0;
-
-				// Checking CentsLimit
-				if(centsLimit == 0)
-				{
-					centsSeparator = "";
-					centsVal = "";
-				}
-
-				// split integer from cents
-				var centsVal = formatted.substr(formatted.length-centsLimit,centsLimit);
-				var integerVal = formatted.substr(0,formatted.length-centsLimit);
-
-				// apply cents pontuation
-				formatted = (centsLimit==0) ? integerVal : integerVal+centsSeparator+centsVal;
-
-				// apply thousands pontuation
-				if (thousandsSeparator || $.trim(thousandsSeparator) != "")
-				{
-					for (var j=integerVal.length;j>0;j--)
-					{
-						char_ = integerVal.substr(j-1,1);
-						thousandsCount++;
-						if (thousandsCount%3==0) char_ = thousandsSeparator+char_;
-						thousandsFormatted = char_+thousandsFormatted;
-					}
-					
-					//
-					if (thousandsFormatted.substr(0,1)==thousandsSeparator) thousandsFormatted = thousandsFormatted.substring(1,thousandsFormatted.length);
-					formatted = (centsLimit==0) ? thousandsFormatted : thousandsFormatted+centsSeparator+centsVal;
-				}
-
-				// if the string contains a dash, it is negative - add it to the begining (except for zero)
-				if (allowNegative && (integerVal != 0 || centsVal != 0))
-				{
-					if (str.indexOf('-') != -1 && str.indexOf('+')<str.indexOf('-') )
-					{
-						formatted = '-' + formatted;
-					}
-					else
-					{
-						if(!insertPlusSign)
-							formatted = '' + formatted;
-						else
-							formatted = '+' + formatted;
-					}
-				}
-
-				// apply the prefix
-				if (prefix) formatted = prefix+formatted;
-                
-                // apply the suffix
-				if (suffix) formatted = formatted+suffix;
-
-				return formatted;
-			}
-
-			// filter what user type (only numbers and functional keys)
-			function key_check (e)
-			{
-				var code = (e.keyCode ? e.keyCode : e.which);
-				var typed = String.fromCharCode(code);
-				var functional = false;
-				var str = value;
-				var newValue = price_format(str+typed);
-
-				// allow key numbers, 0 to 9
-				if((code >= 48 && code <= 57) || (code >= 96 && code <= 105)) functional = true;
-				
-				// check Backspace, Tab, Enter, Delete, and left/right arrows
-				if (code ==  8) functional = true;
-				if (code ==  9) functional = true;
-				if (code == 13) functional = true;
-				if (code == 46) functional = true;
-				if (code == 37) functional = true;
-				if (code == 39) functional = true;
-				// Minus Sign, Plus Sign
-				if (allowNegative && (code == 189 || code == 109 || code == 173)) functional = true;
-				if (insertPlusSign && (code == 187 || code == 107 || code == 61)) functional = true;
-				
-				if (!functional)
-				{
-					
-					e.preventDefault();
-					e.stopPropagation();
-					if (str!=newValue) set(newValue);
-				}
-
-			}
-
-			// Formatted price as a value
-			function price_it ()
-			{
-				var str = get();
-				var price = price_format(str);
-				if (str != price) set(price);
-				if(parseFloat(str) == 0.0 && clearOnEmpty) set('');
-			}
-
-			// Add prefix on focus
-			function add_prefix()
-			{
-				obj.val(prefix + get());
-			}
-            
-            function add_suffix()
-			{
-				obj.val(get() + suffix);
-			}
-
-			// Clear prefix on blur if is set to true
-			function clear_prefix()
-			{
-				if($.trim(prefix) != '' && clearPrefix)
-				{
-					var array = get().split(prefix);
-					set(array[1]);
-				}
-			}
-            
-            // Clear suffix on blur if is set to true
-			function clear_suffix()
-			{
-				if($.trim(suffix) != '' && clearSuffix)
-				{
-					var array = get().split(suffix);
-					set(array[0]);
-				}
-			}
-
-			// bind the actions
-			obj.bind('keydown.price_format', key_check);
-			obj.bind('keyup.price_format', price_it);
-			obj.bind('focusout.price_format', price_it);
-
-			// Clear Prefix and Add Prefix
-			if(clearPrefix)
-			{
-				obj.bind('focusout.price_format', function()
-				{
-					clear_prefix();
-				});
-
-				obj.bind('focusin.price_format', function()
-				{
-					add_prefix();
-				});
-			}
-			
-			// Clear Suffix and Add Suffix
-			if(clearSuffix)
-			{
-				obj.bind('focusout.price_format', function()
-				{
-                    clear_suffix();
-				});
-
-				obj.bind('focusin.price_format', function()
-				{
-                    add_suffix();
-				});
-			}
-
-			// If value has content
-			if (get().length>0)
-			{
-				price_it();
-				clear_prefix();
-                clear_suffix();
-			}
-
-		});
-
-	};
-	
-	/**********************
-    * Remove price format *
-    ***********************/
-    $.fn.unpriceFormat = function(){
-      return $(this).unbind(".price_format");
-    };
-
-    /******************
-    * Unmask Function *
-    *******************/
-    $.fn.unmask = function(){
-
-        var field;
-		var result = "";
-		
-		if($(this).is('input'))
-			field = $(this).val();
-		else
-			field = $(this).html();
-
-        for(var f in field)
-        {
-            if(!isNaN(field[f]) || field[f] == "-") result += field[f];
-        }
-
-        return result;
-    };
-
-})(jQuery);    
-
-</script>
-	
-<script type="text/javascript">
-$(function(){
-
-$('#price').priceFormat({
-	clearPrefix: true
-});
-
-
-});
-</script>
-
-
-
-
 <?php if(@$sukses):?>
     <?php echo '<p class="msg done">'.@$sukses.'</p>';?>
     <script type="text/javascript">
@@ -358,7 +11,7 @@ $('#price').priceFormat({
 <?php else: ?>
 <?php if(@$error_pass){echo @$error_pass;} ?>
 <br/>
-
+<h1><?php //echo validation_errors('<p class="error">'); ?></h1>
 <?php foreach($detail as $data): ?>
 <?php $orderno = $data['ORDER_NO_GTRON']; ?>
 
@@ -376,25 +29,31 @@ $('#price').priceFormat({
 	<tr>
 	    <td>Nomor Struk</td>
 	    <td>
+		<input id="nomor" type="text" value="<?php echo $data['no_struk']; ?>" name="nomor" placeholder="Nomor Struk Pembayaran"></input>
+		
 		<?php
 	
 			echo form_hidden('orderno',$orderno);
 			
-			echo form_input(array(
-							'id' => 'nomor',
-							'name' => 'nomor',
-							'placeholder' => 'Nomor Struk Pembayaran',
-							'value' =>  $data['no_struk'],
-							'class' => 'form-control input-lg'
-					)); 
+			//echo form_input(array(
+			//				'id' => 'nomor',
+			//				'name' => 'nomor',
+			//				'placeholder' => 'Nomor Struk Pembayaran',
+			//				'value' =>  $data['no_struk'],
+			//				'class' => 'form-control input-lg'
+			//		)); 
 			
 		?>
 	    </td>
 	</tr>
 	<tr>
 		<td>Nominal Struk</td>
-		<td>Rp. <input id="price" type="text" value="<?php echo $data['TOTAL_BIAYA_INPUT']; ?>" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input></td>
+		<td>Rp. <input onkeyup='val_number("total_biaya_input")' id="total_biaya_input" type="text" value="<?php echo $data['TOTAL_BIAYA_INPUT']; ?>" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input></td>
 		
+	</tr>
+	<tr>
+		<td>Status Revisi Input</td>
+		<td><span id="nominal_verify" class="verify"></span></td>
 	</tr>
 	<tr>
 		<td>
@@ -415,7 +74,7 @@ $('#price').priceFormat({
 			<br/>
 			<?php echo form_submit('submit', 'Submit','class = "btn btn-primary"'); ?>
 			<!--<button class="demo btn btn-warning btn-lg" data-toggle="modal" href="#myModal">Cancel Pesanan</button>-->
-			<?php echo form_submit('submit2', 'Cancel ','class = "demo btn btn-warning btn-lg"'); ?>
+			<?php echo form_submit('submit2', 'Cancel Pesanan','class = "demo btn btn-warning btn-lg"'); ?>
 		
 		</td>
 		<?php echo form_close(); ?>
@@ -541,7 +200,7 @@ $('#price').priceFormat({
     </p>
     
     <p>
-	<input id="price" type="text" value="<?php echo $data['TOTAL_BIAYA_INPUT']; ?>" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input>
+	<input id="total_biaya_input" type="text" value="<?php echo $data['TOTAL_BIAYA_INPUT']; ?>" name="total_biaya_input" placeholder="Total Nominal Transaksi"></input>
     </p>
     
     </div>
@@ -619,6 +278,84 @@ th { text-align: center; background-color: black; color: white;}
 td { border: solid 1px silver; padding: 5px;}
 .col {width: 50%; float: left;}
 .clear {clear: both;}
+.verify
+{
+    margin-top: 0px;
+    margin-left: 9px;
+    position: relative;
+    
+}
 </style>
 
 <?php endif; ?>
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function(){
+	
+	
+	$("#total_biaya_input").keyup(function(){
+		
+        if($("#total_biaya_input").val().length >= 3)
+        {
+        
+	$.ajax({
+            type: "POST",
+            url: "<?php echo base_url();?>store/check_nominal",
+            data: "total_biaya_input="+$("#total_biaya_input").val()+"&nomor="+$("#nomor").val(),
+            success: function(msg){
+		
+		
+                if(msg=="true")
+                {
+		    
+		    $("#nominal_verify").html("<p style='color:green'><img src='<?php echo base_url();?>images/yes.png'/> Penginputan Nomor & Nominal Struk Benar</p>");
+		}
+                else
+		{
+                    $("#nominal_verify").html("<p style='color:red'><img src='<?php echo base_url();?>images/no.png'/> Ulangi penginputan Nomor & Nominal Struk</p>");
+		
+		}
+		
+	    
+            }
+        });
+		 
+		}
+        else 
+		{
+            $("#nominal_verify").css({ "background-image": "none" });
+        }
+    });
+	
+	
+	
+	//avoid bugs.. call function once	
+    val_number('total_biaya_input');
+    
+});
+
+
+</script>
+<script type="text/javascript">
+	 
+	function val_number(id) {
+		$("#"+id).keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				 // Allow: Ctrl+A
+				(e.keyCode == 65 && e.ctrlKey === true) || 
+				 // Allow: home, end, left, right
+				(e.keyCode >= 35 && e.keyCode <= 39)) {
+					 // let it happen, don't do anything
+					 return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+			}
+		});
+	} 
+</script>
