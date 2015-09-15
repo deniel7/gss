@@ -62,7 +62,7 @@
 		@media print {
 		    *{
 			font-family: Verdana,Geneva,sans-serif;
-			font-size: 13px;
+			font-size: 12px;
 			line-height: 1.42857143;
 			color: #333;
 			background-color: #fff
