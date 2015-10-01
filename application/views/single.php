@@ -209,7 +209,7 @@
 		
 		
 		</p>
-		<a class="btn btn-small pull-right" href="#detail">Detail Product</a>
+		<!--<a class="btn btn-small pull-right" href="#detail">Detail Product</a>
 		<br class="clr"/>
 	<a href="#" name="detail"></a>
 	<hr class="soft"/>
@@ -246,7 +246,7 @@
 	    <br class="clr">
 	    </div>
     </div>
-
+-->
 
     <div style="text-align:center">
 	<span>

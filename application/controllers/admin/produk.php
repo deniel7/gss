@@ -164,7 +164,16 @@ class Produk extends MY_Controller {
 		$uploadedFiles = $upload_data['file_name']; 
 		
 		
-                $this->produk_m->update_by(array('ARTICLE_CODE'=>$id),array('THUMB'=>$uploadedFiles, 'IMG1'=>$uploadedFiles));
+                //$this->produk_m->update_by(array('ART_CODE'=>$id),array('THUMB'=>$uploadedFiles, 'IMG1'=>$uploadedFiles));
+		
+		$data_img = array(
+		    'THUMB' => $uploadedFiles,
+		    'IMG1' => $uploadedFiles
+		);
+
+		$this->db->where('ART_CODE', $id);
+		$this->db->update('ART_ATTRIB', $data_img); 
+		
                 // set the resize config
                 $resize_conf = array(
                     // it's something like "/full/path/to/the/image.jpg" maybe

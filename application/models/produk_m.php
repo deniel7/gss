@@ -706,9 +706,10 @@ class Produk_m extends MY_Model {
     }
     
     public function get_by_url($url,$store_site_code,$dc_site_code) {
-	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,c.SV,STOCK_QTY,BOOK_QTY, CONFIRM_QTY,SALES_UNIT_PRICE, THUMB, IMG1, IMG2, IMG3, a.STOCK_COST from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c
+	$string_query           = "select DISTINCT(a.ARTICLE_CODE),a.PLU,a.ARTICLE_DESC,c.SV,STOCK_QTY,BOOK_QTY, CONFIRM_QTY,SALES_UNIT_PRICE, d.THUMB, d.IMG1, a.STOCK_COST from DC_STOCK_MASTER a,MS_MASTER b, STORE_SALES_MASTER c, ART_ATTRIB d
 				    Where a.SUBCLASS = b.MS_CHILD
 				    AND a.ARTICLE_CODE = c.ARTICLE_CODE
+				    AND a.ARTICLE_CODE = d.ART_CODE
 				    AND a.DC_SITE_CODE = '$dc_site_code'
 				    AND c.STORE_SITE_CODE = $store_site_code
 				    AND a.ARTICLE_CODE = $url
@@ -753,10 +754,10 @@ class Produk_m extends MY_Model {
     public function get_master_produk() {
         
         $data = null;
-	$sql = "select * from DC_STOCK_MASTER a,ART_ATTRIB b
-		Where a.ARTICLE_CODE = b.ART_CODE
-		AND CURDATE() BETWEEN b.START_DATE AND b.END_DATE
-		GROUP BY a.ARTICLE_CODE
+	$sql = "select * from ART_ATTRIB b
+		
+		WHERE CURDATE() BETWEEN b.START_DATE AND b.END_DATE
+		GROUP BY b.ART_CODE
 		";
 	    
 	    $hasil = $this->db->query($sql);

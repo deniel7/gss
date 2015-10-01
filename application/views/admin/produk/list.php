@@ -25,9 +25,8 @@
 				<tbody>
 					<?php foreach ($produk as $item): ?>
 						<tr>
-						    <td><?php echo anchor(base_url().'admin/produk/detail/'.$item->ARTICLE_CODE, $item->ARTICLE_CODE, 'class="active" id="detail"'); ?></td>
-						    <td><?php echo $item->ARTICLE_DESC; ?></td>
-						    
+						    <td><?php echo anchor(base_url().'admin/produk/detail/'.$item->ART_CODE, $item->ART_CODE, 'class="active" id="detail"'); ?></td>
+						    <td><?php echo $item->ART_DESC; ?></td>
 						    <td><?php echo $item->CLASS_DESC; ?></td>
 						    <td><?php echo $item->ATTRIB_DESC; ?></td>
 						    
